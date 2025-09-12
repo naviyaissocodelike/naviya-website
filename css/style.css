@@ -1,0 +1,274 @@
+/* CSS Custom Properties */
+:root {
+    --accent-color: #2563eb;
+    --text-color: #1a1a1a;
+    --bg-color: #ffffff;
+    --hover-color: #2563eb;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    font-size: 16px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    position: relative;
+}
+
+/* Add a subtle accent line */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 3px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent-color), transparent);
+    border-radius: 2px;
+}
+
+/* Header */
+header {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+/* Main content */
+main {
+    margin-top: 20px;
+}
+
+.content-list {
+    list-style: none;
+    padding: 0;
+}
+
+.content-list > li {
+    margin-bottom: 16px;
+    padding: 12px 0;
+    position: relative;
+    padding-left: 20px;
+    transition: all 0.2s ease;
+}
+
+.content-list > li::before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-size: 1.2em;
+}
+
+.content-list > li:hover {
+    background-color: #ffffff;
+    margin: 0 -20px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.content-list > li:last-child {
+    border-bottom: none;
+}
+
+/* Remove the old border styling */
+.content-list > li {
+    border-bottom: none;
+}
+
+/* Links */
+a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    display: block;
+    line-height: 1.5;
+}
+
+a:hover {
+    color: var(--hover-color);
+    transform: translateX(2px);
+}
+
+/* Sub-list styling */
+.sub-list {
+    list-style: none;
+    margin-top: 8px;
+    padding-left: 30px;
+}
+
+.sub-list li {
+    margin-bottom: 6px;
+    padding: 6px 0;
+    position: relative;
+    padding-left: 16px;
+}
+
+.sub-list li::before {
+    content: "◦";
+    color: #666;
+    position: absolute;
+    left: 0;
+    top: 6px;
+    font-size: 1em;
+}
+
+.sub-list a {
+    font-size: 0.9em;
+    color: #666;
+    font-weight: 300;
+}
+
+.sub-list a:hover {
+    color: var(--hover-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 16px;
+    }
+    
+    .container::before {
+        left: 16px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .content-list > li:hover {
+        margin: 0 -16px;
+        padding: 12px 16px;
+    }
+    
+    .page-container {
+        padding: 40px 16px;
+    }
+    
+    .page-container::before {
+        left: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+    
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Page-specific styles for individual pages */
+.page-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    position: relative;
+}
+
+.page-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 3px;
+    height: 40px;
+    background: linear-gradient(to bottom, #2563eb, transparent);
+    border-radius: 2px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+}
+
+.back-link {
+    color: #666;
+    font-size: 0.9em;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.back-link:hover {
+    color: #2563eb;
+    transform: translateX(-2px);
+}
+
+.page-content {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #333;
+}
+
+.page-content p {
+    margin-bottom: 20px;
+}
+
+/* Substack embed styling */
+.substack-embed {
+    margin: 40px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Highlight boxes for special content */
+.highlight-box {
+    background-color: #ffffff;
+    border-left: 4px solid #2563eb;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.highlight-box h3 {
+    color: #2563eb;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
