@@ -1,0 +1,54 @@
+:root{--accent:#2563eb;--muted:#6b7280;--card-bg:#ffffff;--text:#0f172a}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial;background:#fff;color:var(--text);margin:0}
+.app-root{max-width:980px;margin:28px auto;padding:20px}
+.header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.nav{display:flex;gap:12px;color:var(--muted)}
+.hero-title{font-size:2rem;margin:0}
+.hero-sub{color:var(--muted)}
+
+.vault{display:flex;gap:24px;align-items:flex-start;margin-top:20px}
+.vault-left{flex:1}
+.vault-right{width:320px}
+.vault-right .vault-box{position:sticky;top:96px}
+.vault-box{background:var(--card-bg);border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(12,20,40,0.06)}
+
+.icons{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+.icon{width:88px;height:88px;border-radius:12px;background:linear-gradient(180deg,#fbfdff,#fff);display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;border:1px solid #eef2ff;position:relative;box-shadow:0 8px 20px rgba(12,20,40,0.04);transition:transform .18s ease, box-shadow .18s ease}
+.icon:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px rgba(16,24,40,0.12)}
+.icon-label{font-size:13px;color:var(--muted);margin-top:8px;font-weight:700}
+
+/* Active/unlocked state */
+.icon.active{box-shadow:0 26px 72px rgba(99,102,241,0.16);border:1px solid rgba(99,102,241,0.08);transform:translateY(-4px)}
+.icon.active::after{content:'';position:absolute;inset:-6px;border-radius:18px;box-shadow:0 0 20px rgba(99,102,241,0.12);pointer-events:none}
+
+/* Puzzle pulsing */
+.icon.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+.hint{position:absolute;left:50%;top:-36px;transform:translateX(-50%);background:#0f172a;color:white;padding:6px 10px;border-radius:8px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 180ms, transform 180ms}
+.icon:hover .hint{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+.panel{margin-top:18px;padding:16px;border-radius:12px;border:1px solid #eef2ff;background:linear-gradient(180deg,#ffffff,#fbfdff);box-shadow:0 6px 20px rgba(12,20,40,0.04)}
+.muted{color:var(--muted)}
+
+.coin-3d{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 26px rgba(184,115,51,0.12);transition:transform .24s cubic-bezier(.2,.9,.2,1), box-shadow .24s}
+.coin-3d.earn{transform:translateY(-12px) rotateX(20deg) scale(1.12);transition:transform .45s cubic-bezier(.2,.9,.2,1);box-shadow:0 18px 40px rgba(184,115,51,0.18)}
+
+.right-card{min-width:260px;background:var(--card-bg);border-radius:12px;padding:16px;box-shadow:var(--elev-3);position:sticky;top:18px}
+.panel-row{display:flex;gap:12px;align-items:center}
+
+input{padding:8px;border-radius:6px;border:1px solid #e6eefc}
+.btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+.btn-primary{background:var(--accent);color:#fff}
+
+@media(max-width:880px){.vault{flex-direction:column}.vault-right{width:100%}}
+
+/* right card rotating quote style */
+.vault-box{position:relative;overflow:hidden}
+.vault-box::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg, rgba(37,99,235,0.02), rgba(124,58,237,0.02));pointer-events:none}
+
+/* subtle neon glow on icons */
+.icon svg{filter:drop-shadow(0 6px 12px rgba(124,58,237,0.08))}
+

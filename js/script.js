@@ -267,3 +267,4 @@ document.addEventListener('keydown', (e) => {
         konamiCode = [];
     }
 });
+
