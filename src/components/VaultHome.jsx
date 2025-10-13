@@ -70,7 +70,7 @@ export default function VaultHome(){
                   setActive(ic.id)
                   // earn coins when visiting Build or Think
                   if (ic.id==='build' || ic.id==='thoughts') setCoins(c=>Math.min(10,c+1))
-                }} whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.98 }}>
+                }} whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.98 }} aria-label={ic.title} tabIndex={0} onKeyDown={(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); setActive(ic.id); if (ic.id==='build' || ic.id==='thoughts') setCoins(c=>Math.min(10,c+1)) } }}>
                   <span className="hint">{ic.hint}</span>
                   <ic.svg />
                   <div className="icon-label">{ic.title}</div>
@@ -172,21 +172,48 @@ export default function VaultHome(){
 // Simple inline SVG components for icons
 function AboutSVG(){
   return (
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="#60a5fa"/></svg>
+    <svg role="img" aria-label="Core: nucleus" width="36" height="36" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="#e6f2ff" />
+      <circle cx="12" cy="12" r="6" fill="#60a5fa" />
+      <circle cx="12" cy="12" r="2" fill="#0ea5ff" />
+      <g stroke="#0ea5ff" strokeWidth="0.8" fill="none">
+        <circle cx="12" cy="12" r="8" />
+      </g>
+    </svg>
   )
 }
 function BuildSVG(){
   return (
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="2" fill="#f97316"/></svg>
+    <svg role="img" aria-label="Build: coin stack" width="36" height="36" viewBox="0 0 24 24" fill="none">
+      <defs>
+        <linearGradient id="gcoin" x1="0" x2="1">
+          <stop offset="0" stopColor="#F59E0B" />
+          <stop offset="1" stopColor="#B87333" />
+        </linearGradient>
+      </defs>
+      <rect x="3" y="6" width="18" height="12" rx="3" fill="#fff6eb" opacity="0.9" />
+      <ellipse cx="12" cy="9.5" rx="6" ry="2.2" fill="url(#gcoin)" stroke="#8b5e34" strokeWidth="0.5" />
+      <ellipse cx="12" cy="12.6" rx="5.1" ry="1.8" fill="#f59e0b" opacity="0.95" />
+      <ellipse cx="12" cy="15.2" rx="4" ry="1.4" fill="#b87333" opacity="0.96" />
+    </svg>
   )
 }
 function ThinkSVG(){
   return (
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M12 3c-3 0-5 2-5 5 0 3 2 4 2 6 0 2 3 3 3 3s3-1 3-3c0-2 2-3 2-6 0-3-2-5-5-5z" fill="#34d399"/></svg>
+    <svg role="img" aria-label="Think: brain spiral" width="36" height="36" viewBox="0 0 24 24" fill="none">
+      <rect x="0" y="0" width="24" height="24" rx="6" fill="#f0fdf4" />
+      <path d="M7.5 12c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5-2.015 4.5-4.5 4.5c-1.243 0-2.365-.48-3.2-1.26" stroke="#2bb673" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <path d="M12 8.5c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3c0-.633.194-1.215.525-1.69" stroke="#34d399" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </svg>
   )
 }
 function PuzzleSVG(){
   return (
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M6 3h6v6H6zM12 12h6v6h-6zM3 9h6v6H3z" fill="#7c3aed"/></svg>
+    <svg role="img" aria-label="Puzzle: keyhole" width="36" height="36" viewBox="0 0 24 24" fill="none">
+      <rect x="0" y="0" width="24" height="24" rx="6" fill="#f8f5ff" />
+      <circle cx="12" cy="9" r="3.2" fill="#7c3aed" />
+      <rect x="10.2" y="11.8" width="3.6" height="5" rx="1.6" fill="#7c3aed" />
+      <circle cx="12" cy="9" r="1.1" fill="#fff" />
+    </svg>
   )
 }
