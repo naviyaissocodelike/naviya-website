@@ -1,289 +1,416 @@
-import React, { useState } from 'react'
-import Coin from './Coin'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect, useRef } from 'react'
+import { RIDDLES } from '../data/riddles'
 
-const ICONS = [
-  { id: 'think', svg: ThinkSVG, title: 'Think', hint: 'Essays & frameworks' },
-  { id: 'build', svg: BuildSVG, title: 'Build', hint: 'Projects & experiments' },
-  { id: 'imagine', svg: ImagineSVG, title: 'Imagine', hint: 'Future visions & sci-fi' },
-  { id: 'play', svg: PlaySVG, title: 'Play', hint: 'Design & culture' },
-  { id: 'freestyle', svg: FreestyleSVG, title: 'Freestyle', hint: 'Misc projects' },
-  { id: 'vending', svg: VendingSVG, title: 'Vending Machine', hint: 'Unlock gems with coins' }
+const GITHUB_URL = 'https://github.com/naviyaissocodelike'
+const SUBSTACK_URL = '#'
+const EMAIL = 'hello@naviya.xyz'
+
+const WORK = [
+  {
+    title: 'Tala',
+    role: 'Manager · New Ventures (AI / Crypto)',
+    blurb: 'Credit infrastructure across eight emerging markets. Shipping AI loan agents and stablecoin pilots.',
+    href: 'https://tala.co'
+  },
+  {
+    title: 'District Angels',
+    role: 'Founder',
+    blurb: 'An angel investing collective in DC. Backing builders early, with conviction.',
+    href: '#'
+  }
 ]
 
-export default function VaultHome(){
-  const [active, setActive] = useState(null)
-  const [puzzle, setPuzzle] = useState({ input: '', unlocked: false })
+const REPOS = [
+  { name: 'wise-glade', desc: 'Daily job intelligence agent.', lang: 'Python', langColor: '#3776ab', href: `${GITHUB_URL}/wise-glade` },
+  { name: 'analyst-agent', desc: 'Paper-trading research agent with Claude reasoning.', lang: 'Python', langColor: '#3776ab', href: `${GITHUB_URL}/analyst-agent` },
+  { name: 'lucy-loans', desc: 'Production AI loan underwriting agent.', lang: 'Python', langColor: '#3776ab', href: GITHUB_URL },
+  { name: 'naviya-website', desc: 'This site. Built simply.', lang: 'JavaScript', langColor: '#f1e05a', href: `${GITHUB_URL}/naviya-website` }
+]
+
+const NOTES = [
+  { tag: 'AI', title: 'Diffusion in emerging markets', blurb: 'How fintech partnerships ship AI to the next billion users.', href: SUBSTACK_URL, color: 'yellow' },
+  { tag: 'Fintech', title: 'Underwriting in 8 countries', blurb: 'What credit looks like when you can\'t trust the bureau.', href: SUBSTACK_URL, color: 'pink' },
+  { tag: 'Investing', title: 'Notes from District Angels', blurb: 'What an angel collective gets right that solo checks miss.', href: SUBSTACK_URL, color: 'blue' },
+  { tag: 'Building', title: 'Shipping agents in prod', blurb: 'A short list of things that broke and what I changed.', href: SUBSTACK_URL, color: 'green' },
+  { tag: 'AI', title: 'The agent stack I use', blurb: 'AWS Strands + Claude. Why, when, and what I\'d swap.', href: SUBSTACK_URL, color: 'yellow' },
+  { tag: 'Emerging Markets', title: 'Money that moves at the speed of trust', blurb: 'Stablecoin pilots and what the bureau gets wrong.', href: SUBSTACK_URL, color: 'pink' }
+]
+
+const TAGS = ['All', 'AI', 'Fintech', 'Investing', 'Building', 'Emerging Markets']
+
+const SECTIONS = [
+  { id: 'think', label: 'Think', Icon: ThinkIcon },
+  { id: 'build', label: 'Build', Icon: BuildIcon },
+  { id: 'play', label: 'Play', Icon: PlayIcon },
+  { id: 'work', label: 'Work', Icon: WorkIcon }
+]
+
+export default function Home(){
   const [coins, setCoins] = useState(() => {
-    try{
-      const v = localStorage.getItem('nv_coins')
-      return v ? Number(v) : 4
-    }catch(e){ return 4 }
+    try { return Number(localStorage.getItem('nv_coins')) || 0 } catch { return 0 }
   })
-  const [quoteIndex, setQuoteIndex] = useState(0)
+  const [activeTag, setActiveTag] = useState('All')
+  const [popCoin, setPopCoin] = useState(false)
 
-  const secret = 'entropy'
+  useEffect(() => {
+    try { localStorage.setItem('nv_coins', String(coins)) } catch {}
+  }, [coins])
 
-const submitPuzzle = () => {
-    if (puzzle.input.trim().toLowerCase() === "entropy") {
-      setPuzzle({ ...puzzle, unlocked: true });
-      alert("Unlocked! 🎉");
-    } else alert("Try again");
-};
-
-  function dropCoin(){
-    if (coins <= 0) return alert('No coins left')
-    setCoins(c => {
-      const next = c - 1
-      try{ localStorage.setItem('nv_coins', String(next)) }catch(e){}
-      return next
-    })
-    // earn animation
-    const el = document.querySelector('.coin-3d')
-    if (el){
-      el.classList.add('earn')
-      setTimeout(() => el.classList.remove('earn'), 600)
-    }
+  const addCoins = (n) => {
+    setCoins(c => c + n)
+    setPopCoin(true)
+    setTimeout(() => setPopCoin(false), 600)
   }
 
-  const quotes = [
-    'Built lending ladders in two countries.',
-    'Runs a low-signal investor lab.',
-    'Likes paradoxes and experiments.'
-  ]
+  const scrollTo = (id) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
-  // rotate quotes
-  React.useEffect(() => {
-    const t = setInterval(() => setQuoteIndex(i => (i + 1) % quotes.length), 4000)
-    return () => clearInterval(t)
-  }, [])
+  const filteredNotes = activeTag === 'All' ? NOTES : NOTES.filter(n => n.tag === activeTag)
 
   return (
-    <div className="app">
-      <header className="header">
-        <div className="brand"><div className="logo">N</div><h1>Naviya</h1></div>
-        <div className="header-right">
-          <nav className="nav">
-            <a href="/pages/think.html">Think</a>
-            <a href="/pages/build.html">Build</a>
-            <a href="/pages/imagine.html">Imagine</a>
-            <a href="/pages/play.html">Play</a>
-            <a href="/pages/freestyle.html">Freestyle</a>
-            <a href="/pages/vending.html">Vending Machine</a>
-          </nav>
-          <div className="coins"><CoinIcon /> <span style={{marginLeft:8}}>Coins: {coins}</span></div>
+    <div className="page">
+      <header className="nav">
+        <a className="mark" href="#top">Naviya</a>
+        <div className="nav-icons">
+          {SECTIONS.map(s => (
+            <button key={s.id} className="nav-icon" onClick={() => scrollTo(s.id)} aria-label={s.label}>
+              <s.Icon />
+              <span>{s.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className={`coin-badge ${popCoin ? 'pop' : ''}`} aria-label={`${coins} coins`}>
+          <CoinSVG />
+          <span>{coins}</span>
         </div>
       </header>
 
-      <main>
-        <section className="vault">
-          <div className="vault-left">
-            <div className="hero-left">
-              <div className="photo-placeholder">insert photo</div>
-              <h2 className="hero-title">hi! thank u for being here</h2>
-              <p className="hero-blurb">[insert blurb]</p>
-            </div>
-
-            <AnimatePresence>
-              {active && (
-                <motion.div className="panel" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}>
-                  {active === 'about' && (
-                    <div>
-                      <h3>The Core Layer</h3>
-                      <p><strong>What I build:</strong> Money systems, capital bridges, behavioral tools</p>
-                      <p><strong>How I move:</strong> Curious, rigorous, future-facing</p>
-                      <p><strong>What I value:</strong> Agency &gt; access &gt; autonomy</p>
-                      <button onClick={() => alert('"Agency is freedom to choose." — sci-fi quote placeholder')}>agency</button>
-                    </div>
-                  )}
-
-                  {active === 'build' && (
-                    <div>
-                      <h3>Under the Hood</h3>
-                      <div style={{ display: 'grid', gap: 12 }}>
-                        <div className="panel-row"><Coin onClick={() => alert('Flip Tala')} /><div><strong>Tala</strong><div className="muted">Lucy, lending logic, crypto pilots</div></div></div>
-                        <div className="panel-row"><Coin onClick={() => alert('Flip District Angels')} /><div><strong>District Angels</strong><div className="muted">Investor collective</div></div></div>
-                      </div>
-                    </div>
-                  )}
-
-                  {active === 'thoughts' && (
-                    <div>
-                      <h3>Mental Models</h3>
-                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                        {['Money','Systems','Culture','Optionality','Failure','Maslow','Sci-fi'].map(t => (
-                          <button key={t} className="icon-label" onMouseEnter={() => {}}>{t}</button>
-                        ))}
-                      </div>
-                      <div style={{ marginTop: 12 }}><button onClick={() => alert('Vending a random thought: Make small experiments cheap')}>Drop a coin (vending)</button></div>
-                    </div>
-                  )}
-
-                  {active === 'imagine' && (
-                    <div>
-                      <h3>Future Visions</h3>
-                      <div className="panel">
-                        <p>Explore speculative futures, sci-fi scenarios, and the worlds we could build.</p>
-                        <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                          {['Post-scarcity', 'AI Governance', 'Space Colonies', 'Digital Consciousness', 'Climate Futures'].map(t => (
-                            <button key={t} className="icon-label">{t}</button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div style={{ marginTop: 18 }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <Coin onClick={dropCoin} />
-                <div className="muted">Coins: {coins} · Spend 3 to reveal secret</div>
-              </div>
-              <div style={{ marginTop: 8 }}>
-                <button className="btn" onClick={() => {
-                  if (coins >=3){
-                    setCoins(c=>c-3)
-                    alert('Secret revealed: you get a paradox!')
-                  } else alert('Need 3 coins')
-                }}>Spend 3 coins for a secret</button>
-              </div>
-            </div>
-
+      <main id="top">
+        <section className="hero">
+          <p className="eyebrow">Builder · Operator · Investor</p>
+          <h1>Building money systems for emerging markets.</h1>
+          <p className="lede">
+            Tala by day. District Angels on the side. Agents and small tools after hours.
+          </p>
+          <div className="hero-meta">
+            <a href={GITHUB_URL}>GitHub →</a>
+            <a href={SUBSTACK_URL}>Substack →</a>
+            <a href={`mailto:${EMAIL}`}>Email →</a>
           </div>
+        </section>
 
-          <aside className="vault-right">
-            <div className="icons">
-              {ICONS.map((ic, i) => {
-                const isLarge = i < 3
-                const cls = `icon ${isLarge ? 'large' : 'small'} ${active===ic.id? 'active':''} ${ic.id==='imagine' ? 'pulse' : ''}`
-                const href = ic.id === 'vending' ? '/pages/vending.html' : `/pages/${ic.id}.html`
-                return (
-                  <motion.button
-                    key={ic.id}
-                    className={cls}
-                    onClick={() => { window.location.href = href }}
-                    whileHover={{ scale: 1.06 }}
-                    whileTap={{ scale: 0.98 }}
-                    aria-label={ic.title}
-                    tabIndex={0}
-                    onKeyDown={(e)=>{
-                      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); window.location.href = href }
-                    }}
-                  >
-                    <span className="hint">{ic.hint}</span>
-                    <ic.svg />
-                    <div className="icon-label">{ic.title}</div>
-                  </motion.button>
-                )
-              })}
-            </div>
+        <section id="about" className="block">
+          <h2>About</h2>
+          <p>
+            I'm Naviya. I work on AI and crypto at <a href="https://tala.co">Tala</a>, where we're building credit
+            infrastructure across eight emerging markets. On the side, I run <a href="#">District Angels</a> —
+            a collective of early-stage investors in DC.
+          </p>
+          <p>
+            I studied operations research at Cornell. Most days I'm writing code, shipping agents, talking to
+            founders, or learning out loud. I care about agency, access, and the long arc of building tools that
+            move money to where it matters.
+          </p>
+        </section>
 
-            <div className="vault-box">
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                <div className="avatar"><img src="/avatar.png" alt="Naviya" style={{width:64,height:64,borderRadius:999}} onError={(e)=>{e.target.style.display='none'}}/></div>
-                <div>
-                  <div className="name">Key for the rest of the website</div>
-                  <div className="title">Read articles on each page to earn coins and unlock gems at the Vending Machine.</div>
+        <section id="think" className="block">
+          <h2>Think</h2>
+          <p className="block-sub">Notes, essays, half-formed ideas. Click a tag to filter.</p>
+          <div className="chips">
+            {TAGS.map(t => (
+              <button
+                key={t}
+                className={`chip ${activeTag === t ? 'active' : ''}`}
+                onClick={() => setActiveTag(t)}
+              >{t}</button>
+            ))}
+          </div>
+          <div className="notes">
+            {filteredNotes.map((note, i) => (
+              <a
+                key={`${note.title}-${i}`}
+                href={note.href}
+                className={`note note-${note.color}`}
+                style={{ '--rot': `${(i % 2 === 0 ? -1 : 1) * (1 + (i % 3))}deg` }}
+              >
+                <span className="note-tag">{note.tag}</span>
+                <h3>{note.title}</h3>
+                <p>{note.blurb}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="build" className="block">
+          <h2>Build</h2>
+          <p className="block-sub">Public code on <a href={GITHUB_URL}>GitHub</a>. Mostly Python agents and small tools.</p>
+          <div className="repos">
+            {REPOS.map(r => (
+              <a key={r.name} href={r.href} className="repo">
+                <div className="repo-head">
+                  <RepoIcon />
+                  <span className="repo-name">{r.name}</span>
                 </div>
-              </div>
-              <div style={{ marginTop: 12 }}>
-                <div style={{ height: 46, display: 'flex', alignItems: 'center' }}>{quotes[quoteIndex]}</div>
-              </div>
-            </div>
-          </aside>
+                <p className="repo-desc">{r.desc}</p>
+                <div className="repo-foot">
+                  <span className="lang-dot" style={{ background: r.langColor }} />
+                  <span className="repo-lang">{r.lang}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
 
+        <section id="play" className="block">
+          <h2>Play</h2>
+          <p className="block-sub">Solve a riddle. Collect coins. Spend them on a secret.</p>
+          <RiddleVault coins={coins} addCoins={addCoins} setCoins={setCoins} />
+        </section>
+
+        <section id="work" className="block">
+          <h2>Work</h2>
+          <ul className="list">
+            {WORK.map(item => (
+              <li key={item.title}>
+                <a href={item.href} className="item">
+                  <div className="item-head">
+                    <span className="item-title">{item.title}</span>
+                    <span className="item-role">{item.role}</span>
+                  </div>
+                  <p className="item-blurb">{item.blurb}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
       </main>
+
+      <footer className="footer">
+        <span>© {new Date().getFullYear()} Naviya Kothari</span>
+        <span className="footer-tag">Built simply.</span>
+      </footer>
     </div>
   )
 }
 
-// Simple inline SVG components for icons
-function AboutSVG(){
+const REEL_SYMBOLS = ['?', '¢', '★', '◆', '♠', '△', '○', '□', '✦', '✿']
+
+function RiddleVault({ coins, addCoins, setCoins }){
+  const [idx, setIdx] = useState(() => Math.floor(Math.random() * RIDDLES.length))
+  const [input, setInput] = useState('')
+  const [status, setStatus] = useState('')
+  const [showHint, setShowHint] = useState(false)
+  const [solvedIds, setSolvedIds] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem('nv_solved') || '[]')) } catch { return new Set() }
+  })
+  const [secret, setSecret] = useState('')
+  const [secretDispensed, setSecretDispensed] = useState(false)
+  const [spinning, setSpinning] = useState(false)
+  const [reels, setReels] = useState(['?', '?', '?'])
+  const [dispensed, setDispensed] = useState(true)
+
+  const riddle = RIDDLES[idx]
+  const alreadySolved = solvedIds.has(idx)
+
+  const submit = (e) => {
+    e?.preventDefault?.()
+    if (!input.trim() || spinning) return
+    if (input.trim().toLowerCase() === riddle.a.toLowerCase()) {
+      if (!alreadySolved) {
+        addCoins(3)
+        const next = new Set(solvedIds); next.add(idx); setSolvedIds(next)
+        try { localStorage.setItem('nv_solved', JSON.stringify([...next])) } catch {}
+        setStatus('correct')
+      } else {
+        setStatus('already')
+      }
+    } else {
+      setStatus('wrong')
+    }
+  }
+
+  const dispenseNext = () => {
+    if (spinning) return
+    setSpinning(true)
+    setDispensed(false)
+    setInput(''); setStatus(''); setShowHint(false)
+
+    const target = (idx + 1 + Math.floor(Math.random() * (RIDDLES.length - 1))) % RIDDLES.length
+    const start = Date.now()
+    const duration = 1100
+
+    const tick = () => {
+      const elapsed = Date.now() - start
+      if (elapsed < duration) {
+        setReels([
+          REEL_SYMBOLS[Math.floor(Math.random() * REEL_SYMBOLS.length)],
+          REEL_SYMBOLS[Math.floor(Math.random() * REEL_SYMBOLS.length)],
+          REEL_SYMBOLS[Math.floor(Math.random() * REEL_SYMBOLS.length)]
+        ])
+        setTimeout(tick, 60)
+      } else {
+        const digits = String(target + 1).padStart(3, '0').split('')
+        setReels(digits)
+        setIdx(target)
+        setSpinning(false)
+        setTimeout(() => setDispensed(true), 80)
+      }
+    }
+    tick()
+  }
+
+  const spendSecret = () => {
+    if (coins < 5) return
+    setCoins(c => c - 5)
+    const secrets = [
+      'Agency > access > autonomy.',
+      'Most fintechs underwrite vibes, not cash flows.',
+      'The best moats are habits, not features.',
+      'Write the doc first. The code falls out.',
+      "If you can't explain the trade in one sentence, don't take it."
+    ]
+    setSecret(secrets[Math.floor(Math.random() * secrets.length)])
+    setSecretDispensed(false)
+    setTimeout(() => setSecretDispensed(true), 50)
+  }
+
   return (
-    <svg role="img" aria-label="Core: nucleus" width="36" height="36" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="10" fill="#e6f2ff" />
-      <circle cx="12" cy="12" r="6" fill="#60a5fa" />
-      <circle cx="12" cy="12" r="2" fill="#0ea5ff" />
-      <g stroke="#0ea5ff" strokeWidth="0.8" fill="none">
-        <circle cx="12" cy="12" r="8" />
-      </g>
+    <div className="machine">
+      <div className="machine-top">
+        <div className="machine-brand">
+          <span className="machine-bolt" /> NAVIYA'S VAULT <span className="machine-bolt" />
+        </div>
+        <div className="machine-lights">
+          <span className={`light ${spinning ? 'on' : ''}`} />
+          <span className={`light ${spinning ? 'on' : ''}`} />
+          <span className={`light ${spinning ? 'on' : ''}`} />
+        </div>
+      </div>
+
+      <div className="machine-display">
+        <div className={`reels ${spinning ? 'spinning' : ''}`}>
+          {reels.map((s, i) => (
+            <div key={i} className="reel">
+              <span className="reel-val">{s}</span>
+            </div>
+          ))}
+        </div>
+        <div className="display-label">
+          {spinning ? 'dispensing…' : alreadySolved ? `solved · riddle ${idx + 1}/${RIDDLES.length}` : `riddle ${idx + 1}/${RIDDLES.length}`}
+        </div>
+      </div>
+
+      <div className={`dispense-tray ${dispensed && !spinning ? 'in' : 'out'}`}>
+        <p className="riddle-q">{riddle.q}</p>
+        {showHint && <p className="riddle-hint">hint: {riddle.hint}</p>}
+        <form onSubmit={submit} className="riddle-form">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="type your answer…"
+            autoComplete="off"
+            disabled={spinning}
+          />
+          <button type="submit" className="btn" disabled={spinning}>Guess</button>
+        </form>
+        <div className="riddle-actions">
+          <button onClick={() => setShowHint(s => !s)} className="link-btn" disabled={spinning}>
+            {showHint ? 'hide hint' : 'hint'}
+          </button>
+          <button onClick={dispenseNext} className="link-btn" disabled={spinning}>
+            new riddle →
+          </button>
+        </div>
+        {status === 'correct' && <p className="msg ok">✓ correct. +3 coins dropped into your wallet.</p>}
+        {status === 'already' && <p className="msg muted-msg">already solved — no extra coins.</p>}
+        {status === 'wrong' && <p className="msg bad">not quite. try again.</p>}
+      </div>
+
+      <div className="machine-base">
+        <div className="machine-stats">
+          <div className="machine-stat">
+            <div className="machine-stat-num">{coins}</div>
+            <div className="machine-stat-label">coins</div>
+          </div>
+          <div className="machine-divider" />
+          <div className="machine-stat">
+            <div className="machine-stat-num">{solvedIds.size}</div>
+            <div className="machine-stat-label">solved</div>
+          </div>
+        </div>
+
+        <button
+          className="dispense-btn"
+          onClick={spendSecret}
+          disabled={coins < 5}
+          title={coins < 5 ? 'need 5 coins' : 'insert 5 coins'}
+        >
+          <span className="dispense-btn-coin"><CoinSVG /></span>
+          insert 5 → secret
+        </button>
+      </div>
+
+      {secret && (
+        <div className={`secret-drop ${secretDispensed ? 'in' : ''}`}>
+          <span className="secret-tag">dispensed</span>
+          <p>{secret}</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ---------- icons ---------- */
+
+function ThinkIcon(){
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18h6"/><path d="M10 22h4"/>
+      <path d="M12 2a7 7 0 0 0-4 12.7c.6.4 1 1.1 1 1.8V18h6v-1.5c0-.7.4-1.4 1-1.8A7 7 0 0 0 12 2z"/>
     </svg>
   )
 }
-function BuildSVG(){
+function BuildIcon(){
   return (
-    <svg role="img" aria-label="Build: coin stack" width="36" height="36" viewBox="0 0 24 24" fill="none">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/>
+    </svg>
+  )
+}
+function PlayIcon(){
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M9 9h.01"/><path d="M15 15h.01"/><path d="M15 9h.01"/><path d="M9 15h.01"/><path d="M12 12h.01"/>
+    </svg>
+  )
+}
+function WorkIcon(){
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+    </svg>
+  )
+}
+function RepoIcon(){
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </svg>
+  )
+}
+function CoinSVG(){
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
       <defs>
-        <linearGradient id="gcoin" x1="0" x2="1">
-          <stop offset="0" stopColor="#F59E0B" />
-          <stop offset="1" stopColor="#B87333" />
+        <linearGradient id="cg" x1="0" x2="1">
+          <stop offset="0" stopColor="#f59e0b"/><stop offset="1" stopColor="#c2410c"/>
         </linearGradient>
       </defs>
-      <rect x="3" y="6" width="18" height="12" rx="3" fill="#fff6eb" opacity="0.9" />
-      <ellipse cx="12" cy="9.5" rx="6" ry="2.2" fill="url(#gcoin)" stroke="#8b5e34" strokeWidth="0.5" />
-      <ellipse cx="12" cy="12.6" rx="5.1" ry="1.8" fill="#f59e0b" opacity="0.95" />
-      <ellipse cx="12" cy="15.2" rx="4" ry="1.4" fill="#b87333" opacity="0.96" />
-    </svg>
-  )
-}
-function ThinkSVG(){
-  return (
-    <svg role="img" aria-label="Think: brain spiral" width="36" height="36" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="24" height="24" rx="6" fill="#f0fdf4" />
-      <path d="M7.5 12c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5-2.015 4.5-4.5 4.5c-1.243 0-2.365-.48-3.2-1.26" stroke="#2bb673" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-      <path d="M12 8.5c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3c0-.633.194-1.215.525-1.69" stroke="#34d399" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-    </svg>
-  )
-}
-function ImagineSVG(){
-  return (
-    <svg role="img" aria-label="Imagine: future vision" width="36" height="36" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="24" height="24" rx="6" fill="#fff5f5" />
-      <circle cx="12" cy="12" r="8" fill="#ffe4e6" />
-      <path d="M12 4v16M4 12h16" stroke="#f43f5e" strokeWidth="1.5" strokeLinecap="round"/>
-      <circle cx="12" cy="12" r="3" fill="#fff" stroke="#f43f5e" strokeWidth="1"/>
-      <circle cx="12" cy="12" r="1" fill="#f43f5e"/>
-    </svg>
-  )
-}
-
-function PlaySVG(){
-  return (
-    <svg role="img" aria-label="Play: creativity" width="36" height="36" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="24" height="24" rx="6" fill="#fffaf0" />
-      <path d="M8 6v12l10-6-10-6z" fill="#f97316" />
-    </svg>
-  )
-}
-function FreestyleSVG(){
-  return (
-    <svg role="img" aria-label="Freestyle" width="36" height="36" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="24" height="24" rx="6" fill="#f8fff5" />
-      <path d="M6 12h12M6 8h8M6 16h10" stroke="#10b981" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  )
-}
-function VendingSVG(){
-  return (
-    <svg role="img" aria-label="Vending Machine" width="36" height="36" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="24" height="24" rx="6" fill="#f5f3ff" />
-      <rect x="6" y="5" width="12" height="14" rx="2" fill="#fff" stroke="#7c3aed" strokeWidth="0.8"/>
-      <circle cx="16" cy="9" r="1" fill="#7c3aed" />
-    </svg>
-  )
-}
-
-function CoinIcon(){
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      <defs>
-        <linearGradient id="cg" x1="0" x2="1"><stop offset="0" stopColor="#F59E0B"/><stop offset="1" stopColor="#B87333"/></linearGradient>
-      </defs>
-      <circle cx="12" cy="12" r="9" fill="url(#cg)" stroke="#8b5e34" strokeWidth="0.6" />
-      <text x="12" y="15" textAnchor="middle" fontSize="10" fill="#fff" fontWeight="700">¢</text>
+      <circle cx="12" cy="12" r="9" fill="url(#cg)"/>
+      <circle cx="12" cy="12" r="6" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1"/>
+      <text x="12" y="16" textAnchor="middle" fontSize="10" fontWeight="700" fill="#fff">¢</text>
     </svg>
   )
 }
