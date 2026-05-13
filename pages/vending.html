@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vending Machine — Naviya</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/page-transitions.js" defer></script>
+  <link rel="stylesheet" href="../css/vending.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-brand"><a href="../index.html"><strong>Naviya</strong></a></div>
+    <div class="site-nav">
+      <a href="./think.html">Think</a>
+      <a href="./build.html">Build</a>
+      <a href="./imagine.html">Imagine</a>
+      <a href="./play.html">Play</a>
+      <a href="./freestyle.html">Freestyle</a>
+      <a href="./vending.html" class="active">Vending Machine</a>
+    </div>
+    <div class="site-coins">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="cg2" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#B87333"/></linearGradient></defs>
+        <circle cx="12" cy="12" r="9" fill="url(#cg2)" stroke="#8b5e34" stroke-width="0.6"/>
+        <text x="12" y="15" text-anchor="middle" font-size="10" fill="#fff">¢</text>
+      </svg>
+      <span id="coin-count">Coins: 0</span>
+    </div>
+  </header>
+
+  <script>
+    try{
+      const v = localStorage.getItem('nv_coins')
+      document.getElementById('coin-count').textContent = 'Coins: ' + (v?Number(v):0)
+    }catch(e){}
+  </script>
+
+  <div class="page-container vending-page">
+    <div class="page-header">
+      <a href="../index.html" class="back-link">← Home</a>
+      <h1>🎰 Vending Machine</h1>
+    </div>
+
+    <div class="vending-intro">
+      <p>Welcome to the Riddle Vending Machine! Insert 1 coin to receive a mind-bending riddle.</p>
+      <p class="hint">💡 Solve it to prove your wit, or reveal the answer if you're stumped.</p>
+    </div>
+
+    <!-- Retro Arcade Vending Machine -->
+    <div class="arcade-machine">
+      <!-- Machine Body -->
+      <div class="machine-body">
+        <!-- Display Screen -->
+        <div class="display-screen">
+          <div class="screen-glow"></div>
+          <div class="screen-content" id="screen-content">
+            <div class="screen-text" id="screen-text">
+              INSERT COIN<br>
+              <span class="blink">▼</span>
+            </div>
+          </div>
+          <div class="screen-scanlines"></div>
+        </div>
+
+        <!-- Coin Slot -->
+        <div class="coin-slot-area">
+          <div class="coin-slot">
+            <div class="slot-label">COIN SLOT</div>
+            <button class="insert-coin-btn" id="insert-coin-btn">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="cg4" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#B87333"/></linearGradient></defs>
+                <circle cx="12" cy="12" r="9" fill="url(#cg4)" stroke="#8b5e34" stroke-width="0.6"/>
+                <text x="12" y="15" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">¢</text>
+              </svg>
+              <span>INSERT 1 COIN</span>
+            </button>
+            <div class="coin-animation" id="coin-animation">💰</div>
+          </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+          <div class="button-grid">
+            <button class="arcade-button red" id="new-riddle-btn" disabled>
+              <div class="button-top"></div>
+              <span>NEW RIDDLE</span>
+            </button>
+            <button class="arcade-button yellow" id="hint-btn" disabled>
+              <div class="button-top"></div>
+              <span>HINT</span>
+            </button>
+            <button class="arcade-button green" id="reveal-btn" disabled>
+              <div class="button-top"></div>
+              <span>REVEAL</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Answer Input Area -->
+        <div class="answer-area" id="answer-area" style="display: none;">
+          <div class="answer-label">ENTER YOUR ANSWER:</div>
+          <input type="text" id="answer-input" class="answer-input" placeholder="Type here...">
+          <button class="submit-answer-btn" id="submit-answer-btn">SUBMIT</button>
+        </div>
+
+        <!-- Prize Dispenser -->
+        <div class="dispenser-slot">
+          <div class="dispenser-door"></div>
+          <div class="dispenser-label">PRIZE SLOT</div>
+        </div>
+      </div>
+
+      <!-- Machine Base -->
+      <div class="machine-base"></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="vending-stats">
+      <div class="stat-item">
+        <span class="stat-label">Riddles Solved:</span>
+        <span class="stat-value" id="riddles-solved">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Total Attempts:</span>
+        <span class="stat-value" id="total-attempts">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Current Streak:</span>
+        <span class="stat-value" id="current-streak">0</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/vending-machine.js"></script>
+</body>
+</html>

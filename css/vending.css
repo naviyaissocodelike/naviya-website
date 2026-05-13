@@ -1,0 +1,496 @@
+/**
+ * Retro Arcade Vending Machine Styles
+ * Inspired by 80s arcade machines with chunky pixels and satisfying interactions
+ */
+
+.vending-page {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: calc(100vh - 120px);
+  padding-bottom: 60px;
+}
+
+.vending-intro {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.vending-intro p {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin: 8px 0;
+}
+
+.vending-intro .hint {
+  color: #fbbf24;
+  font-size: 0.95rem;
+}
+
+/* Arcade Machine Container */
+.arcade-machine {
+  max-width: 600px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+/* Machine Body */
+.machine-body {
+  background: linear-gradient(180deg, #2d4a7c 0%, #1e3a5f 100%);
+  border-radius: 20px 20px 10px 10px;
+  padding: 30px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  border: 4px solid #4a5f8c;
+  position: relative;
+}
+
+.machine-body::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 2px;
+}
+
+/* Display Screen */
+.display-screen {
+  background: #0a0e1a;
+  border: 6px solid #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 0 20px rgba(0, 255, 100, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.screen-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 255, 100, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.screen-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+}
+
+.screen-text {
+  font-family: 'Courier New', monospace;
+  font-size: 1.3rem;
+  color: #00ff66;
+  text-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+  line-height: 1.6;
+  font-weight: 600;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.screen-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.3;
+}
+
+.blink {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Coin Slot Area */
+.coin-slot-area {
+  margin-bottom: 25px;
+}
+
+.coin-slot {
+  text-align: center;
+  position: relative;
+}
+
+.slot-label {
+  font-size: 0.8rem;
+  color: #fbbf24;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.insert-coin-btn {
+  background: linear-gradient(180deg, #3b4f75 0%, #2d3d5c 100%);
+  border: 3px solid #4a5f8c;
+  border-radius: 12px;
+  padding: 20px 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fbbf24;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 4px 0 #1a2642,
+    0 6px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.insert-coin-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0 #1a2642,
+    0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.insert-coin-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 0 #1a2642,
+    0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.insert-coin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.insert-coin-btn svg {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.coin-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0;
+  pointer-events: none;
+  animation: coin-drop 0.8s ease-out;
+}
+
+@keyframes coin-drop {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -200%) rotate(0deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 50%) rotate(360deg);
+  }
+}
+
+/* Control Panel */
+.control-panel {
+  margin-bottom: 25px;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.arcade-button {
+  background: linear-gradient(180deg, #555 0%, #333 100%);
+  border: none;
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s ease;
+  box-shadow:
+    0 6px 0 #1a1a1a,
+    0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.arcade-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.arcade-button:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow:
+    0 3px 0 #1a1a1a,
+    0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.arcade-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.arcade-button .button-top {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 -4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.arcade-button.red .button-top {
+  background: linear-gradient(180deg, #ff6b6b 0%, #c92a2a 100%);
+}
+
+.arcade-button.yellow .button-top {
+  background: linear-gradient(180deg, #ffd43b 0%, #fab005 100%);
+}
+
+.arcade-button.green .button-top {
+  background: linear-gradient(180deg, #51cf66 0%, #2b8a3e 100%);
+}
+
+.arcade-button span {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #e0e0e0;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+/* Answer Area */
+.answer-area {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.answer-label {
+  font-size: 0.9rem;
+  color: #fbbf24;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+  background: #0a0e1a;
+  border: 3px solid #2d4a7c;
+  border-radius: 8px;
+  color: #00ff66;
+  text-align: center;
+  margin-bottom: 12px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: #00ff66;
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.5),
+    0 0 0 3px rgba(0, 255, 100, 0.2);
+}
+
+.submit-answer-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(180deg, #00ff66 0%, #00cc52 100%);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0a0e1a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 4px 0 #009940,
+    0 6px 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.submit-answer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0 #009940,
+    0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.submit-answer-btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 0 #009940,
+    0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Prize Dispenser */
+.dispenser-slot {
+  background: #0a0e1a;
+  border: 4px solid #1a1a2e;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  position: relative;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dispenser-door {
+  position: absolute;
+  inset: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.dispenser-label {
+  position: relative;
+  z-index: 2;
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Machine Base */
+.machine-base {
+  background: linear-gradient(180deg, #1e3a5f 0%, #0f1f3a 100%);
+  border-radius: 0 0 15px 15px;
+  height: 40px;
+  margin-top: -10px;
+  border: 4px solid #2d4a7c;
+  border-top: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Stats */
+.vending-stats {
+  max-width: 600px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.stat-item {
+  background: rgba(45, 74, 124, 0.3);
+  border: 2px solid #4a5f8c;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #a0aec0;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  color: #00ff66;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
+  font-family: 'Courier New', monospace;
+}
+
+/* Success/Error Messages */
+.message-success {
+  color: #00ff66 !important;
+  animation: flash-success 0.5s ease;
+}
+
+.message-error {
+  color: #ff6b6b !important;
+  animation: flash-error 0.5s ease;
+}
+
+@keyframes flash-success {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; transform: scale(1.05); }
+}
+
+@keyframes flash-error {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .machine-body {
+    padding: 20px;
+  }
+
+  .screen-text {
+    font-size: 1rem;
+  }
+
+  .button-grid {
+    gap: 10px;
+  }
+
+  .arcade-button span {
+    font-size: 0.6rem;
+    bottom: -30px;
+  }
+
+  .insert-coin-btn {
+    padding: 15px 20px;
+    font-size: 1rem;
+  }
+
+  .insert-coin-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}

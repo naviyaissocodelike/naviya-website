@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Play — Naviya</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/page-transitions.js" defer></script>
+  <script src="../js/scroll-coins.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-brand"><a href="../index.html"><strong>Naviya</strong></a></div>
+    <div class="site-nav">
+      <a href="./think.html">Think</a>
+      <a href="./build.html">Build</a>
+      <a href="./imagine.html">Imagine</a>
+      <a href="./play.html" class="active">Play</a>
+      <a href="./freestyle.html">Freestyle</a>
+      <a href="./vending.html">Vending Machine</a>
+    </div>
+    <div class="site-coins"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="cg2" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#B87333"/></linearGradient></defs><circle cx="12" cy="12" r="9" fill="url(#cg2)" stroke="#8b5e34" stroke-width="0.6"/><text x="12" y="15" text-anchor="middle" font-size="10" fill="#fff">¢</text></svg><span id="coin-count">Coins: 0</span></div>
+  </header>
+  <script>
+    try{
+      const v = localStorage.getItem('nv_coins')
+      document.getElementById('coin-count').textContent = 'Coins: ' + (v?Number(v):0)
+    }catch(e){}
+  </script>
+  <div class="page-container">
+    <div class="page-header"><a href="../index.html" class="back-link">← Home</a><h1>Play</h1></div>
+    <div class="page-content" id="scrollable-content">
+      <p>Design experiments and playful riffs.</p>
+      <div class="highlight-box">Substack/article embeds go here</div>
+    </div>
+  </div>
+
+  <div id="coin-notification" class="coin-notification">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="cg3" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#B87333"/></linearGradient></defs>
+      <circle cx="12" cy="12" r="9" fill="url(#cg3)" stroke="#8b5e34" stroke-width="0.6"/>
+      <text x="12" y="15" text-anchor="middle" font-size="10" fill="#fff">¢</text>
+    </svg>
+    <span>+1 Coin Earned!</span>
+  </div>
+</body>
+</html>

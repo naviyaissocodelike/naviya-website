@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Imagine — Naviya</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/scroll-coins.js" defer></script>
+  <script src="../js/page-transitions.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+      <div class="site-brand"><a href="../index.html"><strong>Naviya</strong></a></div>
+      <div class="site-nav">
+        <a href="./think.html">Think</a>
+        <a href="./build.html">Build</a>
+        <a href="./imagine.html" class="active">Imagine</a>
+        <a href="./play.html">Play</a>
+        <a href="./freestyle.html">Freestyle</a>
+        <a href="./vending.html">Vending Machine</a>
+      </div>
+      <div class="site-coins"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="cg2" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#B87333"/></linearGradient></defs><circle cx="12" cy="12" r="9" fill="url(#cg2)" stroke="#8b5e34" stroke-width="0.6"/><text x="12" y="15" text-anchor="middle" font-size="10" fill="#fff">¢</text></svg><span id="coin-count">Coins: 0</span></div>
+    </header>
+    <script>
+      try{
+        const v = localStorage.getItem('nv_coins')
+        document.getElementById('coin-count').textContent = 'Coins: ' + (v?Number(v):0)
+      }catch(e){}
+    </script>
+    <div class="page-container">
+    <div class="page-header"><a href="../index.html" class="back-link">← Home</a><h1>Imagine</h1></div>
+    <div class="page-content" id="scrollable-content">
+      <p class="intro">Living in the future. Exploring what could be. Sci-fi scenarios and speculative visions for society.</p>
+
+      <section class="imagine-section">
+        <h2>🌌 Future Visions</h2>
+        <p>I've always been drawn to science fiction—not as escapism, but as a sandbox for possibility. The futures we imagine shape the futures we build. Here, I explore speculative scenarios, alternative systems, and the edges of what's technically and socially possible.</p>
+
+        <div class="topic-grid">
+          <div class="topic-card">
+            <h3>Post-Scarcity Economics</h3>
+            <p>What happens when abundance meets coordination? Exploring economic models beyond capital scarcity.</p>
+          </div>
+          <div class="topic-card">
+            <h3>AI Governance</h3>
+            <p>How do we make collective decisions in a world with artificial superintelligence? New models for human-AI coordination.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Digital Consciousness</h3>
+            <p>The boundaries between biological and digital minds are blurring. What does personhood mean when we can fork ourselves?</p>
+          </div>
+          <div class="topic-card">
+            <h3>Climate Futures</h3>
+            <p>Not dystopia, not utopia—exploring pragmatic pathways through the climate transition with technology and policy.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="imagine-section">
+        <h2>🚀 Living in the Future</h2>
+        <p>Some people see the present. I tend to see the prototype. Here are ongoing experiments and explorations:</p>
+        <ul class="future-list">
+          <li><strong>Coordination Primitives:</strong> How do we organize at scale without traditional hierarchies?</li>
+          <li><strong>Money Systems 2.0:</strong> Beyond DeFi hype—what actually works for financial infrastructure?</li>
+          <li><strong>Network States:</strong> Distributed communities with shared values—experiments in digital sovereignty</li>
+          <li><strong>Longevity & Augmentation:</strong> Not just living longer, but expanding human capability</li>
+        </ul>
+      </section>
+
+      <section class="imagine-section">
+        <h2>📚 Sci-Fi Canon</h2>
+        <p>Stories that shaped my thinking about possible futures:</p>
+        <div class="book-grid">
+          <div class="book-item">
+            <strong>The Diamond Age</strong> — Neal Stephenson
+            <p>Nanotech, education, and emergent social structures</p>
+          </div>
+          <div class="book-item">
+            <strong>The Three-Body Problem</strong> — Liu Cixin
+            <p>First contact, game theory, and cosmic perspective</p>
+          </div>
+          <div class="book-item">
+            <strong>Permutation City</strong> — Greg Egan
+            <p>Digital consciousness and simulated realities</p>
+          </div>
+          <div class="book-item">
+            <strong>Snow Crash</strong> — Neal Stephenson
+            <p>Virtual worlds, linguistics, and digital economies</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="imagine-section">
+        <h2>💭 Current Explorations</h2>
+        <p>Questions I'm actively thinking about:</p>
+        <blockquote>
+          "How do we build coordination systems that scale without sacrificing individual agency?"
+        </blockquote>
+        <blockquote>
+          "What does financial infrastructure look like when capital isn't scarce but attention is?"
+        </blockquote>
+        <blockquote>
+          "Can we design cities that feel like neighborhoods at scale?"
+        </blockquote>
+      </section>
+
+      <div class="cta-box">
+        <p>💡 <strong>Earned coins while reading?</strong> Head to the <a href="./vending.html">Vending Machine</a> to spend them on riddles and surprises.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="coin-notification" class="coin-notification">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="cg3" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#B87333"/></linearGradient></defs>
+      <circle cx="12" cy="12" r="9" fill="url(#cg3)" stroke="#8b5e34" stroke-width="0.6"/>
+      <text x="12" y="15" text-anchor="middle" font-size="10" fill="#fff">¢</text>
+    </svg>
+    <span>+1 Coin Earned!</span>
+  </div>
+</body>
+</html>

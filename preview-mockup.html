@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Naviya — layout mockup v4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f1e7;
+    --bg-tint:#efe8d8;
+    --paper:#fdfaf3;
+    --ink:#0c1a36;
+    --navy:#0a1f44;
+    --navy-2:#13294b;
+    --slate:#5b6675;
+    --slate-light:#9aa1ac;
+    --line:rgba(12,26,54,0.08);
+    --line-strong:rgba(12,26,54,0.18);
+    --accent:#ff6a3d;
+    --live:#22c55e;
+
+    --tag-ai:#0369a1;       --tag-ai-bg:rgba(3,105,161,0.10);
+    --tag-crypto:#6d28d9;   --tag-crypto-bg:rgba(109,40,217,0.10);
+    --tag-build:#b45309;    --tag-build-bg:rgba(180,83,9,0.10);
+    --tag-invest:#047857;   --tag-invest-bg:rgba(4,120,87,0.10);
+    --tag-comm:#be185d;     --tag-comm-bg:rgba(190,24,93,0.10);
+    --tag-product:#4338ca;  --tag-product-bg:rgba(67,56,202,0.10);
+    --tag-strat:#334155;    --tag-strat-bg:rgba(51,65,85,0.10);
+    --tag-future:#be123c;   --tag-future-bg:rgba(190,18,60,0.10);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Arial;
+    color:var(--ink);background:var(--bg);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(255,106,61,0.05), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(10,31,68,0.04), transparent 60%);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;font-feature-settings:'ss01','cv11';
+  }
+  .display{
+    font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:600;
+    font-variation-settings:'wdth' 95;letter-spacing:-0.025em;line-height:0.98;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;font-size:0.85em}
+  a{color:inherit}
+
+  /* HEADER */
+  header.top{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,241,231,0.85);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{
+    max-width:1140px;margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;color:var(--ink);text-decoration:none}
+  .brand .mark{
+    width:30px;height:30px;border-radius:8px;
+    background:var(--ink);color:var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;
+  }
+  nav.primary{display:flex;gap:2px}
+  nav.primary a{
+    padding:7px 13px;border-radius:8px;text-decoration:none;
+    font-weight:500;color:var(--slate);font-size:13.5px;transition:all .15s;
+  }
+  nav.primary a:hover{background:rgba(12,26,54,0.06);color:var(--ink)}
+  .coin-mini{
+    display:flex;align-items:center;gap:6px;font-size:12px;color:var(--slate);
+    padding:6px 11px;border-radius:99px;border:1px solid var(--line);
+    background:var(--paper);
+  }
+  .coin-mini .c{
+    width:11px;height:11px;border-radius:99px;
+    background:linear-gradient(135deg,var(--accent),#d4541f);display:inline-block;
+    box-shadow:0 0 0 2px var(--bg);
+  }
+
+  /* HERO */
+  section.hero{
+    max-width:1140px;margin:0 auto;
+    padding:90px 28px 30px;
+    display:grid;grid-template-columns:1.55fr 1fr;gap:60px;align-items:center;
+  }
+  .hero h1.display{font-size:84px;margin:0 0 26px;color:var(--ink)}
+  .hero h1 .accent{color:var(--accent);font-style:italic;font-variation-settings:'wdth' 80}
+  .hero p.lead{font-size:18px;line-height:1.55;color:var(--slate);margin:0 0 28px;max-width:560px}
+  .cta-row{display:flex;gap:10px;align-items:center}
+  .btn{
+    padding:12px 22px;border-radius:10px;font-weight:500;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;transition:all .15s;cursor:pointer;border:none;font-family:inherit;
+  }
+  .btn-primary{background:var(--ink);color:var(--bg)}
+  .btn-primary:hover{background:var(--navy-2);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;border:1px solid var(--line-strong);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink);background:var(--paper)}
+  .hero-photo{
+    position:relative;aspect-ratio:4/5;border-radius:18px;
+    background:linear-gradient(180deg, rgba(12,26,54,0) 60%, rgba(12,26,54,0.1)),linear-gradient(135deg,#e8dec8,#dccfb1);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--slate-light);font-size:13px;
+    border:1px solid var(--line);box-shadow:0 30px 60px -20px rgba(12,26,54,0.15);
+  }
+  .hero-photo::after{
+    content:'';position:absolute;inset:-8px -8px auto auto;width:80px;height:80px;
+    background:var(--accent);border-radius:18px;z-index:-1;opacity:0.9;
+  }
+
+  /* NOW */
+  section.now{max-width:1140px;margin:30px auto 0;padding:0 28px}
+  .now-card{
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  }
+  .now-card .live{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;
+    color:var(--ink);flex-shrink:0;
+  }
+  .now-card .live .pulse{
+    width:8px;height:8px;border-radius:99px;background:var(--live);
+    box-shadow:0 0 0 4px rgba(34,197,94,0.2);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(34,197,94,0.2)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0.05)}}
+  .now-card .items{display:flex;gap:24px;flex-wrap:wrap;flex:1}
+  .now-card .item{display:flex;flex-direction:column;gap:2px}
+  .now-card .item .k{font-size:10.5px;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+  .now-card .item .v{font-size:14px;color:var(--ink);font-weight:500}
+
+  /* TRACKS */
+  section.tracks{max-width:1140px;margin:50px auto 0;padding:0 28px}
+  .track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .track{
+    padding:24px;border-radius:16px;background:var(--paper);
+    border:1px solid var(--line);text-decoration:none;color:inherit;
+    transition:all .2s;display:block;cursor:pointer;position:relative;overflow:hidden;
+  }
+  .track::before{content:'';position:absolute;left:0;top:0;height:3px;width:100%;background:var(--ink);opacity:0;transition:opacity .2s}
+  .track:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(12,26,54,0.08)}
+  .track:hover::before{opacity:1}
+  .track .badge{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;padding:3px 9px;border-radius:99px;margin-bottom:14px;
+    color:var(--ink);background:var(--bg-tint);
+  }
+  .track h3{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-variation-settings:'wdth' 95;
+    font-size:22px;margin:0 0 8px;letter-spacing:-0.02em;color:var(--ink);line-height:1.1;
+  }
+  .track p{font-size:13px;color:var(--slate);margin:0 0 14px;line-height:1.5}
+  .track .count{font-size:12px;color:var(--accent);font-weight:600}
+
+  /* BROWSE WRAPPER (filter + sections all together) */
+  section.browse{max-width:1140px;margin:60px auto;padding:0 28px}
+  .browse-intro{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:20px;flex-wrap:wrap;margin-bottom:18px;
+  }
+  .browse-intro .label{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;
+    color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:0.12em;
+  }
+  .browse-intro h2.display{font-size:54px;margin:6px 0 0;color:var(--ink)}
+  .browse-intro .hint{color:var(--slate);font-size:14px;max-width:380px;text-align:right;line-height:1.5}
+
+  /* STICKY FILTER BAR */
+  .filter-wrap{
+    position:sticky;top:67px;z-index:30;
+    background:rgba(253,250,243,0.92);backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-radius:14px;
+    padding:14px 18px;margin-bottom:32px;
+    box-shadow:0 4px 20px rgba(12,26,54,0.04);
+  }
+  .filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+  .filter-row:last-of-type{margin-bottom:0}
+  .filter-label{
+    font-size:10.5px;color:var(--slate-light);font-weight:700;
+    text-transform:uppercase;letter-spacing:0.1em;
+    margin-right:10px;min-width:48px;
+  }
+  .filter-chip{
+    font-size:13px;padding:6px 12px;border-radius:8px;
+    border:1px solid var(--line);background:var(--paper);
+    font-weight:500;cursor:pointer;color:var(--slate);
+    transition:all .12s;font-family:inherit;
+  }
+  .filter-chip:hover{border-color:var(--ink);color:var(--ink)}
+  .filter-chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .filter-chip .dot{
+    display:inline-block;width:6px;height:6px;border-radius:99px;
+    margin-right:6px;vertical-align:middle;
+  }
+  .filter-meta{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    padding-top:10px;margin-top:10px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--slate);
+  }
+  .filter-meta .count-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:3px 10px;border-radius:99px;background:var(--bg-tint);
+    font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--ink);
+  }
+  .filter-meta .count-pill .dot{display:inline-block;width:6px;height:6px;border-radius:99px}
+  .filter-meta .count-work .dot{background:var(--ink)}
+  .filter-meta .count-lab .dot{background:var(--accent)}
+  .filter-meta .count-writing .dot{background:var(--tag-product)}
+  .clear-all{
+    margin-left:auto;font-size:12px;color:var(--slate);background:none;border:none;
+    cursor:pointer;text-decoration:underline;font-family:inherit;padding:0;
+  }
+  .clear-all:disabled{opacity:0.35;cursor:default;text-decoration:none}
+
+  /* SUB-SECTIONS INSIDE BROWSE */
+  .sub-section{margin-bottom:60px}
+  .sub-section:last-child{margin-bottom:0}
+  .sub-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;gap:16px;flex-wrap:wrap}
+  .sub-head .num{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:0.12em;
+    display:block;margin-bottom:6px;
+  }
+  .sub-head h3.display{font-size:38px;margin:0;color:var(--ink)}
+  .sub-head .sub-hint{color:var(--slate);font-size:13.5px;max-width:380px;text-align:right;line-height:1.5}
+
+  /* PROJECT GRID */
+  .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .project{
+    padding:22px;border-radius:14px;background:var(--paper);
+    border:1px solid var(--line);transition:all .15s;
+    display:flex;flex-direction:column;gap:12px;cursor:pointer;
+  }
+  .project:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 22px rgba(12,26,54,0.06)}
+  .project .header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .project h3{font-size:17.5px;margin:0;font-weight:600;line-height:1.3;color:var(--ink);letter-spacing:-0.01em}
+  .project .org{font-size:11px;color:var(--slate-light);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-top:5px}
+  .project .date{
+    font-size:11px;color:var(--slate);font-weight:500;
+    padding:3px 9px;border-radius:6px;background:var(--bg-tint);
+    white-space:nowrap;flex-shrink:0;font-family:'JetBrains Mono',monospace;
+  }
+  .project p{font-size:13.5px;color:var(--slate);margin:0;line-height:1.55}
+  .project .footer-row{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:auto}
+  .project .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tag{
+    font-size:10.5px;padding:2.5px 8px;border-radius:99px;
+    background:var(--bg-tint);color:var(--slate);font-weight:600;
+    text-transform:uppercase;letter-spacing:0.04em;
+  }
+  .tag-ai{background:var(--tag-ai-bg);color:var(--tag-ai)}
+  .tag-crypto{background:var(--tag-crypto-bg);color:var(--tag-crypto)}
+  .tag-build{background:var(--tag-build-bg);color:var(--tag-build)}
+  .tag-invest{background:var(--tag-invest-bg);color:var(--tag-invest)}
+  .tag-comm{background:var(--tag-comm-bg);color:var(--tag-comm)}
+  .tag-product{background:var(--tag-product-bg);color:var(--tag-product)}
+  .tag-strat{background:var(--tag-strat-bg);color:var(--tag-strat)}
+  .tag-future{background:var(--tag-future-bg);color:var(--tag-future)}
+
+  .filterable.hidden{display:none}
+  .empty-state{
+    grid-column:1/-1;padding:30px;text-align:center;
+    color:var(--slate);font-size:13.5px;
+    background:var(--paper);border:1px dashed var(--line-strong);border-radius:12px;
+    display:none;
+  }
+  .empty-state.show{display:block}
+
+  /* LAB GRID */
+  .lab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .lab-card{
+    padding:22px;border-radius:14px;background:var(--paper);
+    border:1px solid var(--line);transition:all .15s;
+    display:flex;flex-direction:column;gap:10px;
+    text-decoration:none;color:inherit;
+  }
+  .lab-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 22px rgba(12,26,54,0.06)}
+  .lab-card .top-line{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--slate-light)}
+  .lab-card .top-line .repo{font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:500}
+  .lab-card .top-line .when{font-family:'JetBrains Mono',monospace}
+  .lab-card h4{font-size:16px;margin:4px 0 0;font-weight:600;color:var(--ink);letter-spacing:-0.01em}
+  .lab-card p{font-size:13px;color:var(--slate);margin:0;line-height:1.5;flex-grow:1}
+  .lab-card .stack{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+  .lab-card .stack span{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;
+    color:var(--slate);padding:2px 7px;border-radius:5px;background:var(--bg-tint);
+  }
+  .lab-card .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+
+  /* WRITING */
+  .write-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .write-card{
+    padding:22px;border-radius:14px;background:var(--paper);
+    border:1px solid var(--line);text-decoration:none;color:inherit;
+    transition:all .15s;display:flex;flex-direction:column;gap:8px;min-height:180px;
+  }
+  .write-card:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .write-card .kicker{font-size:10.5px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em}
+  .write-card h4{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:600;
+    font-variation-settings:'wdth' 95;
+    margin:0;font-size:20px;line-height:1.15;color:var(--ink);letter-spacing:-0.02em;
+  }
+  .write-card .write-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:auto;font-size:11px;color:var(--slate);
+    font-family:'JetBrains Mono',monospace;
+  }
+  .write-card .tags{display:flex;flex-wrap:wrap;gap:5px}
+
+  /* RECEIPTS */
+  section.receipts{max-width:1140px;margin:80px auto;padding:0 28px}
+  .receipts-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  }
+  .receipt{padding:28px 24px;border-right:1px solid var(--line)}
+  .receipt:last-child{border-right:none}
+  .receipt .num{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+    font-variation-settings:'wdth' 90;
+    font-size:46px;color:var(--ink);letter-spacing:-0.03em;line-height:1;
+  }
+  .receipt .num .accent{color:var(--accent)}
+  .receipt .label{font-size:12.5px;color:var(--slate);margin-top:8px;line-height:1.4}
+
+  /* ABOUT */
+  section.about{
+    max-width:1140px;margin:80px auto;padding:0 28px;
+    display:grid;grid-template-columns:1fr 1.5fr;gap:50px;align-items:start;
+  }
+  section.about .photo{
+    aspect-ratio:1/1;border-radius:16px;
+    background:linear-gradient(135deg,#e8dec8,#dccfb1);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--slate-light);font-size:13px;border:1px solid var(--line);
+  }
+  .about-body h2.display{font-size:54px;margin:0 0 20px;color:var(--ink)}
+  .about-body p{font-size:15px;line-height:1.7;color:var(--slate);margin:0 0 14px}
+  .theses{margin-top:24px;padding:24px;border-radius:14px;background:var(--paper);border:1px solid var(--line)}
+  .theses h4{margin:0 0 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--slate-light);font-family:'JetBrains Mono',monospace}
+  .theses ul{margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:var(--slate)}
+
+  /* FOOTER */
+  footer{
+    max-width:1140px;margin:80px auto 40px;padding:36px 28px 0;
+    border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:20px;
+  }
+  footer .links{display:flex;gap:18px;font-size:14px;color:var(--slate)}
+  footer .links a{text-decoration:none;color:var(--slate)}
+  footer .links a:hover{color:var(--ink)}
+  footer .vault-egg{font-size:12px;color:var(--slate-light);display:flex;align-items:center;gap:8px}
+
+  /* RESPONSIVE */
+  @media(max-width:820px){
+    section.hero,section.about{grid-template-columns:1fr;gap:36px}
+    .hero h1.display{font-size:54px}
+    section.hero{padding:60px 24px 30px}
+    .track-grid,.project-grid,.write-grid,.lab-grid{grid-template-columns:1fr}
+    .receipts-grid{grid-template-columns:repeat(2,1fr)}
+    .receipt{border-bottom:1px solid var(--line)}
+    .receipt:nth-child(2){border-right:none}
+    nav.primary{display:none}
+    .browse-intro h2.display{font-size:38px}
+    .sub-head h3.display{font-size:28px}
+    .about-body h2.display{font-size:38px}
+    .filter-wrap{top:64px}
+  }
+
+  .mockup-note{
+    max-width:1140px;margin:16px auto 0;padding:11px 18px;
+    background:rgba(255,106,61,0.08);border:1px dashed rgba(255,106,61,0.35);
+    border-radius:10px;font-size:12.5px;color:#9a3811;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#"><span class="mark">N</span><span>Naviya</span></a>
+    <nav class="primary">
+      <a href="#now">Now</a>
+      <a href="#browse">Browse</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="coin-mini" title="Read articles to earn coins"><span class="c"></span> 4 coins</div>
+  </div>
+</header>
+
+<div class="mockup-note">
+  Mockup v4: one global filter at the top of Browse, sticky as you scroll. Pivots Work + Lab + Writing together. Try filtering by AI, then by 2026.
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1 class="display">Building <span class="accent">money systems</span> for the people the old ones missed.</h1>
+    <p class="lead">AI &amp; crypto product at Tala. Co-founder of District Angels in DC. Builder, investor, and connector at the seams of fintech, community, and what comes next.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#browse">See my work →</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-photo">photo</div>
+</section>
+
+<!-- NOW -->
+<section class="now" id="now">
+  <div class="now-card">
+    <div class="live"><span class="pulse"></span> Now · Apr 2026</div>
+    <div class="items">
+      <div class="item"><span class="k">Shipping</span><span class="v">Lucy v2 (AI underwriter) at Tala</span></div>
+      <div class="item"><span class="k">Backing</span><span class="v">3 new fellows at District Angels</span></div>
+      <div class="item"><span class="k">Tinkering</span><span class="v">Stablecoin DCA bot</span></div>
+      <div class="item"><span class="k">Reading</span><span class="v">"The Power Law" — Mallaby</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKS -->
+<section class="tracks">
+  <div class="track-grid">
+    <a href="#browse" class="track" data-jump="AI">
+      <span class="badge">AI · Product</span>
+      <h3>Lucy &amp; the AI lending stack</h3>
+      <p>Launched Tala's first AI business coach and underwriter. Designing trust into automated capital decisions.</p>
+      <span class="count">3 projects →</span>
+    </a>
+    <a href="#browse" class="track" data-jump="Crypto">
+      <span class="badge">Crypto · Rails</span>
+      <h3>Stablecoin rails for emerging markets</h3>
+      <p>Piloting crypto-backed remittances and global liquidity. How onchain rails actually reach people.</p>
+      <span class="count">2 projects →</span>
+    </a>
+    <a href="#browse" class="track" data-jump="Building">
+      <span class="badge">Lab · GitHub</span>
+      <h3>Tinkering with agents, bots &amp; tools</h3>
+      <p>Trading bots, chatbots, agentic workflows. The repo where I figure out how AI changes my work.</p>
+      <span class="count">6 builds →</span>
+    </a>
+  </div>
+</section>
+
+<!-- BROWSE — wraps Work / Lab / Writing under one global filter -->
+<section class="browse" id="browse">
+  <div class="browse-intro">
+    <div>
+      <span class="label">// Browse everything</span>
+      <h2 class="display">Work, Lab &amp; Writing</h2>
+    </div>
+    <span class="hint">One filter pivots all three. Combine a topic and a year to narrow in.</span>
+  </div>
+
+  <div class="filter-wrap" id="filterBar">
+    <div class="filter-row">
+      <span class="filter-label">Topic</span>
+      <button class="filter-chip active" data-group="topic" data-tag="all">All</button>
+      <button class="filter-chip" data-group="topic" data-tag="AI"><span class="dot" style="background:var(--tag-ai)"></span>AI</button>
+      <button class="filter-chip" data-group="topic" data-tag="Crypto"><span class="dot" style="background:var(--tag-crypto)"></span>Crypto</button>
+      <button class="filter-chip" data-group="topic" data-tag="Building"><span class="dot" style="background:var(--tag-build)"></span>Building</button>
+      <button class="filter-chip" data-group="topic" data-tag="Investing"><span class="dot" style="background:var(--tag-invest)"></span>Investing</button>
+      <button class="filter-chip" data-group="topic" data-tag="Community"><span class="dot" style="background:var(--tag-comm)"></span>Community</button>
+      <button class="filter-chip" data-group="topic" data-tag="Product"><span class="dot" style="background:var(--tag-product)"></span>Product</button>
+      <button class="filter-chip" data-group="topic" data-tag="Strategy"><span class="dot" style="background:var(--tag-strat)"></span>Strategy</button>
+      <button class="filter-chip" data-group="topic" data-tag="Futurist"><span class="dot" style="background:var(--tag-future)"></span>Futurist</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">When</span>
+      <button class="filter-chip active" data-group="date" data-date="all">All time</button>
+      <button class="filter-chip" data-group="date" data-date="2026">2026</button>
+      <button class="filter-chip" data-group="date" data-date="2025">2025</button>
+      <button class="filter-chip" data-group="date" data-date="2024">2024</button>
+      <button class="filter-chip" data-group="date" data-date="earlier">Earlier</button>
+    </div>
+    <div class="filter-meta">
+      <span class="count-pill count-work"><span class="dot"></span><span id="countWork">8</span> work</span>
+      <span class="count-pill count-lab"><span class="dot"></span><span id="countLab">6</span> lab</span>
+      <span class="count-pill count-writing"><span class="dot"></span><span id="countWriting">6</span> writing</span>
+      <button class="clear-all" id="clearAll" disabled>clear filters</button>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <div class="sub-section" id="workSec">
+    <div class="sub-head">
+      <div>
+        <span class="num">// 01 — Work</span>
+        <h3 class="display">Professional projects</h3>
+      </div>
+      <span class="sub-hint">Tala, District Angels, and DC. The shipped, the in-flight, the long-running.</span>
+    </div>
+    <div class="project-grid" id="workGrid">
+
+      <div class="filterable project" data-tags="AI Building Product Strategy" data-year="2025">
+        <div class="header-row"><div><h3>Lucy — AI business coach &amp; underwriter</h3><div class="org">Tala</div></div><span class="date">2024 → now</span></div>
+        <p>Launched Tala's first AI coach and underwriter for microentrepreneurs. Designed scope, tested with users, shipped to production.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-build">Building</span><span class="tag tag-product">Product</span><span class="tag tag-strat">Strategy</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Crypto Building Product Strategy" data-year="2025">
+        <div class="header-row"><div><h3>Crypto-backed remittance rails</h3><div class="org">Tala</div></div><span class="date">2025 → now</span></div>
+        <p>Piloting stablecoin rails to support remittances and global liquidity for underbanked microentrepreneurs.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-crypto">Crypto</span><span class="tag tag-build">Building</span><span class="tag tag-product">Product</span><span class="tag tag-strat">Strategy</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Building Product Strategy" data-year="2024">
+        <div class="header-row"><div><h3>Lending logic, from the ground up</h3><div class="org">Tala</div></div><span class="date">2023 → 2024</span></div>
+        <p>Designed underwriting and risk logic powering credit decisions for borrowers without traditional credit histories.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-build">Building</span><span class="tag tag-product">Product</span><span class="tag tag-strat">Strategy</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Investing Community Building Strategy" data-year="2025">
+        <div class="header-row"><div><h3>District Angels — investor collective</h3><div class="org">Co-founder</div></div><span class="date">2023 → now</span></div>
+        <p>Co-founded a DMV-based collective making early capital more collaborative. Monthly deal rooms, fellowship, backing vertical SaaS, govtech, fintech.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-invest">Investing</span><span class="tag tag-comm">Community</span><span class="tag tag-build">Building</span><span class="tag tag-strat">Strategy</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Investing Community" data-year="2025">
+        <div class="header-row"><div><h3>DA Venture Fellowship</h3><div class="org">District Angels</div></div><span class="date">2024 → now</span></div>
+        <p>Built a fellowship pipeline that brings new investors into the practice and gives founders structured access to capital.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-invest">Investing</span><span class="tag tag-comm">Community</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Community Strategy" data-year="2024">
+        <div class="header-row"><div><h3>DC tech &amp; venture ecosystem</h3><div class="org">DMV</div></div><span class="date">2022 → now</span></div>
+        <p>Connecting local founders with policy, capital, and each other. Building bridges between traditional DC institutions and emerging tech.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-comm">Community</span><span class="tag tag-strat">Strategy</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Community Strategy" data-year="earlier">
+        <div class="header-row"><div><h3>Midtown Community Court</h3><div class="org">Social impact</div></div><span class="date">2019 → 2021</span></div>
+        <p>Worked on alternative justice solutions focused on rehabilitation over punishment.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-comm">Community</span><span class="tag tag-strat">Strategy</span></div></div>
+      </div>
+
+      <div class="filterable project" data-tags="Community" data-year="earlier">
+        <div class="header-row"><div><h3>Nomadic 2022</h3><div class="org">Lifestyle experiment</div></div><span class="date">2022</span></div>
+        <p>Six to eight weeks in five cities. Reflections on work, community, and what it means to call a place home.</p>
+        <div class="footer-row"><div class="tags"><span class="tag tag-comm">Community</span></div></div>
+      </div>
+
+      <div class="empty-state" id="workEmpty">No work matches these filters.</div>
+    </div>
+  </div>
+
+  <!-- LAB -->
+  <div class="sub-section" id="labSec">
+    <div class="sub-head">
+      <div>
+        <span class="num">// 02 — Lab · github.com/naviya</span>
+        <h3 class="display">Personal builds</h3>
+      </div>
+      <span class="sub-hint">How I'm using AI day-to-day. Bots, agents, eval rigs, small tools.</span>
+    </div>
+    <div class="lab-grid" id="labGrid">
+
+      <a class="filterable lab-card" href="https://github.com/" target="_blank" data-tags="AI Building Product" data-year="2026">
+        <div class="top-line"><span class="repo">naviya/lucy-cli</span><span class="when">Mar 2026</span></div>
+        <h4>Personal AI workflow agent</h4>
+        <p>Always-on agent that handles email triage, calendar, and follow-ups. Lets me delegate the boring stuff.</p>
+        <div class="stack"><span>python</span><span>claude</span><span>mcp</span></div>
+        <div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-build">Building</span></div>
+      </a>
+
+      <a class="filterable lab-card" href="https://github.com/" target="_blank" data-tags="AI Crypto Building Investing" data-year="2026">
+        <div class="top-line"><span class="repo">naviya/dca-bot</span><span class="when">Feb 2026</span></div>
+        <h4>Stablecoin DCA trading bot</h4>
+        <p>Automated dollar-cost-averaging into a basket of stablecoin yield positions. Risk-aware, paper-traded for 6 months.</p>
+        <div class="stack"><span>typescript</span><span>ethers.js</span><span>aave</span></div>
+        <div class="tags"><span class="tag tag-crypto">Crypto</span><span class="tag tag-build">Building</span><span class="tag tag-invest">Investing</span></div>
+      </a>
+
+      <a class="filterable lab-card" href="https://github.com/" target="_blank" data-tags="AI Building Investing Community" data-year="2026">
+        <div class="top-line"><span class="repo">naviya/da-deal-bot</span><span class="when">Jan 2026</span></div>
+        <h4>District Angels deal-flow chatbot</h4>
+        <p>Slack bot that ingests deal memos and answers questions across our portfolio. Built for fellow angels.</p>
+        <div class="stack"><span>python</span><span>slack</span><span>rag</span></div>
+        <div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-invest">Investing</span><span class="tag tag-comm">Community</span></div>
+      </a>
+
+      <a class="filterable lab-card" href="https://github.com/" target="_blank" data-tags="AI Building Strategy" data-year="2025">
+        <div class="top-line"><span class="repo">naviya/underwriter-eval</span><span class="when">Nov 2025</span></div>
+        <h4>LLM-as-underwriter eval harness</h4>
+        <p>Test rig comparing LLM credit-decision quality across prompts and models. Side experiment from Lucy work.</p>
+        <div class="stack"><span>python</span><span>pytest</span><span>claude</span></div>
+        <div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-build">Building</span><span class="tag tag-strat">Strategy</span></div>
+      </a>
+
+      <a class="filterable lab-card" href="https://github.com/" target="_blank" data-tags="AI Building Investing" data-year="2025">
+        <div class="top-line"><span class="repo">naviya/research-agent</span><span class="when">Sep 2025</span></div>
+        <h4>Investor research agent</h4>
+        <p>Scrapes founder updates and surfaces signals across my pipeline. Saves a few hours of weekly review.</p>
+        <div class="stack"><span>typescript</span><span>playwright</span><span>claude</span></div>
+        <div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-invest">Investing</span></div>
+      </a>
+
+      <a class="filterable lab-card" href="https://github.com/" target="_blank" data-tags="AI Building Investing Community" data-year="2025">
+        <div class="top-line"><span class="repo">naviya/pitch-coach</span><span class="when">Aug 2025</span></div>
+        <h4>Founder pitch coach</h4>
+        <p>Uploaded deck → critique. Pressure-tests narrative, market sizing, and the obvious questions you'll get asked.</p>
+        <div class="stack"><span>nextjs</span><span>claude</span><span>vercel</span></div>
+        <div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-build">Building</span><span class="tag tag-comm">Community</span></div>
+      </a>
+
+      <div class="empty-state" id="labEmpty">No lab builds match these filters.</div>
+    </div>
+  </div>
+
+  <!-- WRITING -->
+  <div class="sub-section" id="writingSec">
+    <div class="sub-head">
+      <div>
+        <span class="num">// 03 — Writing</span>
+        <h3 class="display">Essays &amp; thesis</h3>
+      </div>
+      <span class="sub-hint">Where I'm thinking out loud about money, AI, crypto, and what comes next.</span>
+    </div>
+    <div class="write-grid" id="writingGrid">
+
+      <a href="#" class="filterable write-card" data-tags="Investing Strategy" data-year="2025">
+        <div class="kicker">Thesis</div>
+        <h4>Money as a tool to climb Maslow's hierarchy</h4>
+        <div class="write-meta"><span>5 min read</span><div class="tags"><span class="tag tag-strat">Strategy</span><span class="tag tag-invest">Investing</span></div></div>
+      </a>
+
+      <a href="#" class="filterable write-card" data-tags="AI Strategy Futurist" data-year="2026">
+        <div class="kicker">AI · Future</div>
+        <h4>Where AI underwriting actually fails</h4>
+        <div class="write-meta"><span>7 min read</span><div class="tags"><span class="tag tag-ai">AI</span><span class="tag tag-future">Futurist</span></div></div>
+      </a>
+
+      <a href="#" class="filterable write-card" data-tags="Community Strategy" data-year="2024">
+        <div class="kicker">Hot take</div>
+        <h4>DC is the most underrated tech city in America</h4>
+        <div class="write-meta"><span>3 min read</span><div class="tags"><span class="tag tag-comm">Community</span><span class="tag tag-strat">Strategy</span></div></div>
+      </a>
+
+      <a href="#" class="filterable write-card" data-tags="Futurist Strategy" data-year="2024">
+        <div class="kicker">Imagine</div>
+        <h4>What post-scarcity coordination actually looks like</h4>
+        <div class="write-meta"><span>8 min read</span><div class="tags"><span class="tag tag-future">Futurist</span></div></div>
+      </a>
+
+      <a href="#" class="filterable write-card" data-tags="Crypto Strategy Futurist" data-year="2026">
+        <div class="kicker">Crypto · Future</div>
+        <h4>Stablecoins beat remittance corridors when</h4>
+        <div class="write-meta"><span>6 min read</span><div class="tags"><span class="tag tag-crypto">Crypto</span><span class="tag tag-future">Futurist</span></div></div>
+      </a>
+
+      <a href="#" class="filterable write-card" data-tags="Building" data-year="2026">
+        <div class="kicker">Notes</div>
+        <h4>A working list of things I want to build</h4>
+        <div class="write-meta"><span>2 min read</span><div class="tags"><span class="tag tag-build">Building</span></div></div>
+      </a>
+
+      <div class="empty-state" id="writingEmpty">No writing matches these filters.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RECEIPTS -->
+<section class="receipts">
+  <div class="receipts-grid">
+    <div class="receipt"><div class="num"><span class="accent">$2.8B</span>+</div><div class="label">in microloans facilitated at Tala during my time</div></div>
+    <div class="receipt"><div class="num">42</div><div class="label">founders backed via District Angels (and counting)</div></div>
+    <div class="receipt"><div class="num">5</div><div class="label">cities lived in during my 2022 nomad year</div></div>
+    <div class="receipt"><div class="num">11</div><div class="label">repos shipped as personal AI experiments</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="photo">photo</div>
+  <div class="about-body">
+    <div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:0.12em;display:block;margin-bottom:8px">// 04 — About</span>
+      <h2 class="display">About</h2>
+    </div>
+    <p>At Tala, I lead AI and crypto product strategy. I've helped launch our first AI business coach and underwriter (Lucy), designed lending logic from the ground up, and now pilot crypto-backed rails for remittances and global liquidity.</p>
+    <p>I co-founded District Angels, a DMV-based investor collective making early capital more collaborative and inclusive. Monthly deal rooms, a venture fellowship, and a portfolio across vertical SaaS, govtech, and fintech.</p>
+    <p>What ties it together: a belief that capital access is too important to leave to legacy systems. New tools, new voices, and new social contracts will define the next era of inclusion.</p>
+    <div class="theses">
+      <h4>Theses &amp; tendencies</h4>
+      <ul>
+        <li>Solutions that increase agency and support the underserved</li>
+        <li>Money as a tool to climb Maslow's hierarchy</li>
+        <li>Build communities wherever I live; connect people who should know each other</li>
+        <li>Sci-fi, thought experiments, and systems that don't exist yet</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="links">
+    <a href="mailto:hi@example.com">hi@example.com</a>
+    <a href="https://github.com/" target="_blank">GitHub ↗</a>
+    <a href="#">LinkedIn ↗</a>
+    <a href="#">Substack ↗</a>
+    <a href="/pages/vending.html">Vending machine ↗</a>
+  </div>
+  <div class="vault-egg"><span class="coin-mini"><span class="c"></span> 4 coins</span> · read to earn</div>
+</footer>
+
+<script>
+  // Global filter state pivots Work + Lab + Writing
+  const state = { topic: 'all', date: 'all' };
+
+  const chips = document.querySelectorAll('.filter-chip');
+  const groups = [
+    { sec: 'workSec',    grid: 'workGrid',    empty: 'workEmpty',    counter: 'countWork' },
+    { sec: 'labSec',     grid: 'labGrid',     empty: 'labEmpty',     counter: 'countLab' },
+    { sec: 'writingSec', grid: 'writingGrid', empty: 'writingEmpty', counter: 'countWriting' },
+  ];
+  const clearAllBtn = document.getElementById('clearAll');
+
+  function setChipState(){
+    chips.forEach(c => {
+      if (c.dataset.group === 'topic') c.classList.toggle('active', c.dataset.tag === state.topic);
+      if (c.dataset.group === 'date') c.classList.toggle('active', c.dataset.date === state.date);
+    });
+    clearAllBtn.disabled = (state.topic === 'all' && state.date === 'all');
+  }
+
+  function applyFilters(){
+    groups.forEach(g => {
+      const grid = document.getElementById(g.grid);
+      const items = grid.querySelectorAll('.filterable');
+      let visible = 0;
+      items.forEach(item => {
+        const tags = (item.dataset.tags || '').split(' ');
+        const year = item.dataset.year || '';
+        const topicOk = state.topic === 'all' || tags.includes(state.topic);
+        const dateOk = state.date === 'all' || year === state.date;
+        const show = topicOk && dateOk;
+        item.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      const empty = document.getElementById(g.empty);
+      empty.classList.toggle('show', visible === 0);
+      const counter = document.getElementById(g.counter);
+      counter.textContent = visible;
+    });
+    setChipState();
+  }
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    if (c.dataset.group === 'topic') state.topic = c.dataset.tag;
+    if (c.dataset.group === 'date') state.date = c.dataset.date;
+    applyFilters();
+  }));
+
+  clearAllBtn.addEventListener('click', () => {
+    state.topic = 'all'; state.date = 'all';
+    applyFilters();
+  });
+
+  // Hero / track jumps
+  document.querySelectorAll('[data-jump]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const j = el.dataset.jump;
+      if (j && j !== 'all') {
+        state.topic = j;
+        applyFilters();
+        document.getElementById('browse').scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+
+  applyFilters();
+</script>
+
+</body>
+</html>
