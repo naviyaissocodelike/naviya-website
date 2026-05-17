@@ -28,15 +28,15 @@ const REPOS = [
 ]
 
 const NOTES = [
-  { tag: 'AI', title: 'Diffusion in emerging markets', blurb: 'How fintech partnerships ship AI to the next billion users.', href: SUBSTACK_URL, color: 'yellow' },
-  { tag: 'Fintech', title: 'Underwriting in 8 countries', blurb: 'What credit looks like when you can\'t trust the bureau.', href: SUBSTACK_URL, color: 'pink' },
-  { tag: 'Investing', title: 'Notes from District Angels', blurb: 'What an angel collective gets right that solo checks miss.', href: SUBSTACK_URL, color: 'blue' },
-  { tag: 'Building', title: 'Shipping agents in prod', blurb: 'A short list of things that broke and what I changed.', href: SUBSTACK_URL, color: 'green' },
-  { tag: 'AI', title: 'The agent stack I use', blurb: 'AWS Strands + Claude. Why, when, and what I\'d swap.', href: SUBSTACK_URL, color: 'yellow' },
-  { tag: 'Emerging Markets', title: 'Money that moves at the speed of trust', blurb: 'Stablecoin pilots and what the bureau gets wrong.', href: SUBSTACK_URL, color: 'pink' }
+  { date: '2026 · 05', tag: 'AI',               title: 'Diffusion in emerging markets',          blurb: 'How fintech partnerships ship AI to the next billion users.', href: SUBSTACK_URL },
+  { date: '2026 · 04', tag: 'Money',            title: 'Underwriting in eight countries',         blurb: "What credit looks like when you can't trust the bureau.",     href: SUBSTACK_URL },
+  { date: '2026 · 03', tag: 'Investing',        title: 'Notes from District Angels',              blurb: 'What an angel collective gets right that solo checks miss.',    href: SUBSTACK_URL },
+  { date: '2026 · 02', tag: 'Building',         title: 'Shipping agents in production',           blurb: 'A short list of things that broke and what I changed.',         href: SUBSTACK_URL },
+  { date: '2026 · 01', tag: 'AI',               title: 'The agent stack I use',                   blurb: "AWS Strands + Claude. Why, when, and what I'd swap.",          href: SUBSTACK_URL },
+  { date: '2025 · 12', tag: 'Money',            title: 'Money at the speed of trust',             blurb: 'Stablecoin pilots and what the bureau gets wrong.',             href: SUBSTACK_URL }
 ]
 
-const TAGS = ['All', 'AI', 'Fintech', 'Investing', 'Building', 'Emerging Markets']
+const TAGS = ['All', 'AI', 'Money', 'Investing', 'Building']
 
 const SECTIONS = [
   { id: 'think', label: 'Think', Icon: ThinkIcon },
@@ -90,9 +90,11 @@ export default function Home(){
       <main id="top">
         <section className="hero">
           <p className="eyebrow">Builder · Operator · Investor</p>
-          <h1>Building money systems for emerging markets.</h1>
+          <h1>Frontier tech, in the hands of the overlooked.</h1>
           <p className="lede">
-            Tala by day. District Angels on the side. Agents and small tools after hours.
+            I work on AI agents, programmable money, and the systems that move information and capital — and
+            how to put those tools in the hands of the people the rest of the world tends to skip. Money systems
+            were the first bet. The thesis is wider now.
           </p>
           <div className="hero-meta">
             <a href={GITHUB_URL}>GitHub →</a>
@@ -106,18 +108,23 @@ export default function Home(){
           <p>
             I'm Naviya. I work on AI and crypto at <a href="https://tala.co">Tala</a>, where we're building credit
             infrastructure across eight emerging markets. On the side, I run <a href="#">District Angels</a> —
-            a collective of early-stage investors in DC.
+            an early-stage angel collective in DC.
           </p>
           <p>
-            I studied operations research at Cornell. Most days I'm writing code, shipping agents, talking to
-            founders, or learning out loud. I care about agency, access, and the long arc of building tools that
-            move money to where it matters.
+            I started with money because credit is the most legible form of agency — and most of the world doesn't
+            have it. The lens kept widening. Now I look for any tool sharp enough to flip the default for someone
+            who never had one: AI agents, programmable money, whatever's next.
+          </p>
+          <p>
+            Operations research at Cornell. Builder by training, investor by curiosity, operator by trade.
           </p>
         </section>
 
         <section id="think" className="block">
           <h2>Think</h2>
-          <p className="block-sub">Notes, essays, half-formed ideas. Click a tag to filter.</p>
+          <p className="block-sub">
+            Notes, essays, half-formed ideas. Mostly on <a href={SUBSTACK_URL}>Substack</a>.
+          </p>
           <div className="chips">
             {TAGS.map(t => (
               <button
@@ -127,20 +134,21 @@ export default function Home(){
               >{t}</button>
             ))}
           </div>
-          <div className="notes">
+          <ul className="entries">
             {filteredNotes.map((note, i) => (
-              <a
-                key={`${note.title}-${i}`}
-                href={note.href}
-                className={`note note-${note.color}`}
-                style={{ '--rot': `${(i % 2 === 0 ? -1 : 1) * (1 + (i % 3))}deg` }}
-              >
-                <span className="note-tag">{note.tag}</span>
-                <h3>{note.title}</h3>
-                <p>{note.blurb}</p>
-              </a>
+              <li key={`${note.title}-${i}`}>
+                <a href={note.href} className="entry">
+                  <span className="entry-date">{note.date}</span>
+                  <div className="entry-body">
+                    <h3>{note.title}</h3>
+                    <p>{note.blurb}</p>
+                  </div>
+                  <span className="entry-tag">{note.tag}</span>
+                  <span className="entry-arrow" aria-hidden>→</span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         <section id="build" className="block">
