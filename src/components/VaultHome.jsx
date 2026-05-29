@@ -1,5 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { RIDDLES } from '../data/riddles'
+
+/**
+ * To swap in real photos: drop files into /public/images/ and the placeholders
+ * below will load them automatically (no code change needed if filenames match).
+ */
+const ABOUT_IMG = '/images/about.jpg'
+const ACTIVITIES = [
+  { label: 'Rock Climbing', src: '/images/climbing.jpg', tint: '#fdd9b5' },
+  { label: 'CrossFit',      src: '/images/crossfit.jpg', tint: '#fecaca' },
+  { label: 'Hiking',        src: '/images/hiking.jpg',   tint: '#bbf7d0' },
+  { label: 'Nomadic',       src: '/images/nomadic.jpg',  tint: '#bae6fd' }
+]
 
 const GITHUB_URL = 'https://github.com/naviyaissocodelike'
 const SUBSTACK_URL = '#'
@@ -143,6 +155,18 @@ export default function Home(){
     return () => document.removeEventListener('click', onDocClick)
   }, [infoOpen])
 
+  // Bounce-in for About photo when section enters viewport
+  const aboutRef = useRef(null)
+  const [aboutInView, setAboutInView] = useState(false)
+  useEffect(() => {
+    if (!aboutRef.current) return
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setAboutInView(true)
+    }, { threshold: 0.25 })
+    obs.observe(aboutRef.current)
+    return () => obs.disconnect()
+  }, [])
+
   const addCoins = (n) => {
     setCoins(c => c + n)
     setPopCoin(true)
@@ -248,24 +272,31 @@ export default function Home(){
           </div>
         </section>
 
-        <section id="about" className="block section-about">
+        <section id="about" ref={aboutRef} className="block section-about">
           <SectionHead>About</SectionHead>
-          <p>
-            I'm interested in agency at scale — the kind people get when better tools, capital, and information
-            actually reach them. My work sits at the intersections: AI and money, communities and institutions,
-            frontier tech and the people the rest of the world tends to skip.
-          </p>
-          <p>
-            Today that looks like AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC
-            called <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>,
-            and a steady habit of building small tools in code. Before that: operations research at Cornell, where
-            I helped run Social Enterprise — my first attempt at turning a community into an institution.
-          </p>
-          <p>
-            Builder by inclination. Operator by experience. Investor by curiosity. I think best in analogies,
-            sci-fi, and thought experiments. If you want an intro, an opinion, or honest feedback —{' '}
-            <a href={`mailto:${EMAIL}`}>write me</a>.
-          </p>
+          <div className="about-grid">
+            <div className="about-text">
+              <p>
+                I'm interested in agency at scale — the kind people get when better tools, capital, and information
+                actually reach them. My work sits at the intersections: AI and money, communities and institutions,
+                frontier tech and the people the rest of the world tends to skip.
+              </p>
+              <p>
+                Today that looks like AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC
+                called <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>,
+                and a steady habit of building small tools in code. Before that: operations research at Cornell, where
+                I helped run Social Enterprise — my first attempt at turning a community into an institution.
+              </p>
+              <p>
+                Builder by inclination. Operator by experience. Investor by curiosity. I think best in analogies,
+                sci-fi, and thought experiments. If you want an intro, an opinion, or honest feedback —{' '}
+                <a href={`mailto:${EMAIL}`}>write me</a>.
+              </p>
+            </div>
+            <div className={`about-photo ${aboutInView ? 'in' : ''}`}>
+              <Polaroid src={ABOUT_IMG} alt="Naviya" caption="naviya" />
+            </div>
+          </div>
         </section>
 
         <section id="think" className="block section-think">
@@ -393,8 +424,17 @@ export default function Home(){
           <SectionHead>Play</SectionHead>
           <p className="block-sub">
             Earn coins solving riddles. Spend them on jokes, predictions, mind-changes, and strange startup ideas.
+            And — a few snapshots from the life around the work.
           </p>
-          <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
+          <div className="play-zone">
+            <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
+            <div className="play-side">
+              <div className="play-side-label">A FULL LIFE</div>
+              <div className="play-tiles">
+                {ACTIVITIES.map(a => <Tile key={a.label} {...a} />)}
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -423,6 +463,36 @@ function KvGrid({ items }){
           <div className="kv-v">{it.v}</div>
         </div>
       ))}
+    </div>
+  )
+}
+
+function Polaroid({ src, alt, caption }){
+  const [errored, setErrored] = useState(false)
+  return (
+    <div className="polaroid">
+      <div className="polaroid-img">
+        {!errored && src ? (
+          <img src={src} alt={alt} onError={() => setErrored(true)} />
+        ) : (
+          <div className="polaroid-fallback">photo<br/>coming soon</div>
+        )}
+      </div>
+      <div className="polaroid-cap">{caption}</div>
+    </div>
+  )
+}
+
+function Tile({ label, src, tint }){
+  const [errored, setErrored] = useState(false)
+  return (
+    <div className="tile" style={{ '--tile-c': tint }}>
+      {!errored && src ? (
+        <img src={src} alt={label} onError={() => setErrored(true)} />
+      ) : (
+        <div className="tile-placeholder">{label}</div>
+      )}
+      <span className="tile-label">{label}</span>
     </div>
   )
 }

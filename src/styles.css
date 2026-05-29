@@ -429,6 +429,79 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .repo-meta dt { color: var(--soft); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 3px; font-weight: 600; }
 .repo-meta dd { margin: 0; color: var(--muted); }
 
+/* About: 2-col with polaroid */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 40px;
+  align-items: start;
+}
+.about-text { min-width: 0; }
+.about-photo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 4px;
+  opacity: 0;
+  transform: scale(0.55) rotate(-14deg) translateY(28px);
+  transition: transform 760ms cubic-bezier(.34, 1.7, .6, 1), opacity 400ms ease;
+}
+.about-photo.in {
+  opacity: 1;
+  transform: scale(1) rotate(-3.5deg) translateY(0);
+}
+
+.polaroid {
+  width: 200px;
+  background: #fff;
+  padding: 10px 10px 30px;
+  border-radius: 2px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14), 0 2px 4px rgba(0,0,0,0.06);
+  position: relative;
+  transition: transform 220ms cubic-bezier(.34, 1.5, .64, 1);
+}
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-4px) scale(1.03);
+}
+.about-photo:hover .polaroid {
+  /* keeps hover responsive even after the bounce-in transform */
+  transform: rotate(0deg) translateY(-4px) scale(1.03);
+}
+.polaroid-img {
+  aspect-ratio: 1 / 1.05;
+  background: linear-gradient(135deg, #ece8df 0%, #d8d4ca 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.polaroid-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.polaroid-fallback {
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--soft);
+  text-align: center;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.polaroid-cap {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+
 /* shared key/value grid for Tala / DA / Cornell SE */
 .kv-grid {
   display: grid;
@@ -465,11 +538,85 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .rogue li:last-child { border-bottom: none; }
 .rogue-em { color: var(--c-rogue); margin-right: 4px; position: absolute; left: 0; font-weight: 600; }
 
+/* play zone: arcade + activity tiles */
+.play-zone {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  gap: 28px;
+  align-items: start;
+  margin-top: 14px;
+}
+.play-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+.play-side-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--soft);
+  font-weight: 600;
+  padding-left: 2px;
+}
+.play-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: var(--tile-c, var(--line-soft));
+  overflow: hidden;
+  transition: transform 220ms cubic-bezier(.34, 1.5, .64, 1), box-shadow 220ms ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.tile:nth-child(odd):hover  { transform: translateY(-4px) rotate(-1.5deg); }
+.tile:nth-child(even):hover { transform: translateY(-4px) rotate(1.5deg);  }
+.tile:hover { box-shadow: 0 10px 22px rgba(0,0,0,0.12); }
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.tile-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.55);
+  padding: 12px;
+}
+.tile-label {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  background: rgba(22, 21, 20, 0.78);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
 /* vending machine */
 .machine {
   position: relative;
   max-width: 460px;
-  margin: 8px auto 0;
+  margin: 0;
   padding: 16px 16px 18px;
   background: linear-gradient(180deg, #2a1810 0%, #1a0f0a 100%);
   border-radius: 22px;
@@ -587,8 +734,13 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .entry-arrow { display: none; }
   .build-tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; }
   .build-tab { white-space: nowrap; }
-  .machine { padding: 12px 12px 14px; }
+  .machine { padding: 12px 12px 14px; margin: 0 auto; }
   .reel { width: 46px; height: 56px; font-size: 1.7rem; }
   .rewards { grid-template-columns: 1fr 1fr; }
   .footer { flex-direction: column; gap: 6px; }
+  .about-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-photo { justify-content: flex-start; padding-left: 4px; }
+  .play-zone { grid-template-columns: 1fr; gap: 22px; }
+  .play-side { padding-top: 0; }
+  .tile { aspect-ratio: 1 / 1; }
 }
