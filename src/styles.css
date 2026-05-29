@@ -432,7 +432,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 /* About: 2-col with polaroid */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: 1fr 300px;
   gap: 40px;
   align-items: start;
 }
@@ -452,9 +452,9 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 
 .polaroid {
-  width: 200px;
+  width: 280px;
   background: #fff;
-  padding: 10px 10px 30px;
+  padding: 14px 14px 42px;
   border-radius: 2px;
   box-shadow: 0 12px 28px rgba(0,0,0,0.14), 0 2px 4px rgba(0,0,0,0.06);
   position: relative;
@@ -492,12 +492,12 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .polaroid-cap {
   position: absolute;
-  bottom: 8px;
+  bottom: 12px;
   left: 0;
   right: 0;
   text-align: center;
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--ink);
   letter-spacing: 0.04em;
 }

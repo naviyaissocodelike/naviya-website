@@ -429,7 +429,7 @@ export default function Home(){
           <div className="play-zone">
             <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
             <div className="play-side">
-              <div className="play-side-label">A FULL LIFE</div>
+              <div className="play-side-label">Shenanigans &amp; Side Quests</div>
               <div className="play-tiles">
                 {ACTIVITIES.map(a => <Tile key={a.label} {...a} />)}
               </div>
