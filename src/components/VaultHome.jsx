@@ -6,68 +6,72 @@ const SUBSTACK_URL = '#'
 const EMAIL = 'hello@naviya.xyz'
 
 const ESSAYS = [
-  { date: '2026 · 05', tag: 'AI',          title: 'AI and institutional design',                blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',   href: SUBSTACK_URL },
-  { date: '2026 · 04', tag: 'Money',       title: 'Capital formation in emerging markets',      blurb: "Why the next billion users won't get banked by banks.",                   href: SUBSTACK_URL },
-  { date: '2026 · 03', tag: 'Crypto',      title: 'Stablecoins and programmable money',         blurb: 'The second rail is here. The first one was never universal.',             href: SUBSTACK_URL },
-  { date: '2026 · 02', tag: 'AI',          title: 'How AI changes work',                        blurb: "Not the parts you think — the parts nobody enjoyed in the first place.",   href: SUBSTACK_URL },
-  { date: '2026 · 01', tag: 'Institutions',title: 'How communities become institutions',        blurb: 'Process, ritual, and shared standards are the bridge.',                    href: SUBSTACK_URL },
-  { date: '2025 · 12', tag: 'Agency',      title: 'The future of human agency',                 blurb: 'Better tools change what kind of life is available to you.',               href: SUBSTACK_URL }
+  { date: '2026 · 05', tag: 'AI',           title: 'AI and institutional design',           blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',  href: SUBSTACK_URL },
+  { date: '2026 · 04', tag: 'Money',        title: 'Capital formation in emerging markets', blurb: "Why the next billion users won't get banked by banks.",                  href: SUBSTACK_URL },
+  { date: '2026 · 03', tag: 'Crypto',       title: 'Stablecoins and programmable money',    blurb: 'The second rail is here. The first one was never universal.',            href: SUBSTACK_URL },
+  { date: '2026 · 02', tag: 'AI',           title: 'How AI changes work',                   blurb: "Not the parts you think — the parts nobody enjoyed in the first place.", href: SUBSTACK_URL },
+  { date: '2026 · 01', tag: 'Institutions', title: 'How communities become institutions',   blurb: 'Process, ritual, and shared standards are the bridge.',                  href: SUBSTACK_URL },
+  { date: '2025 · 12', tag: 'Agency',       title: 'The future of human agency',            blurb: 'Better tools change what kind of life is available to you.',             href: SUBSTACK_URL }
 ]
-
 const TAGS = ['All', 'AI', 'Money', 'Crypto', 'Institutions', 'Agency']
 
 const REPOS = [
   {
-    name: 'lucy',
-    lang: 'Python',
+    name: 'lucy', lang: 'Python',
     problem: 'Loan underwriting at Tala still relied on rules brittle to new markets.',
     why: 'Credit is the most legible form of agency. Better underwriting = more access.',
     learned: 'LLMs are production-ready when the cost of being wrong is bounded.',
     href: GITHUB_URL
   },
   {
-    name: 'analyst-agent',
-    lang: 'Python',
+    name: 'analyst-agent', lang: 'Python',
     problem: 'Solo investors do screening work that compounds badly with time.',
-    why: 'Agents should do the boring part — humans should hold conviction and relationships.',
-    learned: "Reasoning loops only beat heuristics when the model can change its own prompt.",
+    why: 'Agents should do the boring part. Humans should hold conviction and relationships.',
+    learned: 'Reasoning loops only beat heuristics when the model can change its own prompt.',
     href: `${GITHUB_URL}/analyst-agent`
   },
   {
-    name: 'wise-glade',
-    lang: 'Python',
-    problem: "Job search is a daily intelligence problem dressed up as a one-off.",
+    name: 'wise-glade', lang: 'Python',
+    problem: 'Job search is a daily intelligence problem dressed up as a one-off.',
     why: 'Career capital is a feedback system. Reward the right signal sooner.',
     learned: 'A small agent that does one thing every day beats a big one that does ten things once.',
     href: `${GITHUB_URL}/wise-glade`
   },
   {
-    name: 'naviya-website',
-    lang: 'React',
+    name: 'naviya-website', lang: 'React',
     problem: 'A site should feel like exploring a mind, not reading a resume.',
     why: 'The internet has too many landing pages and not enough rooms.',
-    learned: "Personality compounds when the medium is yours.",
+    learned: 'Personality compounds when the medium is yours.',
     href: `${GITHUB_URL}/naviya-website`
   }
 ]
 
-const OBSERVATIONS = [
-  {
-    title: 'AI-native fintech wins distribution in EM',
-    body: 'Partnership-first companies will out-distribute the model labs in places where the bureau doesn\'t reach. The wedge is identity + cash flow + a wallet, in that order.'
-  },
-  {
-    title: 'Programmable money is the second rail',
-    body: 'Stablecoins aren\'t a crypto story anymore. They\'re a backbone for the half of the world the SWIFT-era never served.'
-  },
-  {
-    title: 'Communities are distribution',
-    body: 'Every category that\'s hard to underwrite — credit, hiring, capital — eventually rebuilds itself around trust networks. The legible version of trust is community.'
-  },
-  {
-    title: 'Agentic underwriting is the next default',
-    body: 'Credit was the first domain LLMs were good enough to deploy in production. Collections is next. Then claims. Then most of operations.'
-  }
+const TALA = [
+  { k: 'Where',    v: 'Tala — global fintech across eight emerging markets' },
+  { k: 'Role',     v: 'Manager, New Ventures (AI / Crypto)' },
+  { k: 'Building', v: 'AI loan agents in production. Stablecoin pilots. Second-rail money infrastructure.' },
+  { k: 'Why',      v: "Credit is the most legible form of agency. Most of the world doesn't have it. We're building the rails." }
+]
+
+const DA = [
+  { k: 'Why it exists',                        v: 'Solo angel checks are an inefficient way to back builders. DC had the capital and talent — just not the front door.' },
+  { k: 'How communities become institutions',  v: 'The bridge is process, ritual, and shared standards. We try to compress that arc without losing the feel.' },
+  { k: 'On capital formation',                 v: 'Early on, pace of conviction matters more than depth of diligence. Speed is a signal of taste.' },
+  { k: 'How AI changes angel investing',       v: 'Agents take over screening. Humans hold conviction, introductions, and aftercare — the parts that compound.' }
+]
+
+const CORNELL = [
+  { k: 'Where',     v: 'Cornell Social Enterprise — student community for the impact-curious' },
+  { k: 'Role',      v: 'Led programming, mentorship, the annual conference' },
+  { k: 'Building',  v: 'A community on its way to being an institution.' },
+  { k: 'Learned',   v: 'Communities scale by handing off rituals. The work is creating ones worth handing off.' }
+]
+
+const BUILD_TABS = [
+  { key: 'code',    label: 'Code & Agents' },
+  { key: 'tala',    label: 'Tala' },
+  { key: 'da',      label: 'District Angels' },
+  { key: 'cornell', label: 'Cornell SE' }
 ]
 
 const ROGUE = [
@@ -75,15 +79,10 @@ const ROGUE = [
   "Every community that scales becomes either an institution or a brand. The interesting ones become both.",
   "The frontier is wherever the bureau doesn't reach. That's where new institutions get built.",
   "AI doesn't kill jobs. It kills the parts of jobs nobody enjoyed in the first place.",
+  "Partnership-first fintechs will out-distribute the model labs in places the bureau never reached.",
+  "Stablecoins aren't a crypto story. They're a backbone for the half of the world the SWIFT-era never served.",
   "The founders I want to back have an unreasonable feel for one specific market and a calm relationship with their own ego.",
   "If a thesis can't survive being explained at a noisy bar, it isn't one yet."
-]
-
-const DA_PRINCIPLES = [
-  { k: 'Why it exists',                   v: 'Solo checks are an inefficient way to back builders. DC had the capital and the talent — just not the front door.' },
-  { k: 'How communities become institutions', v: 'The bridge is process, ritual, and shared standards. We try to compress that arc without losing the feel.' },
-  { k: 'On capital formation',            v: 'Early on, pace of conviction matters more than depth of diligence. Speed is a signal of taste.' },
-  { k: 'How AI changes angel investing',  v: 'Agents take over screening. Humans focus on conviction, introductions, and aftercare — the parts that compound.' }
 ]
 
 const SECRETS = {
@@ -91,35 +90,33 @@ const SECRETS = {
     "Why don't fintechs ever get cold? They have lots of liquidity.",
     "I told my LLM a recursion joke. It told it back.",
     "Capital is patient. Founders are not. I work in the gap.",
-    "An angel walks into a bar. The bar pitches her. She passes.",
+    "An angel walks into a bar. The bar pitches her. She passes."
   ],
   prediction: [
     "By 2030, more credit decisions in EM will be made by agents than by humans.",
     "The next big consumer fintech in Africa won't call itself a fintech.",
     "Stablecoin payroll is a sleeper category. Watch the diaspora rails.",
-    "The best AI investors in the next decade will be operators who left ops late, not VCs who arrived early.",
+    "The best AI investors in the next decade will be operators who left ops late, not VCs who arrived early."
   ],
   mindchange: [
     "Used to think culture was downstream of strategy. It's the other way around in markets you don't know yet.",
     "Used to think diligence was the work. It's the pretext. The work is conviction.",
     "Used to think crypto was a payments story. It's a settlement story.",
-    "Used to think communities should be flat. The good ones have spine.",
+    "Used to think communities should be flat. The good ones have spine."
   ],
   startup: [
     "A diaspora-first credit bureau. Identity + remittance flow + employer attestation.",
     "An agentic CFO for sub-$10M ARR companies. Cash, runway, hiring, taxes — one loop.",
     "Stablecoin-native B2B invoicing for African importers. Settle in USDC, reconcile in local books.",
-    "A 'lightweight LP fund' that pools angel checks across cities. Distribution by community.",
+    "A 'lightweight LP fund' that pools angel checks across cities. Distribution by community."
   ]
 }
 
 const SECTIONS = [
-  { id: 'think',    label: 'Think' },
-  { id: 'build',    label: 'Build' },
-  { id: 'invest',   label: 'Invest' },
-  { id: 'da',       label: 'District Angels' },
-  { id: 'rogue',    label: 'Rogue' },
-  { id: 'play',     label: 'Play' }
+  { id: 'think', label: 'Think' },
+  { id: 'build', label: 'Build' },
+  { id: 'rogue', label: 'Rogue' },
+  { id: 'play',  label: 'Play'  }
 ]
 
 export default function Home(){
@@ -127,6 +124,7 @@ export default function Home(){
     try { return Number(localStorage.getItem('nv_coins')) || 0 } catch { return 0 }
   })
   const [activeTag, setActiveTag] = useState('All')
+  const [activeBuild, setActiveBuild] = useState('code')
   const [popCoin, setPopCoin] = useState(false)
 
   useEffect(() => {
@@ -153,7 +151,7 @@ export default function Home(){
         <div className="nav-links">
           {SECTIONS.map(s => (
             <button key={s.id} className={`nav-link nav-${s.id}`} onClick={() => scrollTo(s.id)}>
-              {s.label}
+              <span className="nav-link-text">{s.label}</span>
             </button>
           ))}
         </div>
@@ -178,8 +176,8 @@ export default function Home(){
           </div>
         </section>
 
-        <section id="about" className="block">
-          <h2><span className="h2-dot" /> About</h2>
+        <section id="about" className="block section-about">
+          <SectionHead>About</SectionHead>
           <p>
             I'm interested in agency at scale — the kind people get when better tools, capital, and information
             actually reach them. My work sits at the intersections: AI and money, communities and institutions,
@@ -187,9 +185,9 @@ export default function Home(){
           </p>
           <p>
             Today that looks like AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC
-            called <a href="#da" onClick={(e)=>{e.preventDefault(); scrollTo('da')}}>District Angels</a>, and a
-            steady habit of building small tools in code. Before that: operations research at Cornell, where I
-            helped run Social Enterprise — my first attempt at turning a community into an institution.
+            called <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>,
+            and a steady habit of building small tools in code. Before that: operations research at Cornell, where
+            I helped run Social Enterprise — my first attempt at turning a community into an institution.
           </p>
           <p>
             Builder by inclination. Operator by experience. Investor by curiosity. I think best in analogies,
@@ -199,7 +197,7 @@ export default function Home(){
         </section>
 
         <section id="think" className="block section-think">
-          <h2><span className="h2-dot" /> Think</h2>
+          <SectionHead>Think</SectionHead>
           <p className="block-sub">
             Essays and theses I'm still developing. The intellectual center of the site.
             Mostly on <a href={SUBSTACK_URL}>Substack</a>.
@@ -229,68 +227,88 @@ export default function Home(){
         </section>
 
         <section id="build" className="block section-build">
-          <h2><span className="h2-dot" /> Build</h2>
+          <SectionHead>Build</SectionHead>
           <p className="block-sub">
-            Proof of execution: public code, AI agents, product experiments. Each project answers
-            three questions — what problem, why it matters, what I learned.
+            Proof of execution — code, products, and communities. Each is a different shape of the same instinct:
+            ship the thing.
           </p>
-          <div className="repos">
-            {REPOS.map(r => (
-              <a key={r.name} href={r.href} className="repo">
-                <div className="repo-head">
-                  <RepoIcon />
-                  <span className="repo-name">{r.name}</span>
-                  <span className="repo-lang">· {r.lang}</span>
-                </div>
-                <dl className="repo-meta">
-                  <dt>Problem</dt><dd>{r.problem}</dd>
-                  <dt>Why</dt><dd>{r.why}</dd>
-                  <dt>Learned</dt><dd>{r.learned}</dd>
-                </dl>
-              </a>
+
+          <div className="build-tabs" role="tablist">
+            {BUILD_TABS.map(t => (
+              <button
+                key={t.key}
+                role="tab"
+                aria-selected={activeBuild === t.key}
+                className={`build-tab ${activeBuild === t.key ? 'active' : ''}`}
+                onClick={() => setActiveBuild(t.key)}
+              >
+                {t.label}
+              </button>
             ))}
           </div>
-        </section>
 
-        <section id="invest" className="block section-invest">
-          <h2><span className="h2-dot" /> Invest</h2>
-          <p className="block-sub">
-            Patterns I'm noticing in markets, startups, and technology. Less portfolio, more thesis.
-          </p>
-          <ol className="theses">
-            {OBSERVATIONS.map((o, i) => (
-              <li key={o.title}>
-                <span className="thesis-num">{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{o.title}</h3>
-                  <p>{o.body}</p>
+          <div className="build-panel">
+            {activeBuild === 'code' && (
+              <>
+                <p className="panel-lede">
+                  Public code and AI agents on <a href={GITHUB_URL}>GitHub</a>. Each repo answers three questions:
+                  what problem, why it matters, what I learned.
+                </p>
+                <div className="repos">
+                  {REPOS.map(r => (
+                    <a key={r.name} href={r.href} className="repo">
+                      <div className="repo-head">
+                        <RepoIcon />
+                        <span className="repo-name">{r.name}</span>
+                        <span className="repo-lang">· {r.lang}</span>
+                      </div>
+                      <dl className="repo-meta">
+                        <dt>Problem</dt><dd>{r.problem}</dd>
+                        <dt>Why</dt><dd>{r.why}</dd>
+                        <dt>Learned</dt><dd>{r.learned}</dd>
+                      </dl>
+                    </a>
+                  ))}
                 </div>
-              </li>
-            ))}
-          </ol>
-        </section>
+              </>
+            )}
 
-        <section id="da" className="block section-da">
-          <h2><span className="h2-dot" /> District Angels</h2>
-          <p className="block-sub">A small experiment in turning a community into an institution.</p>
-          <p>
-            <strong>District Angels</strong> is a DC-based collective of early-stage investors. I started it in
-            March 2024 because solo angel checks are an inefficient way to back builders — and because the best
-            communities I've been part of were always on their way to becoming institutions. DA is an attempt to
-            compress that arc.
-          </p>
-          <div className="da-grid">
-            {DA_PRINCIPLES.map(p => (
-              <div key={p.k} className="da-card">
-                <div className="da-k">{p.k}</div>
-                <div className="da-v">{p.v}</div>
-              </div>
-            ))}
+            {activeBuild === 'tala' && (
+              <>
+                <p className="panel-lede">
+                  Tala is a global consumer fintech building credit infrastructure across eight emerging markets.
+                  I lead New Ventures — the bets that aren't a year of roadmap yet.
+                </p>
+                <KvGrid items={TALA} />
+              </>
+            )}
+
+            {activeBuild === 'da' && (
+              <>
+                <p className="panel-lede">
+                  <strong>District Angels</strong> is a DC-based collective of early-stage investors. I started it in
+                  March 2024 because solo angel checks are an inefficient way to back builders — and because the best
+                  communities I've been part of were always on their way to becoming institutions. DA is an attempt to
+                  compress that arc.
+                </p>
+                <KvGrid items={DA} />
+              </>
+            )}
+
+            {activeBuild === 'cornell' && (
+              <>
+                <p className="panel-lede">
+                  Cornell Social Enterprise — student community for the impact-curious. I helped run it as an undergrad.
+                  It was my first attempt at turning a community into an institution: programming, mentorship, succession.
+                </p>
+                <KvGrid items={CORNELL} />
+              </>
+            )}
           </div>
         </section>
 
         <section id="rogue" className="block section-rogue">
-          <h2><span className="h2-dot" /> Rogue Thoughts</h2>
+          <SectionHead>Rogue Thoughts</SectionHead>
           <p className="block-sub">Short observations. Notebook, not feed.</p>
           <ul className="rogue">
             {ROGUE.map((r, i) => (
@@ -300,9 +318,9 @@ export default function Home(){
         </section>
 
         <section id="play" className="block section-play">
-          <h2><span className="h2-dot" /> Play</h2>
+          <SectionHead>Play</SectionHead>
           <p className="block-sub">
-            Earn coins. Spend them on jokes, predictions, mind-changes, and strange startup ideas.
+            Earn coins solving riddles. Spend them on jokes, predictions, mind-changes, and strange startup ideas.
           </p>
           <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
         </section>
@@ -316,15 +334,36 @@ export default function Home(){
   )
 }
 
+/* ---------- shared ---------- */
+
+function SectionHead({ children }){
+  return (
+    <h2 className="block-h2"><span className="h2-mark">{children}</span></h2>
+  )
+}
+
+function KvGrid({ items }){
+  return (
+    <div className="kv-grid">
+      {items.map(it => (
+        <div key={it.k} className="kv-card">
+          <div className="kv-k">{it.k}</div>
+          <div className="kv-v">{it.v}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /* ---------- vault ---------- */
 
 const REEL_SYMBOLS = ['?', '¢', '★', '◆', '♠', '△', '○', '□', '✦', '✿']
 
 const REWARDS = [
-  { id: 'joke',       cost: 3,  label: 'Joke',                hint: 'a dad joke from the vault' },
-  { id: 'prediction', cost: 5,  label: 'Prediction',          hint: 'something I think will be true' },
-  { id: 'mindchange', cost: 7,  label: 'Changed my mind',     hint: 'a belief I revised' },
-  { id: 'startup',    cost: 10, label: 'Strange startup idea', hint: 'free for the taking' }
+  { id: 'joke',       cost: 3,  label: 'Joke' },
+  { id: 'prediction', cost: 5,  label: 'Prediction' },
+  { id: 'mindchange', cost: 7,  label: 'Changed my mind' },
+  { id: 'startup',    cost: 10, label: 'Strange startup' }
 ]
 
 function Vault({ coins, addCoins, setCoins }){
@@ -451,13 +490,7 @@ function Vault({ coins, addCoins, setCoins }){
 
       <div className="rewards">
         {REWARDS.map(r => (
-          <button
-            key={r.id}
-            className="reward-btn"
-            onClick={() => buyReward(r)}
-            disabled={coins < r.cost}
-            title={r.hint}
-          >
+          <button key={r.id} className="reward-btn" onClick={() => buyReward(r)} disabled={coins < r.cost}>
             <span className="reward-cost">{r.cost}¢</span>
             <span className="reward-label">{r.label}</span>
           </button>
