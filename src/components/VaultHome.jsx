@@ -113,8 +113,9 @@ const SECRETS = {
 }
 
 const SECTIONS = [
+  { id: 'about', label: 'About' },
   { id: 'think', label: 'Think' },
-  { id: 'build', label: 'Build' },
+  { id: 'build', label: 'Build', dropdown: true },
   { id: 'rogue', label: 'Rogue' },
   { id: 'play',  label: 'Play'  }
 ]
@@ -126,10 +127,21 @@ export default function Home(){
   const [activeTag, setActiveTag] = useState('All')
   const [activeBuild, setActiveBuild] = useState('code')
   const [popCoin, setPopCoin] = useState(false)
+  const [buildOpen, setBuildOpen] = useState(false)
+  const [infoOpen, setInfoOpen] = useState(false)
 
   useEffect(() => {
     try { localStorage.setItem('nv_coins', String(coins)) } catch {}
   }, [coins])
+
+  useEffect(() => {
+    if (!infoOpen) return
+    const onDocClick = (e) => {
+      if (!e.target.closest('.coin-zone')) setInfoOpen(false)
+    }
+    document.addEventListener('click', onDocClick)
+    return () => document.removeEventListener('click', onDocClick)
+  }, [infoOpen])
 
   const addCoins = (n) => {
     setCoins(c => c + n)
@@ -149,15 +161,75 @@ export default function Home(){
       <header className="nav">
         <a className="mark" href="#top">Naviya</a>
         <div className="nav-links">
-          {SECTIONS.map(s => (
-            <button key={s.id} className={`nav-link nav-${s.id}`} onClick={() => scrollTo(s.id)}>
-              <span className="nav-link-text">{s.label}</span>
-            </button>
-          ))}
+          {SECTIONS.map(s => {
+            if (s.dropdown) {
+              return (
+                <div
+                  key={s.id}
+                  className="nav-link-wrap"
+                  onMouseEnter={() => setBuildOpen(true)}
+                  onMouseLeave={() => setBuildOpen(false)}
+                >
+                  <button className={`nav-link nav-${s.id}`} onClick={() => scrollTo(s.id)}>
+                    <span className="nav-link-text">{s.label}</span>
+                    <ChevronIcon />
+                  </button>
+                  {buildOpen && (
+                    <div className="nav-dropdown">
+                      {BUILD_TABS.map(t => (
+                        <button
+                          key={t.key}
+                          className="nav-dropdown-item"
+                          onClick={() => {
+                            setActiveBuild(t.key)
+                            scrollTo('build')
+                            setBuildOpen(false)
+                          }}
+                        >
+                          {t.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            }
+            return (
+              <button key={s.id} className={`nav-link nav-${s.id}`} onClick={() => scrollTo(s.id)}>
+                <span className="nav-link-text">{s.label}</span>
+              </button>
+            )
+          })}
         </div>
-        <div className={`coin-badge ${popCoin ? 'pop' : ''}`} aria-label={`${coins} coins`}>
-          <CoinSVG />
-          <span>{coins}</span>
+        <div className="coin-zone">
+          <div className={`coin-badge ${popCoin ? 'pop' : ''}`} aria-label={`${coins} coins`}>
+            <CoinSVG />
+            <span>{coins}</span>
+          </div>
+          <button
+            className={`info-trigger ${infoOpen ? 'on' : ''}`}
+            onClick={() => setInfoOpen(o => !o)}
+            aria-label="How coins work"
+            aria-expanded={infoOpen}
+          >
+            <InfoIcon />
+          </button>
+          {infoOpen && (
+            <div className="info-bubble" role="dialog">
+              <span className="info-arrow" aria-hidden />
+              <span className="info-eyebrow">My Arcade</span>
+              <p>
+                The more you explore, the more coins you collect. Solve riddles in{' '}
+                <a href="#play" onClick={(e)=>{e.preventDefault(); scrollTo('play'); setInfoOpen(false)}}>the Play section</a>{' '}
+                to earn them.
+              </p>
+              <p>
+                Spend coins on jokes, predictions, things I've changed my mind about, and strange startup ideas.
+                Riddles, puzzles, and quizzes I've designed and curated — there's more in the vault than what's
+                visible at first.
+              </p>
+            </div>
+          )}
         </div>
       </header>
 
@@ -436,7 +508,7 @@ function Vault({ coins, addCoins, setCoins }){
     <div className="machine">
       <div className="machine-top">
         <div className="machine-brand">
-          <span className="machine-bolt" /> NAVIYA'S VAULT <span className="machine-bolt" />
+          <span className="machine-bolt" /> NAVIYA'S ARCADE <span className="machine-bolt" />
         </div>
         <div className="machine-lights">
           <span className={`light ${spinning ? 'on' : ''}`} />
@@ -513,6 +585,22 @@ function RepoIcon(){
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </svg>
+  )
+}
+function ChevronIcon(){
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  )
+}
+function InfoIcon(){
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="16" x2="12" y2="12"/>
+      <line x1="12" y1="8" x2="12.01" y2="8"/>
     </svg>
   )
 }

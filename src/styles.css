@@ -116,11 +116,74 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .nav-link:hover::before { transform: scaleX(1); }
 .nav-link:hover::after  { opacity: 1; }
 
+.nav-about  { --link-color: var(--c-about);  --link-soft: var(--c-about-soft);  }
 .nav-think  { --link-color: var(--c-think);  --link-soft: var(--c-think-soft);  }
 .nav-build  { --link-color: var(--c-build);  --link-soft: var(--c-build-soft);  }
 .nav-rogue  { --link-color: var(--c-rogue);  --link-soft: var(--c-rogue-soft);  }
 .nav-play   { --link-color: var(--c-play);   --link-soft: var(--c-play-soft);   }
 
+/* nav dropdown (for Build) */
+.nav-link-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.nav-link-wrap .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-link-wrap .nav-link svg {
+  opacity: 0.6;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.nav-link-wrap:hover .nav-link svg { opacity: 1; transform: rotate(180deg); }
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  z-index: 60;
+  animation: dropdown-in 160ms ease;
+}
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.nav-dropdown-item {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.86rem;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 500;
+  transition: background 120ms ease, color 120ms ease;
+}
+.nav-dropdown-item:hover {
+  background: var(--c-build-soft);
+  color: var(--c-build);
+}
+
+.coin-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .coin-badge {
   display: flex;
   align-items: center;
@@ -135,6 +198,73 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   transition: transform 200ms cubic-bezier(.34,1.56,.64,1);
 }
 .coin-badge.pop { transform: scale(1.18) rotate(-3deg); }
+
+.info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--soft);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+.info-trigger:hover,
+.info-trigger.on {
+  color: var(--c-play);
+  background: var(--c-play-soft);
+  border-color: rgba(109, 40, 217, 0.18);
+}
+
+.info-bubble {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 300px;
+  max-width: calc(100vw - 36px);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 18px 36px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02);
+  padding: 14px 16px;
+  z-index: 70;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--ink);
+  animation: dropdown-in 180ms ease;
+}
+.info-arrow {
+  position: absolute;
+  top: -7px;
+  right: 18px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  transform: rotate(45deg);
+}
+.info-eyebrow {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-play);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.info-bubble p { margin: 0 0 8px; max-width: none; }
+.info-bubble p:last-child { margin-bottom: 0; }
+.info-bubble a {
+  color: var(--c-play);
+  border-bottom: 1px solid var(--c-play-soft);
+}
+.info-bubble a:hover { border-bottom-color: var(--c-play); }
 
 /* hero */
 .hero { padding: 36px 0 56px; }
@@ -444,6 +574,9 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .nav { padding: 12px 0; flex-wrap: wrap; gap: 10px; }
   .nav-links { order: 3; width: 100%; justify-content: flex-start; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .nav-link { font-size: 0.82rem; padding: 8px 12px 10px; }
+  .nav-link-wrap .nav-link svg { display: none; }
+  .nav-dropdown { display: none; }
+  .info-bubble { right: -8px; }
   .hero h1 { font-size: 1.75rem; }
   .lede { font-size: 1rem; }
   .block-h2 { font-size: 1.18rem; }
