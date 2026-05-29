@@ -1,48 +1,125 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { RIDDLES } from '../data/riddles'
 
 const GITHUB_URL = 'https://github.com/naviyaissocodelike'
 const SUBSTACK_URL = '#'
 const EMAIL = 'hello@naviya.xyz'
 
-const WORK = [
+const ESSAYS = [
+  { date: '2026 · 05', tag: 'AI',          title: 'AI and institutional design',                blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',   href: SUBSTACK_URL },
+  { date: '2026 · 04', tag: 'Money',       title: 'Capital formation in emerging markets',      blurb: "Why the next billion users won't get banked by banks.",                   href: SUBSTACK_URL },
+  { date: '2026 · 03', tag: 'Crypto',      title: 'Stablecoins and programmable money',         blurb: 'The second rail is here. The first one was never universal.',             href: SUBSTACK_URL },
+  { date: '2026 · 02', tag: 'AI',          title: 'How AI changes work',                        blurb: "Not the parts you think — the parts nobody enjoyed in the first place.",   href: SUBSTACK_URL },
+  { date: '2026 · 01', tag: 'Institutions',title: 'How communities become institutions',        blurb: 'Process, ritual, and shared standards are the bridge.',                    href: SUBSTACK_URL },
+  { date: '2025 · 12', tag: 'Agency',      title: 'The future of human agency',                 blurb: 'Better tools change what kind of life is available to you.',               href: SUBSTACK_URL }
+]
+
+const TAGS = ['All', 'AI', 'Money', 'Crypto', 'Institutions', 'Agency']
+
+const REPOS = [
   {
-    title: 'Tala',
-    role: 'Manager · New Ventures (AI / Crypto)',
-    blurb: 'Credit infrastructure across eight emerging markets. Shipping AI loan agents and stablecoin pilots.',
-    href: 'https://tala.co'
+    name: 'lucy',
+    lang: 'Python',
+    problem: 'Loan underwriting at Tala still relied on rules brittle to new markets.',
+    why: 'Credit is the most legible form of agency. Better underwriting = more access.',
+    learned: 'LLMs are production-ready when the cost of being wrong is bounded.',
+    href: GITHUB_URL
   },
   {
-    title: 'District Angels',
-    role: 'Founder',
-    blurb: 'An angel investing collective in DC. Backing builders early, with conviction.',
-    href: '#'
+    name: 'analyst-agent',
+    lang: 'Python',
+    problem: 'Solo investors do screening work that compounds badly with time.',
+    why: 'Agents should do the boring part — humans should hold conviction and relationships.',
+    learned: "Reasoning loops only beat heuristics when the model can change its own prompt.",
+    href: `${GITHUB_URL}/analyst-agent`
+  },
+  {
+    name: 'wise-glade',
+    lang: 'Python',
+    problem: "Job search is a daily intelligence problem dressed up as a one-off.",
+    why: 'Career capital is a feedback system. Reward the right signal sooner.',
+    learned: 'A small agent that does one thing every day beats a big one that does ten things once.',
+    href: `${GITHUB_URL}/wise-glade`
+  },
+  {
+    name: 'naviya-website',
+    lang: 'React',
+    problem: 'A site should feel like exploring a mind, not reading a resume.',
+    why: 'The internet has too many landing pages and not enough rooms.',
+    learned: "Personality compounds when the medium is yours.",
+    href: `${GITHUB_URL}/naviya-website`
   }
 ]
 
-const REPOS = [
-  { name: 'wise-glade', desc: 'Daily job intelligence agent.', lang: 'Python', langColor: '#3776ab', href: `${GITHUB_URL}/wise-glade` },
-  { name: 'analyst-agent', desc: 'Paper-trading research agent with Claude reasoning.', lang: 'Python', langColor: '#3776ab', href: `${GITHUB_URL}/analyst-agent` },
-  { name: 'lucy-loans', desc: 'Production AI loan underwriting agent.', lang: 'Python', langColor: '#3776ab', href: GITHUB_URL },
-  { name: 'naviya-website', desc: 'This site. Built simply.', lang: 'JavaScript', langColor: '#f1e05a', href: `${GITHUB_URL}/naviya-website` }
+const OBSERVATIONS = [
+  {
+    title: 'AI-native fintech wins distribution in EM',
+    body: 'Partnership-first companies will out-distribute the model labs in places where the bureau doesn\'t reach. The wedge is identity + cash flow + a wallet, in that order.'
+  },
+  {
+    title: 'Programmable money is the second rail',
+    body: 'Stablecoins aren\'t a crypto story anymore. They\'re a backbone for the half of the world the SWIFT-era never served.'
+  },
+  {
+    title: 'Communities are distribution',
+    body: 'Every category that\'s hard to underwrite — credit, hiring, capital — eventually rebuilds itself around trust networks. The legible version of trust is community.'
+  },
+  {
+    title: 'Agentic underwriting is the next default',
+    body: 'Credit was the first domain LLMs were good enough to deploy in production. Collections is next. Then claims. Then most of operations.'
+  }
 ]
 
-const NOTES = [
-  { date: '2026 · 05', tag: 'AI',               title: 'Diffusion in emerging markets',          blurb: 'How fintech partnerships ship AI to the next billion users.', href: SUBSTACK_URL },
-  { date: '2026 · 04', tag: 'Money',            title: 'Underwriting in eight countries',         blurb: "What credit looks like when you can't trust the bureau.",     href: SUBSTACK_URL },
-  { date: '2026 · 03', tag: 'Investing',        title: 'Notes from District Angels',              blurb: 'What an angel collective gets right that solo checks miss.',    href: SUBSTACK_URL },
-  { date: '2026 · 02', tag: 'Building',         title: 'Shipping agents in production',           blurb: 'A short list of things that broke and what I changed.',         href: SUBSTACK_URL },
-  { date: '2026 · 01', tag: 'AI',               title: 'The agent stack I use',                   blurb: "AWS Strands + Claude. Why, when, and what I'd swap.",          href: SUBSTACK_URL },
-  { date: '2025 · 12', tag: 'Money',            title: 'Money at the speed of trust',             blurb: 'Stablecoin pilots and what the bureau gets wrong.',             href: SUBSTACK_URL }
+const ROGUE = [
+  "Credit is the most legible form of agency. Everything else compounds from access to it.",
+  "Every community that scales becomes either an institution or a brand. The interesting ones become both.",
+  "The frontier is wherever the bureau doesn't reach. That's where new institutions get built.",
+  "AI doesn't kill jobs. It kills the parts of jobs nobody enjoyed in the first place.",
+  "The founders I want to back have an unreasonable feel for one specific market and a calm relationship with their own ego.",
+  "If a thesis can't survive being explained at a noisy bar, it isn't one yet."
 ]
 
-const TAGS = ['All', 'AI', 'Money', 'Investing', 'Building']
+const DA_PRINCIPLES = [
+  { k: 'Why it exists',                   v: 'Solo checks are an inefficient way to back builders. DC had the capital and the talent — just not the front door.' },
+  { k: 'How communities become institutions', v: 'The bridge is process, ritual, and shared standards. We try to compress that arc without losing the feel.' },
+  { k: 'On capital formation',            v: 'Early on, pace of conviction matters more than depth of diligence. Speed is a signal of taste.' },
+  { k: 'How AI changes angel investing',  v: 'Agents take over screening. Humans focus on conviction, introductions, and aftercare — the parts that compound.' }
+]
+
+const SECRETS = {
+  joke: [
+    "Why don't fintechs ever get cold? They have lots of liquidity.",
+    "I told my LLM a recursion joke. It told it back.",
+    "Capital is patient. Founders are not. I work in the gap.",
+    "An angel walks into a bar. The bar pitches her. She passes.",
+  ],
+  prediction: [
+    "By 2030, more credit decisions in EM will be made by agents than by humans.",
+    "The next big consumer fintech in Africa won't call itself a fintech.",
+    "Stablecoin payroll is a sleeper category. Watch the diaspora rails.",
+    "The best AI investors in the next decade will be operators who left ops late, not VCs who arrived early.",
+  ],
+  mindchange: [
+    "Used to think culture was downstream of strategy. It's the other way around in markets you don't know yet.",
+    "Used to think diligence was the work. It's the pretext. The work is conviction.",
+    "Used to think crypto was a payments story. It's a settlement story.",
+    "Used to think communities should be flat. The good ones have spine.",
+  ],
+  startup: [
+    "A diaspora-first credit bureau. Identity + remittance flow + employer attestation.",
+    "An agentic CFO for sub-$10M ARR companies. Cash, runway, hiring, taxes — one loop.",
+    "Stablecoin-native B2B invoicing for African importers. Settle in USDC, reconcile in local books.",
+    "A 'lightweight LP fund' that pools angel checks across cities. Distribution by community.",
+  ]
+}
 
 const SECTIONS = [
-  { id: 'think', label: 'Think', Icon: ThinkIcon },
-  { id: 'build', label: 'Build', Icon: BuildIcon },
-  { id: 'play', label: 'Play', Icon: PlayIcon },
-  { id: 'work', label: 'Work', Icon: WorkIcon }
+  { id: 'think',    label: 'Think' },
+  { id: 'build',    label: 'Build' },
+  { id: 'invest',   label: 'Invest' },
+  { id: 'da',       label: 'District Angels' },
+  { id: 'rogue',    label: 'Rogue' },
+  { id: 'play',     label: 'Play' }
 ]
 
 export default function Home(){
@@ -67,17 +144,16 @@ export default function Home(){
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const filteredNotes = activeTag === 'All' ? NOTES : NOTES.filter(n => n.tag === activeTag)
+  const filteredEssays = activeTag === 'All' ? ESSAYS : ESSAYS.filter(n => n.tag === activeTag)
 
   return (
     <div className="page">
       <header className="nav">
         <a className="mark" href="#top">Naviya</a>
-        <div className="nav-icons">
+        <div className="nav-links">
           {SECTIONS.map(s => (
-            <button key={s.id} className="nav-icon" onClick={() => scrollTo(s.id)} aria-label={s.label}>
-              <s.Icon />
-              <span>{s.label}</span>
+            <button key={s.id} className={`nav-link nav-${s.id}`} onClick={() => scrollTo(s.id)}>
+              {s.label}
             </button>
           ))}
         </div>
@@ -89,12 +165,11 @@ export default function Home(){
 
       <main id="top">
         <section className="hero">
-          <p className="eyebrow">Builder · Operator · Investor</p>
-          <h1>Frontier tech, in the hands of the overlooked.</h1>
+          <p className="eyebrow">Builder · Operator · Investor · Community</p>
+          <h1>Frontier technology in the hands of the overlooked.</h1>
           <p className="lede">
-            I work on AI agents, programmable money, and the systems that move information and capital — and
-            how to put those tools in the hands of the people the rest of the world tends to skip. Money systems
-            were the first bet. The thesis is wider now.
+            A working map of how I think about AI, capital, communities, and the systems that shape
+            human agency. Less a portfolio, more a personal laboratory.
           </p>
           <div className="hero-meta">
             <a href={GITHUB_URL}>GitHub →</a>
@@ -104,38 +179,40 @@ export default function Home(){
         </section>
 
         <section id="about" className="block">
-          <h2>About</h2>
+          <h2><span className="h2-dot" /> About</h2>
           <p>
-            I'm Naviya. I work on AI and crypto at <a href="https://tala.co">Tala</a>, where we're building credit
-            infrastructure across eight emerging markets. On the side, I run <a href="#">District Angels</a> —
-            an early-stage angel collective in DC.
+            I'm interested in agency at scale — the kind people get when better tools, capital, and information
+            actually reach them. My work sits at the intersections: AI and money, communities and institutions,
+            frontier tech and the people the rest of the world tends to skip.
           </p>
           <p>
-            I started with money because credit is the most legible form of agency — and most of the world doesn't
-            have it. The lens kept widening. Now I look for any tool sharp enough to flip the default for someone
-            who never had one: AI agents, programmable money, whatever's next.
+            Today that looks like AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC
+            called <a href="#da" onClick={(e)=>{e.preventDefault(); scrollTo('da')}}>District Angels</a>, and a
+            steady habit of building small tools in code. Before that: operations research at Cornell, where I
+            helped run Social Enterprise — my first attempt at turning a community into an institution.
           </p>
           <p>
-            Operations research at Cornell. Builder by training, investor by curiosity, operator by trade.
+            Builder by inclination. Operator by experience. Investor by curiosity. I think best in analogies,
+            sci-fi, and thought experiments. If you want an intro, an opinion, or honest feedback —{' '}
+            <a href={`mailto:${EMAIL}`}>write me</a>.
           </p>
         </section>
 
-        <section id="think" className="block">
-          <h2>Think</h2>
+        <section id="think" className="block section-think">
+          <h2><span className="h2-dot" /> Think</h2>
           <p className="block-sub">
-            Notes, essays, half-formed ideas. Mostly on <a href={SUBSTACK_URL}>Substack</a>.
+            Essays and theses I'm still developing. The intellectual center of the site.
+            Mostly on <a href={SUBSTACK_URL}>Substack</a>.
           </p>
           <div className="chips">
             {TAGS.map(t => (
-              <button
-                key={t}
-                className={`chip ${activeTag === t ? 'active' : ''}`}
-                onClick={() => setActiveTag(t)}
-              >{t}</button>
+              <button key={t} className={`chip ${activeTag === t ? 'active' : ''}`} onClick={() => setActiveTag(t)}>
+                {t}
+              </button>
             ))}
           </div>
           <ul className="entries">
-            {filteredNotes.map((note, i) => (
+            {filteredEssays.map((note, i) => (
               <li key={`${note.title}-${i}`}>
                 <a href={note.href} className="entry">
                   <span className="entry-date">{note.date}</span>
@@ -151,61 +228,106 @@ export default function Home(){
           </ul>
         </section>
 
-        <section id="build" className="block">
-          <h2>Build</h2>
-          <p className="block-sub">Public code on <a href={GITHUB_URL}>GitHub</a>. Mostly Python agents and small tools.</p>
+        <section id="build" className="block section-build">
+          <h2><span className="h2-dot" /> Build</h2>
+          <p className="block-sub">
+            Proof of execution: public code, AI agents, product experiments. Each project answers
+            three questions — what problem, why it matters, what I learned.
+          </p>
           <div className="repos">
             {REPOS.map(r => (
               <a key={r.name} href={r.href} className="repo">
                 <div className="repo-head">
                   <RepoIcon />
                   <span className="repo-name">{r.name}</span>
+                  <span className="repo-lang">· {r.lang}</span>
                 </div>
-                <p className="repo-desc">{r.desc}</p>
-                <div className="repo-foot">
-                  <span className="lang-dot" style={{ background: r.langColor }} />
-                  <span className="repo-lang">{r.lang}</span>
-                </div>
+                <dl className="repo-meta">
+                  <dt>Problem</dt><dd>{r.problem}</dd>
+                  <dt>Why</dt><dd>{r.why}</dd>
+                  <dt>Learned</dt><dd>{r.learned}</dd>
+                </dl>
               </a>
             ))}
           </div>
         </section>
 
-        <section id="play" className="block">
-          <h2>Play</h2>
-          <p className="block-sub">Solve a riddle. Collect coins. Spend them on a secret.</p>
-          <RiddleVault coins={coins} addCoins={addCoins} setCoins={setCoins} />
-        </section>
-
-        <section id="work" className="block">
-          <h2>Work</h2>
-          <ul className="list">
-            {WORK.map(item => (
-              <li key={item.title}>
-                <a href={item.href} className="item">
-                  <div className="item-head">
-                    <span className="item-title">{item.title}</span>
-                    <span className="item-role">{item.role}</span>
-                  </div>
-                  <p className="item-blurb">{item.blurb}</p>
-                </a>
+        <section id="invest" className="block section-invest">
+          <h2><span className="h2-dot" /> Invest</h2>
+          <p className="block-sub">
+            Patterns I'm noticing in markets, startups, and technology. Less portfolio, more thesis.
+          </p>
+          <ol className="theses">
+            {OBSERVATIONS.map((o, i) => (
+              <li key={o.title}>
+                <span className="thesis-num">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{o.title}</h3>
+                  <p>{o.body}</p>
+                </div>
               </li>
             ))}
+          </ol>
+        </section>
+
+        <section id="da" className="block section-da">
+          <h2><span className="h2-dot" /> District Angels</h2>
+          <p className="block-sub">A small experiment in turning a community into an institution.</p>
+          <p>
+            <strong>District Angels</strong> is a DC-based collective of early-stage investors. I started it in
+            March 2024 because solo angel checks are an inefficient way to back builders — and because the best
+            communities I've been part of were always on their way to becoming institutions. DA is an attempt to
+            compress that arc.
+          </p>
+          <div className="da-grid">
+            {DA_PRINCIPLES.map(p => (
+              <div key={p.k} className="da-card">
+                <div className="da-k">{p.k}</div>
+                <div className="da-v">{p.v}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="rogue" className="block section-rogue">
+          <h2><span className="h2-dot" /> Rogue Thoughts</h2>
+          <p className="block-sub">Short observations. Notebook, not feed.</p>
+          <ul className="rogue">
+            {ROGUE.map((r, i) => (
+              <li key={i}><span className="rogue-em">—</span> {r}</li>
+            ))}
           </ul>
+        </section>
+
+        <section id="play" className="block section-play">
+          <h2><span className="h2-dot" /> Play</h2>
+          <p className="block-sub">
+            Earn coins. Spend them on jokes, predictions, mind-changes, and strange startup ideas.
+          </p>
+          <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
         </section>
       </main>
 
       <footer className="footer">
         <span>© {new Date().getFullYear()} Naviya Kothari</span>
-        <span className="footer-tag">Built simply.</span>
+        <span className="footer-tag">A personal laboratory.</span>
       </footer>
     </div>
   )
 }
 
+/* ---------- vault ---------- */
+
 const REEL_SYMBOLS = ['?', '¢', '★', '◆', '♠', '△', '○', '□', '✦', '✿']
 
-function RiddleVault({ coins, addCoins, setCoins }){
+const REWARDS = [
+  { id: 'joke',       cost: 3,  label: 'Joke',                hint: 'a dad joke from the vault' },
+  { id: 'prediction', cost: 5,  label: 'Prediction',          hint: 'something I think will be true' },
+  { id: 'mindchange', cost: 7,  label: 'Changed my mind',     hint: 'a belief I revised' },
+  { id: 'startup',    cost: 10, label: 'Strange startup idea', hint: 'free for the taking' }
+]
+
+function Vault({ coins, addCoins, setCoins }){
   const [idx, setIdx] = useState(() => Math.floor(Math.random() * RIDDLES.length))
   const [input, setInput] = useState('')
   const [status, setStatus] = useState('')
@@ -213,11 +335,10 @@ function RiddleVault({ coins, addCoins, setCoins }){
   const [solvedIds, setSolvedIds] = useState(() => {
     try { return new Set(JSON.parse(localStorage.getItem('nv_solved') || '[]')) } catch { return new Set() }
   })
-  const [secret, setSecret] = useState('')
-  const [secretDispensed, setSecretDispensed] = useState(false)
+  const [dispensed, setDispensed] = useState({ kind: '', text: '', anim: false })
   const [spinning, setSpinning] = useState(false)
   const [reels, setReels] = useState(['?', '?', '?'])
-  const [dispensed, setDispensed] = useState(true)
+  const [show, setShow] = useState(true)
 
   const riddle = RIDDLES[idx]
   const alreadySolved = solvedIds.has(idx)
@@ -241,14 +362,10 @@ function RiddleVault({ coins, addCoins, setCoins }){
 
   const dispenseNext = () => {
     if (spinning) return
-    setSpinning(true)
-    setDispensed(false)
+    setSpinning(true); setShow(false)
     setInput(''); setStatus(''); setShowHint(false)
-
     const target = (idx + 1 + Math.floor(Math.random() * (RIDDLES.length - 1))) % RIDDLES.length
-    const start = Date.now()
-    const duration = 1100
-
+    const start = Date.now(); const duration = 1100
     const tick = () => {
       const elapsed = Date.now() - start
       if (elapsed < duration) {
@@ -260,28 +377,20 @@ function RiddleVault({ coins, addCoins, setCoins }){
         setTimeout(tick, 60)
       } else {
         const digits = String(target + 1).padStart(3, '0').split('')
-        setReels(digits)
-        setIdx(target)
-        setSpinning(false)
-        setTimeout(() => setDispensed(true), 80)
+        setReels(digits); setIdx(target); setSpinning(false)
+        setTimeout(() => setShow(true), 80)
       }
     }
     tick()
   }
 
-  const spendSecret = () => {
-    if (coins < 5) return
-    setCoins(c => c - 5)
-    const secrets = [
-      'Agency > access > autonomy.',
-      'Most fintechs underwrite vibes, not cash flows.',
-      'The best moats are habits, not features.',
-      'Write the doc first. The code falls out.',
-      "If you can't explain the trade in one sentence, don't take it."
-    ]
-    setSecret(secrets[Math.floor(Math.random() * secrets.length)])
-    setSecretDispensed(false)
-    setTimeout(() => setSecretDispensed(true), 50)
+  const buyReward = (r) => {
+    if (coins < r.cost) return
+    setCoins(c => c - r.cost)
+    const pool = SECRETS[r.id]
+    const text = pool[Math.floor(Math.random() * pool.length)]
+    setDispensed({ kind: r.label, text, anim: false })
+    setTimeout(() => setDispensed(d => ({ ...d, anim: true })), 30)
   }
 
   return (
@@ -300,38 +409,28 @@ function RiddleVault({ coins, addCoins, setCoins }){
       <div className="machine-display">
         <div className={`reels ${spinning ? 'spinning' : ''}`}>
           {reels.map((s, i) => (
-            <div key={i} className="reel">
-              <span className="reel-val">{s}</span>
-            </div>
+            <div key={i} className="reel"><span className="reel-val">{s}</span></div>
           ))}
         </div>
         <div className="display-label">
-          {spinning ? 'dispensing…' : alreadySolved ? `solved · riddle ${idx + 1}/${RIDDLES.length}` : `riddle ${idx + 1}/${RIDDLES.length}`}
+          {spinning ? 'dispensing…' : `riddle ${idx + 1}/${RIDDLES.length}${alreadySolved ? ' · solved' : ''}`}
         </div>
       </div>
 
-      <div className={`dispense-tray ${dispensed && !spinning ? 'in' : 'out'}`}>
+      <div className={`dispense-tray ${show && !spinning ? 'in' : 'out'}`}>
         <p className="riddle-q">{riddle.q}</p>
         {showHint && <p className="riddle-hint">hint: {riddle.hint}</p>}
         <form onSubmit={submit} className="riddle-form">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="type your answer…"
-            autoComplete="off"
-            disabled={spinning}
-          />
+          <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="type your answer…" autoComplete="off" disabled={spinning} />
           <button type="submit" className="btn" disabled={spinning}>Guess</button>
         </form>
         <div className="riddle-actions">
           <button onClick={() => setShowHint(s => !s)} className="link-btn" disabled={spinning}>
             {showHint ? 'hide hint' : 'hint'}
           </button>
-          <button onClick={dispenseNext} className="link-btn" disabled={spinning}>
-            new riddle →
-          </button>
+          <button onClick={dispenseNext} className="link-btn" disabled={spinning}>new riddle →</button>
         </div>
-        {status === 'correct' && <p className="msg ok">✓ correct. +3 coins dropped into your wallet.</p>}
+        {status === 'correct' && <p className="msg ok">✓ correct. +3 coins.</p>}
         {status === 'already' && <p className="msg muted-msg">already solved — no extra coins.</p>}
         {status === 'wrong' && <p className="msg bad">not quite. try again.</p>}
       </div>
@@ -348,22 +447,27 @@ function RiddleVault({ coins, addCoins, setCoins }){
             <div className="machine-stat-label">solved</div>
           </div>
         </div>
-
-        <button
-          className="dispense-btn"
-          onClick={spendSecret}
-          disabled={coins < 5}
-          title={coins < 5 ? 'need 5 coins' : 'insert 5 coins'}
-        >
-          <span className="dispense-btn-coin"><CoinSVG /></span>
-          insert 5 → secret
-        </button>
       </div>
 
-      {secret && (
-        <div className={`secret-drop ${secretDispensed ? 'in' : ''}`}>
-          <span className="secret-tag">dispensed</span>
-          <p>{secret}</p>
+      <div className="rewards">
+        {REWARDS.map(r => (
+          <button
+            key={r.id}
+            className="reward-btn"
+            onClick={() => buyReward(r)}
+            disabled={coins < r.cost}
+            title={r.hint}
+          >
+            <span className="reward-cost">{r.cost}¢</span>
+            <span className="reward-label">{r.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {dispensed.text && (
+        <div className={`secret-drop ${dispensed.anim ? 'in' : ''}`}>
+          <span className="secret-tag">{dispensed.kind}</span>
+          <p>{dispensed.text}</p>
         </div>
       )}
     </div>
@@ -372,38 +476,9 @@ function RiddleVault({ coins, addCoins, setCoins }){
 
 /* ---------- icons ---------- */
 
-function ThinkIcon(){
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 18h6"/><path d="M10 22h4"/>
-      <path d="M12 2a7 7 0 0 0-4 12.7c.6.4 1 1.1 1 1.8V18h6v-1.5c0-.7.4-1.4 1-1.8A7 7 0 0 0 12 2z"/>
-    </svg>
-  )
-}
-function BuildIcon(){
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/>
-    </svg>
-  )
-}
-function PlayIcon(){
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9"/><path d="M9 9h.01"/><path d="M15 15h.01"/><path d="M15 9h.01"/><path d="M9 15h.01"/><path d="M12 12h.01"/>
-    </svg>
-  )
-}
-function WorkIcon(){
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-    </svg>
-  )
-}
 function RepoIcon(){
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
     </svg>
   )
