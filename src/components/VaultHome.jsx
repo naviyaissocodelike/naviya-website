@@ -33,7 +33,8 @@ const REPOS = [
     problem: 'Loan underwriting at Tala still relied on rules brittle to new markets.',
     why: 'Credit is the most legible form of agency. Better underwriting = more access.',
     learned: 'LLMs are production-ready when the cost of being wrong is bounded.',
-    href: GITHUB_URL
+    href: '/lucy',
+    caseStudy: true
   },
   {
     name: 'analyst-agent', lang: 'Python',
@@ -364,6 +365,7 @@ export default function Home(){
                         <RepoIcon />
                         <span className="repo-name">{r.name}</span>
                         <span className="repo-lang">· {r.lang}</span>
+                        {r.caseStudy && <span className="repo-badge">case study</span>}
                       </div>
                       <dl className="repo-meta">
                         <dt>Problem</dt><dd>{r.problem}</dd>
