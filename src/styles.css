@@ -1235,6 +1235,51 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   line-height: 1.4;
 }
 
+/* Long-form essay — highlighted title parts (PDF-style) */
+.essay-hero { padding: 28px 0 36px; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
+.essay-h1 {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 2.25rem;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 22px;
+  color: var(--ink);
+}
+.essay-h2 {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 1.55rem;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+.essay-h2 .hl { padding: 2px 12px 4px; }
+
+/* highlighter — same shape as the home page h2 mark, applied inline */
+.hl {
+  display: inline;
+  padding: 0 8px;
+  background: linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 32%,
+    var(--hl, var(--c-think-soft)) 32%,
+    var(--hl, var(--c-think-soft)) 90%,
+    transparent 90%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  margin: 0 -1px;
+}
+.hl-a { --hl: var(--c-think-soft); }
+.hl-b { --hl: var(--c-play-soft);  }
+.hl-c { --hl: var(--c-build-soft); }
+
+.essay-hero .case-eyebrow { color: var(--c-think); }
+.essay-hero + .case-section { border-top: none; padding-top: 16px; }
+
 /* Timeline — time pill + body, row per item */
 .timeline {
   list-style: none;
@@ -1295,5 +1340,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .stats { grid-template-columns: 1fr 1fr; padding: 18px 20px; gap: 18px; }
   .stat-num { font-size: 1.3rem; }
   .tl-item { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
+  .essay-h1 { font-size: 1.55rem; line-height: 1.45; }
+  .essay-h2 { font-size: 1.2rem; }
 }
 

@@ -4,6 +4,7 @@ import VaultHome from './components/VaultHome'
 import Lucy from './projects/Lucy'
 import DataOpportunity from './projects/DataOpportunity'
 import AIDiffusion from './projects/AIDiffusion'
+import AIDiffusionEssay from './projects/AIDiffusionEssay'
 
 export default function App(){
   return (
@@ -14,6 +15,7 @@ export default function App(){
           <Route path="/lucy" element={<Lucy />} />
           <Route path="/data-opportunity" element={<DataOpportunity />} />
           <Route path="/ai-diffusion" element={<AIDiffusion />} />
+          <Route path="/ai-diffusion-essay" element={<AIDiffusionEssay />} />
         </Routes>
       </div>
     </BrowserRouter>

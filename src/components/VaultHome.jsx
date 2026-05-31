@@ -20,6 +20,7 @@ const EMAIL = 'hello@naviya.xyz'
 
 const ESSAYS = [
   { date: '2026 · 06', tag: 'AI',           title: 'AI diffusion in EM is best done with fintechs', blurb: 'Three reasons it has to happen. One real way it can. An 18-month window that closes when the rails are laid.', href: '/ai-diffusion', onSite: true },
+  { date: '2026 · 06', tag: 'AI',           title: 'AI diffusion in EM, the long cut',             blurb: 'The same thesis as an essay — each part of the title gets its own section. For readers who want the reasoning, not the brief.', href: '/ai-diffusion-essay', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'Shipping the first AI loan officer for Kenya', blurb: "Three versions, ten months at Tala. What worked, what didn't, what I'd carry into the next market.", href: '/lucy', onSite: true },
   { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',         blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'AI and institutional design',           blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',  href: SUBSTACK_URL },
@@ -41,18 +42,53 @@ const REPOS = [
     caseStudy: true
   },
   {
-    name: 'analyst-agent', lang: 'Python',
-    problem: 'Solo investors do screening work that compounds badly with time.',
-    why: 'Agents should do the boring part. Humans should hold conviction and relationships.',
-    learned: 'Reasoning loops only beat heuristics when the model can change its own prompt.',
-    href: `${GITHUB_URL}/analyst-agent`
+    name: 'luna', lang: 'Python',
+    problem: 'Most financial apps assume a bank account. 1B+ people in EM navigate credit, savings, and loans without one.',
+    why: 'An agent that understands your context and remembers your story is a fundamentally different product than a chatbot with a form.',
+    learned: 'Gamified progression compresses financial habit formation faster than any UX pattern I have tried.',
+    href: `${GITHUB_URL}/univ-agent`
+  },
+  {
+    name: 'investing-agent', lang: 'Python',
+    problem: 'Investment research is unbounded — there is always one more source to check.',
+    why: 'An Opus-class agent can hold a thesis and argue against it. That is a new kind of diligence partner.',
+    learned: 'The bottleneck is not data access. It is structured judgment about what matters and what to ignore.',
+    href: `${GITHUB_URL}/investing-agent`
+  },
+  {
+    name: 'news-digest', lang: 'Python',
+    problem: 'Fifty RSS feeds is too much to read. Zero is too little to stay sharp.',
+    why: 'A personalized AI digest with a two-host podcast delivers signal without the scroll.',
+    learned: 'Claude-as-editor produces better curation than any filter rule — it understands why something matters.',
+    href: `${GITHUB_URL}/news-digest`
+  },
+  {
+    name: 'voice-to-insight', lang: 'HTML',
+    problem: 'Meetings and voice notes are full of decisions and action items that evaporate by end of day.',
+    why: 'Audio is the most natural way humans communicate — but text is how work gets done.',
+    learned: 'The gap between capture and action is where most ideas die. Closing it is a UX problem first.',
+    href: `${GITHUB_URL}/voice-to-insight`
+  },
+  {
+    name: 'tasks-flow', lang: 'TypeScript',
+    problem: 'Solo operators need a project board that works offline and syncs without drama across devices.',
+    why: 'Project visibility should not depend on a vendor\'s uptime or pricing tier.',
+    learned: 'Local-first plus cloud sync is the architecture that survives the real world.',
+    href: `${GITHUB_URL}/tasks-flow`
+  },
+  {
+    name: 'Defi-Agent-Uma', lang: 'TypeScript',
+    problem: 'DeFi protocols move faster than any human can track across chains and governance cycles.',
+    why: 'Automation at the smart-contract layer is the only way to act on DeFi signals in time.',
+    learned: 'Protocol APIs are designed for bots. Agents let you write the bot in plain intent.',
+    href: `${GITHUB_URL}/Defi-Agent-Uma`
   },
   {
     name: 'wise-glade', lang: 'Python',
     problem: 'Job search is a daily intelligence problem dressed up as a one-off.',
     why: 'Career capital is a feedback system. Reward the right signal sooner.',
     learned: 'A small agent that does one thing every day beats a big one that does ten things once.',
-    href: `${GITHUB_URL}/wise-glade`
+    href: `${GITHUB_URL}/wise-glade-git`
   },
   {
     name: 'naviya-website', lang: 'React',
