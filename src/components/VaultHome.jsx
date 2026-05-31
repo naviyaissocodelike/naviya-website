@@ -184,6 +184,69 @@ const ROGUE_TILES = [
   { id: 'ideas',  kind: 'i', label: 'Ideas',  count: IDEAS.length  }
 ]
 
+/* Floating prompts that fade in when you've been in a section for a few seconds */
+const PROMPTS = [
+  {
+    id: 'about',  section: 'about',
+    text:   "Builder, operator, investor, or writer — which one are you most days?",
+    reactions: ['🏗️', '🛠️', '💰', '✍️']
+  },
+  {
+    id: 'think',  section: 'think',
+    text:   "Which essay would you read first? Drop a take below.",
+    reactions: ['🧠', '💸', '🌍', '🤔']
+  },
+  {
+    id: 'build',  section: 'build',
+    text:   "Which of these would you steal an idea from?",
+    reactions: ['🤖', '💳', '⚡', '📰']
+  },
+  {
+    id: 'rogue',  section: 'rogue',
+    text:   "Got a book, quote, or idea I should add? Drop it.",
+    reactions: ['📚', '💬', '🎬', '💡']
+  }
+]
+
+/* Trivia game — multiple choice, +5 coins for correct on first try */
+const TRIVIA = [
+  {
+    q: 'How much in stablecoin transactions did Africa process in 2024?',
+    options: ['$54B', '$120B', '$9B', '$2T'],
+    answer: 0
+  },
+  {
+    q: "What's Tala's core product?",
+    options: ['Crypto custody', 'Uncollateralized credit', 'B2B payments', 'Robo-advice'],
+    answer: 1
+  },
+  {
+    q: "Who's the only carrot that reliably changes behavior in EM, according to the thesis?",
+    options: ['Free mobile data', 'Status', 'Money', 'Time'],
+    answer: 2
+  },
+  {
+    q: 'Which Lucy version introduced the 3-day onboarding sequence?',
+    options: ['Lucy 1.0', 'Lucy 2.0', 'Lucy 3.0', 'Lucy 2.1'],
+    answer: 1
+  },
+  {
+    q: 'Which is NOT one of the four worlds on this site?',
+    options: ['Think', 'Build', 'Sell', 'Play'],
+    answer: 2
+  },
+  {
+    q: 'When was District Angels started?',
+    options: ['Jan 2023', 'March 2024', 'June 2025', 'Sept 2022'],
+    answer: 1
+  },
+  {
+    q: 'What did Naviya study at Cornell?',
+    options: ['Computer Science', 'Operations Research', 'Economics', 'Finance'],
+    answer: 1
+  }
+]
+
 const SECRETS = {
   joke: [
     "Why don't fintechs ever get cold? They have lots of liquidity.",
@@ -231,6 +294,11 @@ export default function Home(){
   const [showAllEssays, setShowAllEssays] = useState(false)
   const [openRogue, setOpenRogue] = useState(null)
   const rogueRef = useRef(null)
+  const [activeGame, setActiveGame] = useState('riddles')
+  const [activePrompt, setActivePrompt] = useState(null)
+  const [promptsDone, setPromptsDone] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem('nv_prompts_done') || '[]')) } catch { return new Set() }
+  })
 
   useEffect(() => {
     try { localStorage.setItem('nv_coins', String(coins)) } catch {}
@@ -256,6 +324,50 @@ export default function Home(){
     obs.observe(aboutRef.current)
     return () => obs.disconnect()
   }, [])
+
+  // Floating prompts: when user dwells in a section, fade one in
+  useEffect(() => {
+    const timers = new Map()
+    const observers = []
+    PROMPTS.forEach(p => {
+      if (promptsDone.has(p.id)) return
+      const el = document.getElementById(p.section)
+      if (!el) return
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          if (!timers.has(p.id)) {
+            timers.set(p.id, setTimeout(() => {
+              setActivePrompt(curr => {
+                if (curr) return curr
+                if (promptsDone.has(p.id)) return curr
+                return p
+              })
+            }, 4500))
+          }
+        } else {
+          if (timers.has(p.id)) {
+            clearTimeout(timers.get(p.id))
+            timers.delete(p.id)
+          }
+        }
+      }, { threshold: 0.35 })
+      obs.observe(el)
+      observers.push(obs)
+    })
+    return () => {
+      observers.forEach(o => o.disconnect())
+      timers.forEach(t => clearTimeout(t))
+    }
+  }, [promptsDone])
+
+  const markPromptDone = (id) => {
+    setPromptsDone(prev => {
+      const next = new Set(prev); next.add(id)
+      try { localStorage.setItem('nv_prompts_done', JSON.stringify([...next])) } catch {}
+      return next
+    })
+    setActivePrompt(null)
+  }
 
   const addCoins = (n) => {
     setCoins(c => c + n)
@@ -637,11 +749,44 @@ export default function Home(){
         <section id="play" className="block section-play">
           <SectionHead>Play</SectionHead>
           <p className="block-sub">
-            Earn coins solving riddles. Spend them on jokes, predictions, mind-changes, and strange startup ideas.
-            And — a few snapshots from the life around the work.
+            Welcome to the arcade. Solve, guess, react — every win earns coins you can spend on jokes,
+            predictions, mind-changes, and strange startup ideas. New games rotate in.
           </p>
           <div className="play-zone">
-            <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
+            <div className="arcade">
+              <div className="arcade-tabs" role="tablist">
+                <button
+                  role="tab"
+                  aria-selected={activeGame === 'riddles'}
+                  className={`arcade-tab ${activeGame === 'riddles' ? 'active' : ''}`}
+                  onClick={() => setActiveGame('riddles')}
+                >
+                  <span className="arcade-tab-icon">🎰</span>
+                  <span className="arcade-tab-label">Riddles</span>
+                </button>
+                <button
+                  role="tab"
+                  aria-selected={activeGame === 'trivia'}
+                  className={`arcade-tab ${activeGame === 'trivia' ? 'active' : ''}`}
+                  onClick={() => setActiveGame('trivia')}
+                >
+                  <span className="arcade-tab-icon">💡</span>
+                  <span className="arcade-tab-label">Trivia</span>
+                </button>
+                <button className="arcade-tab arcade-tab-locked" disabled title="more games coming">
+                  <span className="arcade-tab-icon">🔒</span>
+                  <span className="arcade-tab-label">Coming soon</span>
+                </button>
+              </div>
+
+              {activeGame === 'riddles' && (
+                <Vault coins={coins} addCoins={addCoins} setCoins={setCoins} />
+              )}
+              {activeGame === 'trivia' && (
+                <TriviaGame coins={coins} addCoins={addCoins} />
+              )}
+            </div>
+
             <div className="play-side">
               <div className="play-side-label">Shenanigans &amp; Side Quests</div>
               <div className="play-tiles">
@@ -656,6 +801,15 @@ export default function Home(){
         <span>© {new Date().getFullYear()} Naviya Kothari</span>
         <span className="footer-tag">A personal laboratory.</span>
       </footer>
+
+      {activePrompt && (
+        <FloatingPrompt
+          prompt={activePrompt}
+          onClose={() => markPromptDone(activePrompt.id)}
+          onReact={() => addCoins(1)}
+          onReply={() => addCoins(3)}
+        />
+      )}
     </div>
   )
 }
@@ -698,15 +852,145 @@ function Polaroid({ src, alt, caption }){
 }
 
 function Tile({ label, src, tint }){
-  const [errored, setErrored] = useState(false)
+  const [imgOk, setImgOk] = useState(false)
   return (
     <div className="tile" style={{ '--tile-c': tint }}>
-      {!errored && src ? (
-        <img src={src} alt={label} onError={() => setErrored(true)} />
-      ) : (
-        <div className="tile-placeholder">{label}</div>
+      <div className="tile-placeholder">{label}</div>
+      {src && (
+        <img
+          src={src}
+          alt={label}
+          className={`tile-img ${imgOk ? 'ok' : ''}`}
+          onLoad={() => setImgOk(true)}
+          onError={() => setImgOk(false)}
+        />
       )}
       <span className="tile-label">{label}</span>
+    </div>
+  )
+}
+
+/* ---------- Trivia game ---------- */
+
+function TriviaGame({ coins, addCoins }){
+  const [idx, setIdx] = useState(0)
+  const [picked, setPicked] = useState(null)
+  const [answered, setAnswered] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem('nv_trivia_done') || '[]')) } catch { return new Set() }
+  })
+
+  const q = TRIVIA[idx]
+  const wasAnswered = answered.has(idx)
+
+  const pick = (i) => {
+    if (picked !== null) return
+    setPicked(i)
+    if (i === q.answer && !wasAnswered) {
+      addCoins(5)
+      const next = new Set(answered); next.add(idx); setAnswered(next)
+      try { localStorage.setItem('nv_trivia_done', JSON.stringify([...next])) } catch {}
+    }
+  }
+  const nextQ = () => {
+    setIdx(i => (i + 1) % TRIVIA.length)
+    setPicked(null)
+  }
+
+  return (
+    <div className="trivia">
+      <div className="trivia-counter">
+        Question {idx + 1} of {TRIVIA.length} · {answered.size} solved
+      </div>
+      <h3 className="trivia-q">{q.q}</h3>
+      <div className="trivia-options">
+        {q.options.map((opt, i) => {
+          const showResult = picked !== null
+          const isCorrect = i === q.answer
+          const isPicked  = i === picked
+          let cls = 'trivia-opt'
+          if (showResult && isCorrect) cls += ' correct'
+          else if (showResult && isPicked) cls += ' wrong'
+          return (
+            <button key={i} className={cls} onClick={() => pick(i)} disabled={picked !== null}>
+              <span className="trivia-letter">{String.fromCharCode(65 + i)}</span>
+              <span>{opt}</span>
+            </button>
+          )
+        })}
+      </div>
+      {picked !== null && (
+        <div className="trivia-result">
+          {picked === q.answer ? (
+            wasAnswered
+              ? <span className="muted-msg">Already solved — no new coins.</span>
+              : <span className="ok">✓ correct. +5 coins.</span>
+          ) : (
+            <span className="bad">Not quite. Answer: <strong>{q.options[q.answer]}</strong></span>
+          )}
+          <button className="link-btn" onClick={nextQ}>next question →</button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ---------- Floating prompt ---------- */
+
+function FloatingPrompt({ prompt, onClose, onReact, onReply }){
+  const [reaction, setReaction] = useState(null)
+  const [reply, setReply] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleReact = (emoji) => {
+    if (reaction) return
+    setReaction(emoji)
+    onReact(emoji)
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!reply.trim() || submitted) return
+    try {
+      const all = JSON.parse(localStorage.getItem('nv_replies') || '[]')
+      all.push({ id: prompt.id, reaction, reply: reply.trim(), at: Date.now() })
+      localStorage.setItem('nv_replies', JSON.stringify(all))
+    } catch {}
+    setSubmitted(true)
+    onReply(reply)
+  }
+  const totalReward = (reaction ? 1 : 0) + (submitted ? 3 : 0)
+
+  return (
+    <div className="prompt" role="dialog" aria-label="Quick reaction prompt">
+      <button className="prompt-close" onClick={onClose} aria-label="Close">×</button>
+      <div className="prompt-eyebrow">React · earn coins</div>
+      <p className="prompt-text">{prompt.text}</p>
+      <div className="prompt-reactions">
+        {prompt.reactions.map((emoji, i) => (
+          <button
+            key={i}
+            className={`prompt-react ${reaction === emoji ? 'on' : ''}`}
+            onClick={() => handleReact(emoji)}
+            disabled={!!reaction}
+            aria-label={`React ${emoji}`}
+          >
+            {emoji}
+          </button>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit} className="prompt-reply">
+        <input
+          value={reply}
+          onChange={(e) => setReply(e.target.value)}
+          placeholder="reply for +3 coins…"
+          disabled={submitted}
+        />
+        <button type="submit" disabled={submitted || !reply.trim()}>↑</button>
+      </form>
+      {totalReward > 0 && (
+        <div className="prompt-reward">
+          +{totalReward} coin{totalReward === 1 ? '' : 's'} earned
+        </div>
+      )}
     </div>
   )
 }
