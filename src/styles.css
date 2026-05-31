@@ -636,16 +636,102 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .kv-v { color: var(--muted); font-size: 0.93rem; line-height: 1.5; }
 
-/* Rogue Thoughts — collage of mixed card types */
-.rogue-collage {
-  columns: 240px;
-  column-gap: 16px;
-  margin-top: 4px;
+/* Rogue Thoughts — five quirky tiles, click to expand */
+.rt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin: 6px 0 0;
 }
-.r-card {
-  break-inside: avoid;
+.rt-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 20px 18px;
+  min-height: 168px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  text-align: left;
+  transition: transform 240ms cubic-bezier(.34, 1.5, .64, 1), box-shadow 240ms ease, outline-offset 200ms ease;
+  overflow: hidden;
+}
+.rt-tile:hover { transform: translateY(-5px); box-shadow: 0 14px 28px rgba(0,0,0,0.12); }
+.rt-tile.open  { transform: translateY(-3px); outline: 3px solid var(--ink); outline-offset: 4px; }
+.rt-glyph     { display: flex; align-items: center; justify-content: flex-start; }
+.rt-meta      { display: flex; flex-direction: column; gap: 2px; width: 100%; }
+.rt-label     { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
+.rt-count     { font-size: 0.74rem; letter-spacing: 0.06em; opacity: 0.6; font-weight: 500; }
+.rt-affordance {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.5;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.rt-tile:hover .rt-affordance { opacity: 1; transform: rotate(10deg); }
+.rt-tile.open  .rt-affordance { opacity: 1; transform: rotate(0deg); }
+
+/* Per-category tile look — echoes the card visual when opened */
+.rt-q { background: linear-gradient(135deg, #e9efff 0%, #ddd6fe 100%); color: #1e1b4b; border-radius: 22px 22px 22px 8px; }
+.rt-p { background: #fdf6e3; color: #3e2f1c; border-top: 2px dashed rgba(135,90,30,0.28); border-bottom: 2px dashed rgba(135,90,30,0.28); border-radius: 4px; }
+.rt-b { background: #1a1612; color: #f5ede0; border-radius: 3px; position: relative; }
+.rt-b::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--c-build); }
+.rt-m { background: #0f172a; color: #f1f5f9; border-radius: 3px; position: relative; overflow: hidden; }
+.rt-m::before, .rt-m::after { content: ''; position: absolute; left: 0; right: 0; height: 10px; background-color: #020617; background-image: radial-gradient(circle at 6px 5px, #0f172a 2.5px, transparent 3.5px); background-size: 12px 10px; background-repeat: repeat-x; }
+.rt-m::before { top: 0; } .rt-m::after { bottom: 0; }
+.rt-m .rt-glyph, .rt-m .rt-meta { padding: 8px 0 4px; }
+.rt-i { background: #fef3a8; color: #161514; border-radius: 2px; transform: rotate(-1.5deg); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+.rt-i:hover { transform: rotate(0deg) translateY(-5px); }
+.rt-i.open  { transform: rotate(0deg); }
+
+/* Panel that opens below the tile row */
+.rt-panel {
+  margin-top: 22px;
+  padding: 28px 26px 26px;
+  background: #fbfaf7;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  animation: rt-open 320ms cubic-bezier(.34, 1.3, .64, 1);
+  position: relative;
+}
+@keyframes rt-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rt-close {
   display: block;
-  margin: 0 0 16px;
+  margin: 24px auto 0;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 140ms ease;
+}
+.rt-close:hover { color: var(--ink); border-color: var(--ink); }
+
+/* Grids inside the panel — one shape per category */
+.r-grid { display: grid; gap: 16px; }
+.r-grid-quotes { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.r-grid-poems  { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.r-grid-books  { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.r-grid-movies { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.r-grid-ideas  { columns: 220px; column-gap: 16px; display: block; }
+.r-grid-ideas .r-card { break-inside: avoid; margin: 0 0 16px; display: block; }
+
+.r-card {
+  display: block;
   padding: 0;
   font-family: 'Inter Tight', 'Inter', sans-serif;
   transition: transform 220ms cubic-bezier(.34, 1.5, .64, 1), box-shadow 220ms ease;
@@ -1083,7 +1169,12 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .play-zone { grid-template-columns: 1fr; gap: 22px; }
   .play-side { padding-top: 0; }
   .tile { aspect-ratio: 1 / 1; }
-  .rogue-collage { columns: 1; }
+  .rt-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rt-tile { min-height: 140px; padding: 18px 16px 14px; }
+  .rt-label { font-size: 0.96rem; }
+  .rt-panel { padding: 22px 18px 20px; }
+  .r-grid-quotes, .r-grid-poems, .r-grid-books, .r-grid-movies { grid-template-columns: 1fr; }
+  .r-grid-ideas { columns: 1; }
   .secret-drop { padding: 12px 14px; }
 }
 

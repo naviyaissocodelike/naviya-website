@@ -176,6 +176,14 @@ const IDEAS = [
   "If a thesis can't survive being explained at a noisy bar, it isn't one yet."
 ]
 
+const ROGUE_TILES = [
+  { id: 'quotes', kind: 'q', label: 'Quotes', count: QUOTES.length },
+  { id: 'poems',  kind: 'p', label: 'Poems',  count: POEMS.length  },
+  { id: 'books',  kind: 'b', label: 'Books',  count: BOOKS.length  },
+  { id: 'movies', kind: 'm', label: 'Movies', count: MOVIES.length },
+  { id: 'ideas',  kind: 'i', label: 'Ideas',  count: IDEAS.length  }
+]
+
 const SECRETS = {
   joke: [
     "Why don't fintechs ever get cold? They have lots of liquidity.",
@@ -221,6 +229,8 @@ export default function Home(){
   const [buildOpen, setBuildOpen] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
   const [showAllEssays, setShowAllEssays] = useState(false)
+  const [openRogue, setOpenRogue] = useState(null)
+  const rogueRef = useRef(null)
 
   useEffect(() => {
     try { localStorage.setItem('nv_coins', String(coins)) } catch {}
@@ -522,52 +532,106 @@ export default function Home(){
         <section id="rogue" className="block section-rogue">
           <SectionHead>Rogue Thoughts</SectionHead>
           <p className="block-sub">
-            A collage of what shaped me and what I'm still chasing — quotes, poems, books, movies, and stray ideas.
-            Notebook, not feed.
+            A collage of what shaped me and what I'm still chasing. Pick a tile — quotes, poems, books, movies,
+            or stray ideas. Notebook, not feed.
           </p>
-          <div className="rogue-collage">
-            {QUOTES.map((q, i) => (
-              <figure key={`q-${i}`} className="r-card r-quote">
-                <blockquote>{q.text}</blockquote>
-                <figcaption>— {q.author}</figcaption>
-              </figure>
-            ))}
-            {POEMS.map((p, i) => (
-              <figure key={`p-${i}`} className="r-card r-poem">
-                <div className="r-poem-title">{p.title}</div>
-                <div className="r-poem-body">{p.body}</div>
-                <figcaption>— {p.author}</figcaption>
-              </figure>
-            ))}
-            {BOOKS.map((b, i) => (
-              <article key={`b-${i}`} className="r-card r-book" style={{ '--book-spine': b.spine }}>
-                <div className="r-card-kicker">Book</div>
-                <h3 className="r-book-title">{b.title}</h3>
-                <div className="r-book-author">{b.author}</div>
-                <p className="r-book-why">{b.why}</p>
-              </article>
-            ))}
-            {MOVIES.map((m, i) => (
-              <article key={`m-${i}`} className="r-card r-movie">
-                <div className="r-movie-body">
-                  <div className="r-card-kicker">Film</div>
-                  <h3 className="r-movie-title">{m.title}</h3>
-                  <div className="r-movie-meta">{m.year}</div>
-                  <p className="r-movie-why">{m.why}</p>
-                </div>
-              </article>
-            ))}
-            {IDEAS.map((idea, i) => (
-              <aside
-                key={`i-${i}`}
-                className={`r-card r-idea idea-${i % 4}`}
-                style={{ '--rot': `${(i % 2 === 0 ? -1 : 1) * (0.6 + (i % 3) * 0.4)}deg` }}
-              >
-                <div className="r-card-kicker">Idea</div>
-                <p>{idea}</p>
-              </aside>
-            ))}
+
+          <div className="rt-grid">
+            {ROGUE_TILES.map(t => {
+              const isOpen = openRogue === t.id
+              return (
+                <button
+                  key={t.id}
+                  className={`rt-tile rt-${t.kind} ${isOpen ? 'open' : ''}`}
+                  onClick={() => {
+                    setOpenRogue(o => o === t.id ? null : t.id)
+                    setTimeout(() => {
+                      if (rogueRef.current) {
+                        rogueRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }
+                    }, 80)
+                  }}
+                  aria-expanded={isOpen}
+                >
+                  <div className="rt-glyph" aria-hidden>{rogueGlyph(t.kind)}</div>
+                  <div className="rt-meta">
+                    <span className="rt-label">{t.label}</span>
+                    <span className="rt-count">{t.count} {t.count === 1 ? 'item' : 'items'}</span>
+                  </div>
+                  <span className="rt-affordance" aria-hidden>{isOpen ? '×' : '↗'}</span>
+                </button>
+              )
+            })}
           </div>
+
+          {openRogue && (
+            <div ref={rogueRef} className={`rt-panel rt-panel-${openRogue}`}>
+              {openRogue === 'quotes' && (
+                <div className="r-grid r-grid-quotes">
+                  {QUOTES.map((q, i) => (
+                    <figure key={i} className="r-card r-quote">
+                      <blockquote>{q.text}</blockquote>
+                      <figcaption>— {q.author}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
+              {openRogue === 'poems' && (
+                <div className="r-grid r-grid-poems">
+                  {POEMS.map((p, i) => (
+                    <figure key={i} className="r-card r-poem">
+                      <div className="r-poem-title">{p.title}</div>
+                      <div className="r-poem-body">{p.body}</div>
+                      <figcaption>— {p.author}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
+              {openRogue === 'books' && (
+                <div className="r-grid r-grid-books">
+                  {BOOKS.map((b, i) => (
+                    <article key={i} className="r-card r-book" style={{ '--book-spine': b.spine }}>
+                      <div className="r-card-kicker">Book</div>
+                      <h3 className="r-book-title">{b.title}</h3>
+                      <div className="r-book-author">{b.author}</div>
+                      <p className="r-book-why">{b.why}</p>
+                    </article>
+                  ))}
+                </div>
+              )}
+              {openRogue === 'movies' && (
+                <div className="r-grid r-grid-movies">
+                  {MOVIES.map((m, i) => (
+                    <article key={i} className="r-card r-movie">
+                      <div className="r-movie-body">
+                        <div className="r-card-kicker">Film</div>
+                        <h3 className="r-movie-title">{m.title}</h3>
+                        <div className="r-movie-meta">{m.year}</div>
+                        <p className="r-movie-why">{m.why}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+              {openRogue === 'ideas' && (
+                <div className="r-grid r-grid-ideas">
+                  {IDEAS.map((idea, i) => (
+                    <aside
+                      key={i}
+                      className={`r-card r-idea idea-${i % 4}`}
+                      style={{ '--rot': `${(i % 2 === 0 ? -1 : 1) * (0.6 + (i % 3) * 0.4)}deg` }}
+                    >
+                      <div className="r-card-kicker">Idea</div>
+                      <p>{idea}</p>
+                    </aside>
+                  ))}
+                </div>
+              )}
+              <button className="rt-close" onClick={() => setOpenRogue(null)}>
+                Close ×
+              </button>
+            </div>
+          )}
         </section>
 
         <section id="play" className="block section-play">
@@ -807,6 +871,52 @@ function RepoIcon(){
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
     </svg>
   )
+}
+
+/* Glyphs for the Rogue tiles — one big illustrated icon per category */
+function rogueGlyph(kind){
+  const sw = 1.6
+  const props = { width: 44, height: 44, viewBox: '0 0 48 48', fill: 'none', stroke: 'currentColor', strokeWidth: sw, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  switch(kind){
+    case 'q': return ( // quote — speech bubble
+      <svg {...props}>
+        <path d="M8 12c0-2.2 1.8-4 4-4h24c2.2 0 4 1.8 4 4v18c0 2.2-1.8 4-4 4H20l-8 6v-6h-.001a4 4 0 0 1-4-4V12z"/>
+        <text x="16" y="28" fontSize="14" fontFamily="Georgia, serif" fill="currentColor" stroke="none" fontWeight="700">"</text>
+        <text x="26" y="28" fontSize="14" fontFamily="Georgia, serif" fill="currentColor" stroke="none" fontWeight="700">"</text>
+      </svg>
+    )
+    case 'p': return ( // poem — scroll
+      <svg {...props}>
+        <path d="M10 10h22a4 4 0 0 1 4 4v22a4 4 0 0 0 4 4H14a4 4 0 0 1-4-4V10z"/>
+        <path d="M10 10a4 4 0 0 1 4-4h22a4 4 0 0 0-4 4"/>
+        <line x1="16" y1="20" x2="30" y2="20"/>
+        <line x1="16" y1="26" x2="30" y2="26"/>
+        <line x1="16" y1="32" x2="24" y2="32"/>
+      </svg>
+    )
+    case 'b': return ( // books — stack
+      <svg {...props}>
+        <rect x="8" y="32" width="32" height="6" rx="1"/>
+        <rect x="10" y="22" width="28" height="10" rx="1"/>
+        <rect x="14" y="10" width="20" height="12" rx="1"/>
+        <line x1="16" y1="14" x2="16" y2="18"/>
+        <line x1="32" y1="14" x2="32" y2="18"/>
+      </svg>
+    )
+    case 'm': return ( // movies — clapperboard
+      <svg {...props}>
+        <rect x="6" y="18" width="36" height="22" rx="2"/>
+        <path d="M6 18l4-8h6l-4 8M16 18l4-8h6l-4 8M26 18l4-8h6l-4 8M36 18l4-8h2v8"/>
+      </svg>
+    )
+    case 'i': return ( // ideas — lightbulb
+      <svg {...props}>
+        <path d="M24 8c-6.6 0-12 5.4-12 12 0 3.5 1.5 6.6 3.9 8.8 1.2 1.1 2.1 2.5 2.1 4.2v3h12v-3c0-1.7.9-3.1 2.1-4.2 2.4-2.2 3.9-5.3 3.9-8.8 0-6.6-5.4-12-12-12z"/>
+        <line x1="20" y1="40" x2="28" y2="40"/>
+      </svg>
+    )
+    default: return null
+  }
 }
 
 /* Per-tag icons used in the Think reading list */
