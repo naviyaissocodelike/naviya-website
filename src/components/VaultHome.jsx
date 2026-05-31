@@ -58,25 +58,11 @@ const REPOS = [
     href: `${GITHUB_URL}/univ-agent`
   },
   {
-    name: 'investing-agent', lang: 'Python',
-    problem: 'Investment research is unbounded — there is always one more source to check.',
-    why: 'An Opus-class agent can hold a thesis and argue against it. That is a new kind of diligence partner.',
-    learned: 'The bottleneck is not data access. It is structured judgment about what matters and what to ignore.',
-    href: `${GITHUB_URL}/investing-agent`
-  },
-  {
     name: 'news-digest', lang: 'Python',
     problem: 'Fifty RSS feeds is too much to read. Zero is too little to stay sharp.',
     why: 'A personalized AI digest with a two-host podcast delivers signal without the scroll.',
     learned: 'Claude-as-editor produces better curation than any filter rule — it understands why something matters.',
     href: `${GITHUB_URL}/news-digest`
-  },
-  {
-    name: 'voice-to-insight', lang: 'HTML',
-    problem: 'Meetings and voice notes are full of decisions and action items that evaporate by end of day.',
-    why: 'Audio is the most natural way humans communicate — but text is how work gets done.',
-    learned: 'The gap between capture and action is where most ideas die. Closing it is a UX problem first.',
-    href: `${GITHUB_URL}/voice-to-insight`
   },
   {
     name: 'tasks-flow', lang: 'TypeScript',
