@@ -1,5 +1,5 @@
 import React from 'react'
-import { CaseFrame, CaseSection, Axes, Stats, Timeline, Pull } from '../components/CaseStudy'
+import { CaseFrame, CaseSection, Axes, Stats, Timeline, Pull, Reactions, ReflectionPrompt, ReadComplete } from '../components/CaseStudy'
 
 const FRAMING = [
   { k: 'Commercial',
@@ -97,6 +97,7 @@ export default function AIDiffusion(){
           markets. The carrot exists, the customer trusts the brand, and the workflow already touches the
           part of the user's life where the value lands.
         </p>
+        <Reactions id="ai-diffusion-fintechs" prompt="Buying the fintech-as-distribution argument?" />
       </CaseSection>
 
       {/* SECTION 3 — in the next 18 months */}
@@ -150,6 +151,8 @@ export default function AIDiffusion(){
           and eventually <em>becomes</em> the economic identity that lenders underwrite.
         </p>
         <Timeline items={TRAJECTORY} />
+        <ReflectionPrompt id="ai-diffusion" prompt="Which stage do you think arrives faster than expected?" />
+        <ReadComplete id="ai-diffusion" reward={5} />
       </CaseSection>
     </CaseFrame>
   )

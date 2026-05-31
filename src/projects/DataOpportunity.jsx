@@ -1,5 +1,5 @@
 import React from 'react'
-import { CaseFrame, CaseHero, CaseSection, DataList, NumberedList, Pull } from '../components/CaseStudy'
+import { CaseFrame, CaseHero, CaseSection, DataList, NumberedList, Pull, Reactions, ReflectionPrompt, ReadComplete } from '../components/CaseStudy'
 
 const CATEGORIES = [
   { name: 'Device Data',
@@ -152,6 +152,7 @@ export default function DataOpportunity(){
           and updated continuously as customers transact. Eleven categories worth listing out.
         </p>
         <DataList items={CATEGORIES} />
+        <Reactions id="data-categories" prompt="Which category surprised you?" />
       </CaseSection>
 
       <CaseSection kicker="The output" title="What this data produces at scale">
@@ -206,6 +207,8 @@ export default function DataOpportunity(){
           <li><strong>Photo-based business verification.</strong> Submitted shop photos are already used for underwriting. The same images captured repeatedly create a visual time series for price and inventory tracking.</li>
           <li><strong>Stablecoin flows as inflation signal.</strong> In Argentina, Nigeria, and Turkey, onchain stablecoin balance growth has consistently led official inflation data by weeks. Fintechs enabling crypto already see this at the wallet level.</li>
         </ul>
+        <ReflectionPrompt id="data-opp" prompt="If you ran an alt-data partnership, which intelligence product would you build first?" />
+        <ReadComplete id="data-opp" reward={5} />
       </CaseSection>
     </CaseFrame>
   )

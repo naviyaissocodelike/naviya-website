@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { RIDDLES } from '../data/riddles'
+import { useCoins } from '../contexts/CoinsContext'
 
 /**
  * To swap in real photos: drop files into /public/images/ and the placeholders
@@ -269,12 +270,9 @@ const SECTIONS = [
 ]
 
 export default function Home(){
-  const [coins, setCoins] = useState(() => {
-    try { return Number(localStorage.getItem('nv_coins')) || 0 } catch { return 0 }
-  })
+  const { coins, addCoins, setCoins, popCoin } = useCoins()
   const [activeTag, setActiveTag] = useState('All')
   const [activeBuild, setActiveBuild] = useState('code')
-  const [popCoin, setPopCoin] = useState(false)
   const [buildOpen, setBuildOpen] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
   const [showAllEssays, setShowAllEssays] = useState(false)
@@ -285,10 +283,6 @@ export default function Home(){
   const [promptsDone, setPromptsDone] = useState(() => {
     try { return new Set(JSON.parse(localStorage.getItem('nv_prompts_done') || '[]')) } catch { return new Set() }
   })
-
-  useEffect(() => {
-    try { localStorage.setItem('nv_coins', String(coins)) } catch {}
-  }, [coins])
 
   useEffect(() => {
     if (!infoOpen) return
@@ -353,12 +347,6 @@ export default function Home(){
       return next
     })
     setActivePrompt(null)
-  }
-
-  const addCoins = (n) => {
-    setCoins(c => c + n)
-    setPopCoin(true)
-    setTimeout(() => setPopCoin(false), 600)
   }
 
   const scrollTo = (id) => {

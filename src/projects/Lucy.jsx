@@ -1,5 +1,5 @@
 import React from 'react'
-import { CaseFrame, CaseHero, CaseSection, VersionCard, MetricTable, ChangeList, Pull } from '../components/CaseStudy'
+import { CaseFrame, CaseHero, CaseSection, VersionCard, MetricTable, ChangeList, Pull, Reactions, ReflectionPrompt, ReadComplete } from '../components/CaseStudy'
 
 export default function Lucy(){
   return (
@@ -81,6 +81,8 @@ export default function Lucy(){
             <li>"It kept scrolling and I didn't know where I left off."</li>
             <li>"I only wanted the loan. Once I got it, I didn't see the need to keep chatting."</li>
           </ul>
+
+          <Reactions id="lucy-v1" prompt="Did 1.0's failure make sense?" />
         </VersionCard>
 
         <VersionCard
@@ -120,6 +122,8 @@ export default function Lucy(){
           </ul>
 
           <Pull>Repayment motivation had shifted from compliance to relationship preservation.</Pull>
+
+          <Reactions id="lucy-v2" prompt="React to the v2 shift" />
         </VersionCard>
 
         <VersionCard
@@ -177,6 +181,8 @@ export default function Lucy(){
           entrepreneurs at scale, across markets, across languages, with real credit attached — doesn't have a complete answer
           yet. We're further down the road than anyone else who's tried.
         </p>
+        <ReflectionPrompt id="lucy" prompt="What would you take into the Mexico build?" />
+        <ReadComplete id="lucy" reward={5} />
       </CaseSection>
     </CaseFrame>
   )
