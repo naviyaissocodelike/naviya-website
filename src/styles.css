@@ -551,18 +551,225 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .kv-v { color: var(--muted); font-size: 0.93rem; line-height: 1.5; }
 
-/* Rogue Thoughts */
-.rogue { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
-.rogue li {
-  padding: 14px 0 14px 18px;
-  font-size: 0.98rem;
-  line-height: 1.55;
-  color: var(--ink);
-  border-bottom: 1px dashed var(--line);
+/* Rogue Thoughts — collage of mixed card types */
+.rogue-collage {
+  columns: 240px;
+  column-gap: 16px;
+  margin-top: 4px;
+}
+.r-card {
+  break-inside: avoid;
+  display: block;
+  margin: 0 0 16px;
+  padding: 0;
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  transition: transform 220ms cubic-bezier(.34, 1.5, .64, 1), box-shadow 220ms ease;
+}
+.r-card-kicker {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.55;
+  margin-bottom: 8px;
+}
+
+/* QUOTE — soft cloud bubble */
+.r-quote {
+  padding: 22px 22px 18px;
+  background: linear-gradient(135deg, #e9efff 0%, #ddd6fe 100%);
+  border-radius: 22px 22px 22px 6px;
+  position: relative;
+  color: #1e1b4b;
+}
+.r-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: 2px;
+  left: 14px;
+  font-size: 3rem;
+  font-family: Georgia, serif;
+  color: rgba(30, 27, 75, 0.18);
+  line-height: 1;
+  font-weight: 700;
+}
+.r-quote blockquote {
+  margin: 0 0 12px;
+  padding: 6px 0 0 18px;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.r-quote figcaption {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(30, 27, 75, 0.6);
+  padding-left: 18px;
+}
+.r-quote:hover { transform: translateY(-3px) rotate(-0.5deg); }
+
+/* POEM — parchment scroll */
+.r-poem {
+  padding: 22px 22px 18px;
+  background: #fdf6e3;
+  color: #3e2f1c;
+  position: relative;
+  border-top: 2px dashed rgba(135, 90, 30, 0.28);
+  border-bottom: 2px dashed rgba(135, 90, 30, 0.28);
+  box-shadow: 0 2px 6px rgba(135, 90, 30, 0.08), 0 8px 18px rgba(135, 90, 30, 0.05);
+}
+.r-poem-title {
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(62, 47, 28, 0.65);
+  margin-bottom: 12px;
+}
+.r-poem-body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  white-space: pre-line;
+  color: #3e2f1c;
+}
+.r-poem figcaption {
+  margin-top: 14px;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: rgba(62, 47, 28, 0.55);
+  font-weight: 600;
+}
+.r-poem:hover { transform: translateY(-2px); }
+
+/* BOOK — dark book cover with colored spine */
+.r-book {
+  padding: 20px 20px 22px 22px;
+  background: #1a1612;
+  color: #f5ede0;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+}
+.r-book::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--book-spine, var(--c-build));
+}
+.r-book .r-card-kicker {
+  color: rgba(245, 237, 224, 0.5);
+}
+.r-book-title {
+  font-size: 1.08rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 0 4px !important;
+  color: #f5ede0 !important;
+  text-transform: none !important;
+  font-family: 'Inter Tight', sans-serif !important;
+}
+.r-book-author {
+  font-size: 0.78rem;
+  color: rgba(245, 237, 224, 0.65);
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+.r-book-why {
+  margin: auto 0 0 !important;
+  font-size: 0.86rem !important;
+  line-height: 1.5 !important;
+  color: rgba(245, 237, 224, 0.85) !important;
+  font-style: italic;
+  max-width: none !important;
+}
+.r-book:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.25); }
+
+/* MOVIE — film strip card */
+.r-movie {
+  background: #0f172a;
+  color: #f1f5f9;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.r-movie::before,
+.r-movie::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 16px;
+  background-color: #020617;
+  background-image: radial-gradient(circle at 8px 8px, #0f172a 3.5px, transparent 4.5px);
+  background-size: 16px 16px;
+  background-repeat: repeat-x;
+}
+.r-movie::before { top: 0; }
+.r-movie::after  { bottom: 0; }
+.r-movie-body { padding: 28px 18px 28px; }
+.r-movie .r-card-kicker { color: #f59e0b; opacity: 0.8; }
+.r-movie-title {
+  font-size: 1.08rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.005em !important;
+  line-height: 1.2 !important;
+  margin: 0 0 4px !important;
+  color: #f8fafc !important;
+  text-transform: none !important;
+  font-family: 'Inter Tight', sans-serif !important;
+}
+.r-movie-meta {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  letter-spacing: 0.16em;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.r-movie-why {
+  margin: 0 !important;
+  font-size: 0.86rem !important;
+  color: #cbd5e1 !important;
+  line-height: 1.5 !important;
+  font-style: italic;
+  max-width: none !important;
+}
+.r-movie:hover { transform: translateY(-3px); }
+
+/* IDEA — sticky note, slight tilt */
+.r-idea {
+  padding: 18px 18px 20px;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: #161514;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.05),
+    0 6px 16px rgba(0,0,0,0.08);
+  border-radius: 2px;
+  transform: rotate(var(--rot, -1deg));
   position: relative;
 }
-.rogue li:last-child { border-bottom: none; }
-.rogue-em { color: var(--c-rogue); margin-right: 4px; position: absolute; left: 0; font-weight: 600; }
+.r-idea .r-card-kicker { color: rgba(0, 0, 0, 0.45); }
+.r-idea p {
+  margin: 0 !important;
+  max-width: none !important;
+  font-size: 0.94rem !important;
+  line-height: 1.45 !important;
+  color: #161514 !important;
+  font-weight: 500 !important;
+}
+.r-idea.idea-0 { background: #fef3a8; }
+.r-idea.idea-1 { background: #ffd4dc; }
+.r-idea.idea-2 { background: #cfe6ff; }
+.r-idea.idea-3 { background: #d4f0c4; }
+.r-idea:hover { transform: rotate(0deg) translateY(-3px); }
 
 /* play zone: arcade + activity tiles */
 .play-zone {

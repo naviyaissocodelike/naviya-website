@@ -126,14 +126,43 @@ const BUILD_TABS = [
   { key: 'cornell', label: 'Cornell SE' }
 ]
 
-const ROGUE = [
-  "Credit is the most legible form of agency. Everything else compounds from access to it.",
+/* Swap-in placeholders — each list renders as a distinct card shape in the Rogue collage. */
+const QUOTES = [
+  { text: "The future is already here — it's just not evenly distributed.", author: 'William Gibson' },
+  { text: 'We shape our tools, and thereafter our tools shape us.',          author: 'Marshall McLuhan' },
+  { text: 'The map is not the territory.',                                   author: 'Alfred Korzybski' }
+]
+
+const POEMS = [
+  { title: 'Wild Geese',
+    body:  "You do not have to be good.\nYou do not have to walk on your knees\nfor a hundred miles through the desert, repenting.",
+    author:'Mary Oliver' },
+  { title: 'Kindness',
+    body:  "Before you know what kindness really is\nyou must lose things,\nfeel the future dissolve in a moment\nlike salt in a weakened broth.",
+    author:'Naomi Shihab Nye' }
+]
+
+const BOOKS = [
+  { title: 'The Three-Body Problem', author: 'Liu Cixin',          why: 'Civilizational thinking, in fiction.', spine: 'var(--c-think)' },
+  { title: 'Sapiens',                author: 'Yuval Noah Harari',  why: 'Where institutions actually come from.', spine: 'var(--c-build)' },
+  { title: 'The Goal',               author: 'Eliyahu M. Goldratt', why: 'The book that made ORIE click for me.', spine: 'var(--c-invest, #15803d)' },
+  { title: 'Antifragile',            author: 'Nassim Taleb',       why: 'Optionality as a moral framework.', spine: 'var(--c-play)' }
+]
+
+const MOVIES = [
+  { title: 'Arrival',           year: '2016', why: 'Language as the agency of thought.' },
+  { title: 'Her',               year: '2013', why: 'A small love story that read the AI question right.' },
+  { title: 'Children of Men',   year: '2006', why: 'Hope as a discipline, not a feeling.' }
+]
+
+const IDEAS = [
+  'Credit is the most legible form of agency. Everything else compounds from access to it.',
   "Every community that scales becomes either an institution or a brand. The interesting ones become both.",
   "The frontier is wherever the bureau doesn't reach. That's where new institutions get built.",
   "AI doesn't kill jobs. It kills the parts of jobs nobody enjoyed in the first place.",
-  "Partnership-first fintechs will out-distribute the model labs in places the bureau never reached.",
+  'Partnership-first fintechs will out-distribute the model labs in places the bureau never reached.',
   "Stablecoins aren't a crypto story. They're a backbone for the half of the world the SWIFT-era never served.",
-  "The founders I want to back have an unreasonable feel for one specific market and a calm relationship with their own ego.",
+  'The founders I want to back have an unreasonable feel for one specific market and a calm relationship with their own ego.',
   "If a thesis can't survive being explained at a noisy bar, it isn't one yet."
 ]
 
@@ -466,12 +495,53 @@ export default function Home(){
 
         <section id="rogue" className="block section-rogue">
           <SectionHead>Rogue Thoughts</SectionHead>
-          <p className="block-sub">Short observations. Notebook, not feed.</p>
-          <ul className="rogue">
-            {ROGUE.map((r, i) => (
-              <li key={i}><span className="rogue-em">—</span> {r}</li>
+          <p className="block-sub">
+            A collage of what shaped me and what I'm still chasing — quotes, poems, books, movies, and stray ideas.
+            Notebook, not feed.
+          </p>
+          <div className="rogue-collage">
+            {QUOTES.map((q, i) => (
+              <figure key={`q-${i}`} className="r-card r-quote">
+                <blockquote>{q.text}</blockquote>
+                <figcaption>— {q.author}</figcaption>
+              </figure>
             ))}
-          </ul>
+            {POEMS.map((p, i) => (
+              <figure key={`p-${i}`} className="r-card r-poem">
+                <div className="r-poem-title">{p.title}</div>
+                <div className="r-poem-body">{p.body}</div>
+                <figcaption>— {p.author}</figcaption>
+              </figure>
+            ))}
+            {BOOKS.map((b, i) => (
+              <article key={`b-${i}`} className="r-card r-book" style={{ '--book-spine': b.spine }}>
+                <div className="r-card-kicker">Book</div>
+                <h3 className="r-book-title">{b.title}</h3>
+                <div className="r-book-author">{b.author}</div>
+                <p className="r-book-why">{b.why}</p>
+              </article>
+            ))}
+            {MOVIES.map((m, i) => (
+              <article key={`m-${i}`} className="r-card r-movie">
+                <div className="r-movie-body">
+                  <div className="r-card-kicker">Film</div>
+                  <h3 className="r-movie-title">{m.title}</h3>
+                  <div className="r-movie-meta">{m.year}</div>
+                  <p className="r-movie-why">{m.why}</p>
+                </div>
+              </article>
+            ))}
+            {IDEAS.map((idea, i) => (
+              <aside
+                key={`i-${i}`}
+                className={`r-card r-idea idea-${i % 4}`}
+                style={{ '--rot': `${(i % 2 === 0 ? -1 : 1) * (0.6 + (i % 3) * 0.4)}deg` }}
+              >
+                <div className="r-card-kicker">Idea</div>
+                <p>{idea}</p>
+              </aside>
+            ))}
+          </div>
         </section>
 
         <section id="play" className="block section-play">
