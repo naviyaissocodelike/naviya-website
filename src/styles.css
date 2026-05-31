@@ -375,6 +375,21 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .entry-body p { margin: 0; font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
 .entry-tag { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); white-space: nowrap; }
+.entry-onsite {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--c-think);
+  background: var(--c-think-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
 .entry-arrow { opacity: 0; font-size: 0.95rem; color: var(--soft); transition: opacity 160ms ease, transform 160ms ease, color 160ms ease; }
 
 /* Build tabs */
@@ -765,6 +780,10 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   --section: var(--c-build);
   --section-soft: var(--c-build-soft);
 }
+.case.tone-build { --section: var(--c-build); --section-soft: var(--c-build-soft); }
+.case.tone-think { --section: var(--c-think); --section-soft: var(--c-think-soft); }
+.case.tone-play  { --section: var(--c-play);  --section-soft: var(--c-play-soft);  }
+.case.tone-rogue { --section: var(--c-rogue); --section-soft: var(--c-rogue-soft); }
 .case-nav {
   position: sticky;
   top: 0;
@@ -783,9 +802,9 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   color: var(--muted);
   border-bottom: none;
 }
-.case-back:hover { color: var(--c-build); }
+.case-back:hover { color: var(--section); }
 .case-mark { font-weight: 600; font-size: 1.04rem; border-bottom: none; }
-.case-mark:hover { color: var(--c-build); }
+.case-mark:hover { color: var(--section); }
 
 .case-hero {
   padding: 28px 0 36px;
@@ -797,7 +816,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--c-build);
+  color: var(--section);
   font-weight: 600;
 }
 .case-hero h1 {
@@ -854,7 +873,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   font-size: 0.66rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--c-build);
+  color: var(--section);
   font-weight: 600;
 }
 .case-section h2 {
@@ -886,7 +905,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   font-size: 0.95rem;
 }
 .case-section.tone-summary {
-  background: var(--c-build-soft);
+  background: var(--section-soft);
   margin-left: -24px;
   margin-right: -24px;
   padding: 36px 24px;
@@ -906,7 +925,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .quotes {
   list-style: none;
   padding-left: 0;
-  border-left: 2px solid var(--c-build-soft);
+  border-left: 2px solid var(--section-soft);
   padding-left: 16px;
   margin-top: 6px;
 }
@@ -920,7 +939,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   margin: 20px 0;
   padding: 18px 22px;
   background: #fbfaf7;
-  border-left: 3px solid var(--c-build);
+  border-left: 3px solid var(--section);
   border-radius: 2px;
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-size: 1.12rem;
@@ -937,13 +956,13 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 8px;
-  border-left: 3px solid var(--c-build);
+  border-left: 3px solid var(--section);
 }
 .version + .version { margin-top: 28px; }
 .version.status-in.design,
 .version.status-in {
   background: transparent;
-  border: 1px dashed var(--c-build);
+  border: 1px dashed var(--section);
   border-left-width: 1px;
 }
 .version-head {
@@ -959,7 +978,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   text-transform: uppercase;
   font-weight: 700;
   color: #fff;
-  background: var(--c-build);
+  background: var(--section);
   padding: 4px 8px;
   border-radius: 4px;
   font-variant-numeric: tabular-nums;
@@ -981,8 +1000,8 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--c-build);
-  background: var(--c-build-soft);
+  color: var(--section);
+  background: var(--section-soft);
   padding: 3px 7px;
   border-radius: 4px;
   font-weight: 700;
@@ -1061,7 +1080,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .change-arrow {
   grid-column: 2;
   grid-row: 2;
-  color: var(--c-build);
+  color: var(--section);
   font-weight: 700;
 }
 .change-to {
@@ -1079,6 +1098,88 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .case-foot a { border-bottom-color: var(--line); }
 
+/* DataList — labelled stacked rows for long-form essays */
+.data-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 12px;
+  border-top: 1px solid var(--line);
+}
+.data-row {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.data-name {
+  font-family: 'Inter Tight', 'Inter', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.005em !important;
+  margin: 0 0 12px !important;
+  color: var(--ink) !important;
+  text-transform: none !important;
+}
+.data-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 28px;
+}
+.data-half { min-width: 0; }
+.data-label {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--section);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.data-half p {
+  margin: 0 !important;
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
+  color: var(--muted) !important;
+}
+
+/* NumberedList — big numerals + body */
+.use-cases {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+  display: grid;
+  gap: 28px;
+}
+.use-case {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.use-case:first-child { border-top: none; padding-top: 4px; }
+.uc-num {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--section);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.uc-body h3 {
+  font-family: 'Inter Tight', 'Inter', sans-serif !important;
+  margin: 0 0 8px !important;
+  font-size: 1.15rem !important;
+  letter-spacing: -0.01em !important;
+  text-transform: none !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+.uc-lede {
+  color: var(--muted) !important;
+  margin: 0 0 10px !important;
+  font-size: 0.96rem !important;
+}
+
 /* mobile */
 @media (max-width: 720px) {
   .case { padding: 0 18px 60px; }
@@ -1092,5 +1193,8 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .change-from, .change-arrow, .change-to { grid-column: 1; }
   .change-arrow { grid-row: auto; }
   .metric-table th { width: 50%; font-size: 0.86rem; }
+  .data-pair { grid-template-columns: 1fr; gap: 14px; }
+  .use-case { grid-template-columns: 1fr; gap: 8px; }
+  .uc-num { font-size: 1.5rem; }
 }
 

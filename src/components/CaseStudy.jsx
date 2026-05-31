@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export function CaseFrame({ children }){
+export function CaseFrame({ children, tone = 'build', backTo = '/', backLabel = 'Back', footLink }){
   return (
-    <div className="case">
+    <div className={`case tone-${tone}`}>
       <header className="case-nav">
-        <Link to="/" className="case-back">← Back</Link>
+        <Link to={backTo} className="case-back">← {backLabel}</Link>
         <Link to="/" className="case-mark">Naviya</Link>
       </header>
       <main>{children}</main>
       <footer className="case-foot">
-        <Link to="/#build">More projects →</Link>
+        <Link to={footLink?.to || '/#build'}>{footLink?.label || 'More projects →'}</Link>
       </footer>
     </div>
   )
@@ -89,4 +89,51 @@ export function ChangeList({ items }){
 
 export function Pull({ children }){
   return <blockquote className="pull">{children}</blockquote>
+}
+
+/* For long-form essays / theses with stacked data rows.
+   Each row has a name + two labelled paragraphs (What / So what). */
+export function DataList({ items }){
+  return (
+    <ul className="data-list">
+      {items.map(d => (
+        <li key={d.name} className="data-row">
+          <h3 className="data-name">{d.name}</h3>
+          <div className="data-pair">
+            <div className="data-half">
+              <span className="data-label">What</span>
+              <p>{d.what}</p>
+            </div>
+            <div className="data-half">
+              <span className="data-label">So what</span>
+              <p>{d.why}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/* Numbered list for use cases / theses (01, 02, 03...) */
+export function NumberedList({ items }){
+  return (
+    <ol className="use-cases">
+      {items.map((it, i) => (
+        <li key={it.title} className="use-case">
+          <span className="uc-num">{String(i + 1).padStart(2, '0')}</span>
+          <div className="uc-body">
+            <h3>{it.title}</h3>
+            {it.lede && <p className="uc-lede">{it.lede}</p>}
+            {it.points && (
+              <ul className="bullets">
+                {it.points.map((p, j) => <li key={j}>{p}</li>)}
+              </ul>
+            )}
+            {it.children}
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
 }

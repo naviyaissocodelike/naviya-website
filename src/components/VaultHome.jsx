@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { RIDDLES } from '../data/riddles'
 
 /**
@@ -18,6 +19,7 @@ const SUBSTACK_URL = '#'
 const EMAIL = 'hello@naviya.xyz'
 
 const ESSAYS = [
+  { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',         blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'AI and institutional design',           blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',  href: SUBSTACK_URL },
   { date: '2026 · 04', tag: 'Money',        title: 'Capital formation in emerging markets', blurb: "Why the next billion users won't get banked by banks.",                  href: SUBSTACK_URL },
   { date: '2026 · 03', tag: 'Crypto',       title: 'Stablecoins and programmable money',    blurb: 'The second rail is here. The first one was never universal.',            href: SUBSTACK_URL },
@@ -314,19 +316,27 @@ export default function Home(){
             ))}
           </div>
           <ul className="entries">
-            {filteredEssays.map((note, i) => (
-              <li key={`${note.title}-${i}`}>
-                <a href={note.href} className="entry">
-                  <span className="entry-date">{note.date}</span>
-                  <div className="entry-body">
-                    <h3>{note.title}</h3>
-                    <p>{note.blurb}</p>
-                  </div>
-                  <span className="entry-tag">{note.tag}</span>
-                  <span className="entry-arrow" aria-hidden>→</span>
-                </a>
-              </li>
-            ))}
+            {filteredEssays.map((note, i) => {
+              const isInternal = note.href?.startsWith('/')
+              const Cmp = isInternal ? Link : 'a'
+              const linkProps = isInternal ? { to: note.href } : { href: note.href }
+              return (
+                <li key={`${note.title}-${i}`}>
+                  <Cmp {...linkProps} className="entry">
+                    <span className="entry-date">{note.date}</span>
+                    <div className="entry-body">
+                      <h3>
+                        {note.title}
+                        {note.onSite && <span className="entry-onsite">on site</span>}
+                      </h3>
+                      <p>{note.blurb}</p>
+                    </div>
+                    <span className="entry-tag">{note.tag}</span>
+                    <span className="entry-arrow" aria-hidden>→</span>
+                  </Cmp>
+                </li>
+              )
+            })}
           </ul>
         </section>
 
@@ -359,21 +369,26 @@ export default function Home(){
                   what problem, why it matters, what I learned.
                 </p>
                 <div className="repos">
-                  {REPOS.map(r => (
-                    <a key={r.name} href={r.href} className="repo">
-                      <div className="repo-head">
-                        <RepoIcon />
-                        <span className="repo-name">{r.name}</span>
-                        <span className="repo-lang">· {r.lang}</span>
-                        {r.caseStudy && <span className="repo-badge">case study</span>}
-                      </div>
-                      <dl className="repo-meta">
-                        <dt>Problem</dt><dd>{r.problem}</dd>
-                        <dt>Why</dt><dd>{r.why}</dd>
-                        <dt>Learned</dt><dd>{r.learned}</dd>
-                      </dl>
-                    </a>
-                  ))}
+                  {REPOS.map(r => {
+                    const isInternal = r.href?.startsWith('/')
+                    const Cmp = isInternal ? Link : 'a'
+                    const linkProps = isInternal ? { to: r.href } : { href: r.href }
+                    return (
+                      <Cmp key={r.name} {...linkProps} className="repo">
+                        <div className="repo-head">
+                          <RepoIcon />
+                          <span className="repo-name">{r.name}</span>
+                          <span className="repo-lang">· {r.lang}</span>
+                          {r.caseStudy && <span className="repo-badge">case study</span>}
+                        </div>
+                        <dl className="repo-meta">
+                          <dt>Problem</dt><dd>{r.problem}</dd>
+                          <dt>Why</dt><dd>{r.why}</dd>
+                          <dt>Learned</dt><dd>{r.learned}</dd>
+                        </dl>
+                      </Cmp>
+                    )
+                  })}
                 </div>
               </>
             )}
