@@ -23,13 +23,23 @@ const ESSAYS = [
   { date: '2026 · 05', tag: 'AI',           title: 'Shipping the first AI loan officer for Kenya', blurb: "Three versions, ten months at Tala. What worked, what didn't, what I'd carry into the next market.", href: '/lucy', onSite: true },
   { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',         blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'AI and institutional design',           blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',  href: SUBSTACK_URL },
+  { date: '2026 · 04', tag: 'Frameworks',   title: 'The legible / illegible test',          blurb: 'A field guide for picking which problems are worth your time.',           href: SUBSTACK_URL },
   { date: '2026 · 04', tag: 'Money',        title: 'Capital formation in emerging markets', blurb: "Why the next billion users won't get banked by banks.",                  href: SUBSTACK_URL },
+  { date: '2026 · 03', tag: 'Operating',    title: 'Shipping with a small team',            blurb: "What scales when the team doesn't. Notes from years of being undercounted.", href: SUBSTACK_URL },
   { date: '2026 · 03', tag: 'Crypto',       title: 'Stablecoins and programmable money',    blurb: 'The second rail is here. The first one was never universal.',            href: SUBSTACK_URL },
+  { date: '2026 · 02', tag: 'Frameworks',   title: 'Agency as a stack',                     blurb: 'Tools below, decisions above. Where each layer earns its place.',        href: SUBSTACK_URL },
   { date: '2026 · 02', tag: 'AI',           title: 'How AI changes work',                   blurb: "Not the parts you think — the parts nobody enjoyed in the first place.", href: SUBSTACK_URL },
+  { date: '2026 · 01', tag: 'Operating',    title: 'Founder taste, founder ego',            blurb: 'How to tell the difference — and why one compounds while the other rots.', href: SUBSTACK_URL },
   { date: '2026 · 01', tag: 'Institutions', title: 'How communities become institutions',   blurb: 'Process, ritual, and shared standards are the bridge.',                  href: SUBSTACK_URL },
   { date: '2025 · 12', tag: 'Agency',       title: 'The future of human agency',            blurb: 'Better tools change what kind of life is available to you.',             href: SUBSTACK_URL }
 ]
-const TAGS = ['All', 'AI', 'Money', 'Crypto', 'Institutions', 'Agency']
+const TAGS = ['All', 'AI', 'Money', 'Crypto', 'Institutions', 'Agency', 'Operating', 'Frameworks']
+
+const TAG_COLORS = {
+  AI: '#2563eb', Money: '#15803d', Crypto: '#7c3aed',
+  Institutions: '#c2410c', Agency: '#475569',
+  Operating: '#0891b2', Frameworks: '#9333ea'
+}
 
 const REPOS = [
   {
@@ -210,6 +220,7 @@ export default function Home(){
   const [popCoin, setPopCoin] = useState(false)
   const [buildOpen, setBuildOpen] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
+  const [showAllEssays, setShowAllEssays] = useState(false)
 
   useEffect(() => {
     try { localStorage.setItem('nv_coins', String(coins)) } catch {}
@@ -248,6 +259,9 @@ export default function Home(){
   }
 
   const filteredEssays = activeTag === 'All' ? ESSAYS : ESSAYS.filter(n => n.tag === activeTag)
+  const ESSAY_LIMIT = 5
+  const visibleEssays = showAllEssays ? filteredEssays : filteredEssays.slice(0, ESSAY_LIMIT)
+  const hasMore = filteredEssays.length > ESSAY_LIMIT
 
   return (
     <div className="page">
@@ -327,24 +341,14 @@ export default function Home(){
       </header>
 
       <main id="top">
-        <section className="hero">
-          <p className="eyebrow">Builder · Operator · Investor · Community</p>
-          <h1>Frontier technology in the hands of the overlooked.</h1>
-          <p className="lede">
-            A working map of how I think about AI, capital, communities, and the systems that shape
-            human agency. Less a portfolio, more a personal laboratory.
-          </p>
-          <div className="hero-meta">
-            <a href={GITHUB_URL}>GitHub →</a>
-            <a href={SUBSTACK_URL}>Substack →</a>
-            <a href={`mailto:${EMAIL}`}>Email →</a>
-          </div>
-        </section>
-
-        <section id="about" ref={aboutRef} className="block section-about">
+        <section id="about" ref={aboutRef} className="block first-block section-about">
           <SectionHead>About</SectionHead>
           <div className="about-grid">
             <div className="about-text">
+              <p className="about-lead">
+                <strong>Frontier technology in the hands of the overlooked.</strong> A working map of how I think
+                about AI, capital, communities, and the systems that shape human agency.
+              </p>
               <p>
                 I'm interested in agency at scale — the kind people get when better tools, capital, and information
                 actually reach them. My work sits at the intersections: AI and money, communities and institutions,
@@ -366,6 +370,16 @@ export default function Home(){
               <Polaroid src={ABOUT_IMG} alt="Naviya" caption="naviya" />
             </div>
           </div>
+
+          <aside className="tldr">
+            <div className="tldr-label">TL;DR</div>
+            <ul>
+              <li><strong>Building</strong> AI agents and stablecoin pilots at <a href="https://tala.co">Tala</a> — credit infrastructure across 8 emerging markets.</li>
+              <li><strong>Investing</strong> early-stage through <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a> — a DC-based collective.</li>
+              <li><strong>Writing</strong> about frontier tech and agency — on this site and on <a href={SUBSTACK_URL}>Substack</a>.</li>
+              <li><strong>Shipping</strong> code, tools, and agents on <a href={GITHUB_URL}>GitHub</a>.</li>
+            </ul>
+          </aside>
         </section>
 
         <section id="think" className="block section-think">
@@ -382,13 +396,18 @@ export default function Home(){
             ))}
           </div>
           <ul className="entries">
-            {filteredEssays.map((note, i) => {
+            {visibleEssays.map((note, i) => {
               const isInternal = note.href?.startsWith('/')
               const Cmp = isInternal ? Link : 'a'
               const linkProps = isInternal ? { to: note.href } : { href: note.href }
               return (
                 <li key={`${note.title}-${i}`}>
-                  <Cmp {...linkProps} className="entry">
+                  <Cmp
+                    {...linkProps}
+                    className="entry"
+                    style={{ '--tag-color': TAG_COLORS[note.tag] || 'var(--soft)' }}
+                  >
+                    <span className="entry-icon" aria-hidden>{tagIcon(note.tag)}</span>
                     <span className="entry-date">{note.date}</span>
                     <div className="entry-body">
                       <h3>
@@ -404,6 +423,13 @@ export default function Home(){
               )
             })}
           </ul>
+          {hasMore && (
+            <button className="show-more" onClick={() => setShowAllEssays(s => !s)}>
+              {showAllEssays
+                ? `Show fewer ↑`
+                : `Show all ${filteredEssays.length} →`}
+            </button>
+          )}
         </section>
 
         <section id="build" className="block section-build">
@@ -781,6 +807,60 @@ function RepoIcon(){
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
     </svg>
   )
+}
+
+/* Per-tag icons used in the Think reading list */
+function tagIcon(tag){
+  const props = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  switch(tag){
+    case 'AI': return (
+      <svg {...props}>
+        <rect x="4" y="4" width="16" height="16" rx="3"/>
+        <rect x="8" y="8" width="8" height="8" rx="1"/>
+        <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>
+      </svg>
+    )
+    case 'Money': return (
+      <svg {...props}>
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 7v10M9 9.5a3 3 0 1 0 0 1.5h6a3 3 0 1 1 0 3H9"/>
+      </svg>
+    )
+    case 'Crypto': return (
+      <svg {...props}>
+        <path d="M10 8a4 4 0 0 0 0 8h2M14 16a4 4 0 0 0 0-8h-2"/>
+        <path d="M8 12h8"/>
+      </svg>
+    )
+    case 'Institutions': return (
+      <svg {...props}>
+        <path d="M3 22h18"/><path d="M5 22V11M9 22V11M15 22V11M19 22V11"/>
+        <path d="M2 11h20L12 4z"/>
+      </svg>
+    )
+    case 'Agency': return (
+      <svg {...props}>
+        <circle cx="8" cy="15" r="4"/>
+        <path d="M10.85 12.15 21 2"/><path d="M18 5l3 3"/><path d="M15 8l3 3"/>
+      </svg>
+    )
+    case 'Operating': return (
+      <svg {...props}>
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82A1.65 1.65 0 0 0 3.09 14H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    )
+    case 'Frameworks': return (
+      <svg {...props}>
+        <polygon points="12 2 22 7 12 12 2 7 12 2"/>
+        <polyline points="2 17 12 22 22 17"/>
+        <polyline points="2 12 12 17 22 12"/>
+      </svg>
+    )
+    default: return (
+      <svg {...props}><circle cx="12" cy="12" r="3"/></svg>
+    )
+  }
 }
 function ChevronIcon(){
   return (
