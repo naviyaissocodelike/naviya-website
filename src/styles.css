@@ -2044,6 +2044,109 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .reflect-form button:hover:not(:disabled) { transform: translateY(-1px); }
 .reflect-form button:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Beliefs / Positions page */
+.beliefs { padding: 16px 0 8px; }
+.beliefs-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--line-soft);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.beliefs-tab {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease;
+}
+.beliefs-tab:hover { color: var(--ink); }
+.beliefs-tab.active {
+  background: #fff;
+  color: var(--section);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+}
+.beliefs-blurb {
+  font-size: 0.92rem !important;
+  color: var(--muted) !important;
+  margin: 14px 0 8px !important;
+  font-style: italic;
+}
+.beliefs-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+.belief {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+.belief:first-child { border-top: none; padding-top: 8px; }
+.belief-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--section);
+  padding-top: 1px;
+}
+.belief-claim {
+  font-family: 'Inter Tight', sans-serif !important;
+  font-size: 1.08rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.005em !important;
+  color: var(--ink) !important;
+  margin: 0 0 8px !important;
+  max-width: none !important;
+}
+.belief-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.86rem;
+  color: var(--section);
+  border-bottom: 1px solid color-mix(in srgb, var(--section) 25%, transparent);
+  padding-bottom: 1px;
+  transition: border-color 140ms ease, transform 140ms ease;
+}
+.belief-link:hover {
+  border-bottom-color: var(--section);
+  color: var(--section);
+}
+.belief-link:hover .belief-arrow { transform: translateX(3px); }
+.belief-where {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin-right: 2px;
+}
+.belief-arrow { transition: transform 160ms ease; display: inline-block; }
+.beliefs-foot {
+  margin-top: 36px !important;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 0.92rem !important;
+  color: var(--muted) !important;
+}
+
 /* "you finished it" reward marker */
 .read-complete {
   margin: 28px 0 0;
@@ -2307,6 +2410,10 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .reflect-prompt { font-size: 1rem !important; }
   .reflect-form { flex-direction: column; align-items: stretch; }
   .reflect-form button { width: 100%; }
+  .beliefs-tabs { flex-direction: column; gap: 2px; }
+  .beliefs-tab { flex: none; text-align: left; padding: 10px 14px; }
+  .belief { grid-template-columns: 28px 1fr; gap: 12px; }
+  .belief-claim { font-size: 1rem !important; }
   .data-pair { grid-template-columns: 1fr; gap: 14px; }
   .use-case { grid-template-columns: 1fr; gap: 8px; }
   .uc-num { font-size: 1.5rem; }

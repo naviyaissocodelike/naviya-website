@@ -20,6 +20,7 @@ const SUBSTACK_URL = '#'
 const EMAIL = 'hello@naviya.xyz'
 
 const ESSAYS = [
+  { date: '2026 · 06', tag: 'Frameworks',   title: 'What I believe, in lines',                     blurb: 'A working summary of positions, grouped by audience — investors, bicoastal builders, EM operators, AI labs. Each line links to where I\'ve written it.', href: '/beliefs', onSite: true },
   { date: '2026 · 06', tag: 'AI',           title: 'AI diffusion in EM is best done with fintechs', blurb: 'Three lenses on why AI has to reach the people the rest of the world skips, one real way it can, and an 18-month window that closes when the rails are laid.', href: '/ai-diffusion', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'Shipping the first AI loan officer for Kenya', blurb: "Three versions, ten months at Tala. What worked, what didn't, what I'd carry into the next market.", href: '/lucy', onSite: true },
   { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',         blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true },
