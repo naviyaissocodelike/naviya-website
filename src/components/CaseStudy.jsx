@@ -92,8 +92,8 @@ export function Pull({ children }){
 }
 
 /* For long-form essays / theses with stacked data rows.
-   Each row has a name + two labelled paragraphs (What / So what). */
-export function DataList({ items }){
+   Each row has a name + two labelled paragraphs (defaults: What / So what). */
+export function DataList({ items, labels = ['What', 'So what'] }){
   return (
     <ul className="data-list">
       {items.map(d => (
@@ -101,17 +101,62 @@ export function DataList({ items }){
           <h3 className="data-name">{d.name}</h3>
           <div className="data-pair">
             <div className="data-half">
-              <span className="data-label">What</span>
+              <span className="data-label">{labels[0]}</span>
               <p>{d.what}</p>
             </div>
             <div className="data-half">
-              <span className="data-label">So what</span>
+              <span className="data-label">{labels[1]}</span>
               <p>{d.why}</p>
             </div>
           </div>
         </li>
       ))}
     </ul>
+  )
+}
+
+/* 3-axis framing block — labelled cards in a row */
+export function Axes({ items }){
+  return (
+    <div className="axes">
+      {items.map(it => (
+        <div key={it.k} className="axis">
+          <div className="axis-k">{it.k}</div>
+          <p className="axis-v">{it.v}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* Tight horizontal stat boxes for receipts / proof points */
+export function Stats({ items }){
+  return (
+    <div className="stats">
+      {items.map((s, i) => (
+        <div key={i} className="stat">
+          <div className="stat-num">{s.num}</div>
+          <div className="stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* Editorial timeline — time label + body */
+export function Timeline({ items }){
+  return (
+    <ol className="timeline">
+      {items.map((it, i) => (
+        <li key={i} className="tl-item">
+          <span className="tl-when">{it.when}</span>
+          <div className="tl-body">
+            <h3>{it.title}</h3>
+            {it.body && <p>{it.body}</p>}
+          </div>
+        </li>
+      ))}
+    </ol>
   )
 }
 

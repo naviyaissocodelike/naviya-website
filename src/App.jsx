@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import VaultHome from './components/VaultHome'
 import Lucy from './projects/Lucy'
 import DataOpportunity from './projects/DataOpportunity'
+import AIDiffusion from './projects/AIDiffusion'
 
 export default function App(){
   return (
@@ -12,6 +13,7 @@ export default function App(){
           <Route path="/" element={<VaultHome />} />
           <Route path="/lucy" element={<Lucy />} />
           <Route path="/data-opportunity" element={<DataOpportunity />} />
+          <Route path="/ai-diffusion" element={<AIDiffusion />} />
         </Routes>
       </div>
     </BrowserRouter>
