@@ -23,24 +23,12 @@ const ESSAYS = [
   { date: '2026 · 06', tag: 'Frameworks',   title: 'What I believe, in lines',                     blurb: 'A working summary of positions, grouped by audience — investors, bicoastal builders, EM operators, AI labs. Each line links to where I\'ve written it.', href: '/beliefs', onSite: true },
   { date: '2026 · 06', tag: 'AI',           title: 'AI diffusion in EM is best done with fintechs', blurb: 'Three lenses on why AI has to reach the people the rest of the world skips, one real way it can, and an 18-month window that closes when the rails are laid.', href: '/ai-diffusion', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'Shipping the first AI loan officer for Kenya', blurb: "Three versions, ten months at Tala. What worked, what didn't, what I'd carry into the next market.", href: '/lucy', onSite: true },
-  { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',         blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true },
-  { date: '2026 · 05', tag: 'AI',           title: 'AI and institutional design',           blurb: 'What incentives shift when the marginal cost of judgment goes to zero.',  href: SUBSTACK_URL },
-  { date: '2026 · 04', tag: 'Frameworks',   title: 'The legible / illegible test',          blurb: 'A field guide for picking which problems are worth your time.',           href: SUBSTACK_URL },
-  { date: '2026 · 04', tag: 'Money',        title: 'Capital formation in emerging markets', blurb: "Why the next billion users won't get banked by banks.",                  href: SUBSTACK_URL },
-  { date: '2026 · 03', tag: 'Operating',    title: 'Shipping with a small team',            blurb: "What scales when the team doesn't. Notes from years of being undercounted.", href: SUBSTACK_URL },
-  { date: '2026 · 03', tag: 'Crypto',       title: 'Stablecoins and programmable money',    blurb: 'The second rail is here. The first one was never universal.',            href: SUBSTACK_URL },
-  { date: '2026 · 02', tag: 'Frameworks',   title: 'Agency as a stack',                     blurb: 'Tools below, decisions above. Where each layer earns its place.',        href: SUBSTACK_URL },
-  { date: '2026 · 02', tag: 'AI',           title: 'How AI changes work',                   blurb: "Not the parts you think — the parts nobody enjoyed in the first place.", href: SUBSTACK_URL },
-  { date: '2026 · 01', tag: 'Operating',    title: 'Founder taste, founder ego',            blurb: 'How to tell the difference — and why one compounds while the other rots.', href: SUBSTACK_URL },
-  { date: '2026 · 01', tag: 'Institutions', title: 'How communities become institutions',   blurb: 'Process, ritual, and shared standards are the bridge.',                  href: SUBSTACK_URL },
-  { date: '2025 · 12', tag: 'Agency',       title: 'The future of human agency',            blurb: 'Better tools change what kind of life is available to you.',             href: SUBSTACK_URL }
+  { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',                blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true }
 ]
-const TAGS = ['All', 'AI', 'Money', 'Crypto', 'Institutions', 'Agency', 'Operating', 'Frameworks']
+const TAGS = ['All', 'AI', 'Money', 'Frameworks']
 
 const TAG_COLORS = {
-  AI: '#2563eb', Money: '#15803d', Crypto: '#7c3aed',
-  Institutions: '#c2410c', Agency: '#475569',
-  Operating: '#0891b2', Frameworks: '#9333ea'
+  AI: '#2563eb', Money: '#15803d', Frameworks: '#9333ea'
 }
 
 const REPOS = [
