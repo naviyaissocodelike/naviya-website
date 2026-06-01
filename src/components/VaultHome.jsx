@@ -12,7 +12,9 @@ const ACTIVITIES = [
   { label: 'Rock Climbing', src: '/images/climbing.jpg', tint: '#fdd9b5' },
   { label: 'CrossFit',      src: '/images/crossfit.jpg', tint: '#fecaca' },
   { label: 'Hiking',        src: '/images/hiking.jpg',   tint: '#bbf7d0' },
-  { label: 'Nomadic',       src: '/images/nomadic.jpg',  tint: '#bae6fd' }
+  { label: 'Nomadic',       src: '/images/nomadic.jpg',  tint: '#bae6fd',
+    deck: 'https://docs.google.com/presentation/d/1jkvmggjJgVR6gipq-YeuH8hW_Lw__IrSfoF15bz6wRw/embed?start=false&loop=false&delayms=5000',
+    deckLabel: 'Year of nomadic living' }
 ]
 
 const GITHUB_URL = 'https://github.com/naviyaissocodelike'
@@ -268,6 +270,7 @@ export default function Home(){
   const [showAllEssays, setShowAllEssays] = useState(false)
   const [openRogue, setOpenRogue] = useState(null)
   const rogueRef = useRef(null)
+  const [openDeck, setOpenDeck] = useState(null)
   const [activeGame, setActiveGame] = useState('riddles')
   const [activePrompt, setActivePrompt] = useState(null)
   const [promptsDone, setPromptsDone] = useState(() => {
@@ -282,6 +285,17 @@ export default function Home(){
     document.addEventListener('click', onDocClick)
     return () => document.removeEventListener('click', onDocClick)
   }, [infoOpen])
+
+  useEffect(() => {
+    if (!openDeck) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpenDeck(null) }
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [openDeck])
 
   // Bounce-in for About photo when section enters viewport
   const aboutRef = useRef(null)
@@ -754,7 +768,13 @@ export default function Home(){
             <div className="play-side">
               <div className="play-side-label">Shenanigans &amp; Side Quests</div>
               <div className="play-tiles">
-                {ACTIVITIES.map(a => <Tile key={a.label} {...a} />)}
+                {ACTIVITIES.map(a => (
+                  <Tile
+                    key={a.label}
+                    {...a}
+                    onClick={a.deck ? () => setOpenDeck(a) : undefined}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -772,6 +792,14 @@ export default function Home(){
           onClose={() => markPromptDone(activePrompt.id)}
           onReact={() => addCoins(1)}
           onReply={() => addCoins(3)}
+        />
+      )}
+
+      {openDeck && (
+        <DeckModal
+          title={openDeck.deckLabel || openDeck.label}
+          src={openDeck.deck}
+          onClose={() => setOpenDeck(null)}
         />
       )}
     </div>
@@ -815,10 +843,18 @@ function Polaroid({ src, alt, caption }){
   )
 }
 
-function Tile({ label, src, tint }){
+function Tile({ label, src, tint, deck, onClick }){
   const [imgOk, setImgOk] = useState(false)
+  const clickable = !!onClick
   return (
-    <div className="tile" style={{ '--tile-c': tint }}>
+    <div
+      className={`tile ${clickable ? 'tile-clickable' : ''}`}
+      style={{ '--tile-c': tint }}
+      onClick={onClick}
+      role={clickable ? 'button' : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onKeyDown={clickable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } } : undefined}
+    >
       <div className="tile-placeholder">{label}</div>
       {src && (
         <img
@@ -830,6 +866,60 @@ function Tile({ label, src, tint }){
         />
       )}
       <span className="tile-label">{label}</span>
+      {deck && (
+        <span className="tile-cta" aria-hidden>
+          <DeckGlyph />
+          <span>View deck</span>
+        </span>
+      )}
+    </div>
+  )
+}
+
+function DeckGlyph(){
+  return (
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="3" y="4" width="18" height="13" rx="2"/>
+      <line x1="8" y1="21" x2="16" y2="21"/>
+      <line x1="12" y1="17" x2="12" y2="21"/>
+    </svg>
+  )
+}
+
+function DeckModal({ title, src, onClose }){
+  return (
+    <div className="deck-overlay" onClick={onClose} role="dialog" aria-modal="true">
+      <div className="deck-modal" onClick={(e) => e.stopPropagation()}>
+        <header className="deck-head">
+          <div className="deck-title">
+            <DeckGlyph />
+            <span>{title}</span>
+          </div>
+          <div className="deck-actions">
+            <a
+              className="deck-open"
+              href={src.replace('/embed', '/edit')}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in Slides ↗
+            </a>
+            <button className="deck-close" onClick={onClose} aria-label="Close">×</button>
+          </div>
+        </header>
+        <div className="deck-frame">
+          <iframe
+            src={src}
+            title={title}
+            frameBorder="0"
+            allow="fullscreen"
+            allowFullScreen
+          />
+        </div>
+        <footer className="deck-foot">
+          <span>Press <kbd>Esc</kbd> to close · Click outside to dismiss</span>
+        </footer>
+      </div>
     </div>
   )
 }

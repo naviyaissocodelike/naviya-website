@@ -1405,6 +1405,134 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .tile:hover .tile-label { background: rgba(22, 21, 20, 0.9); }
 
+/* Clickable tile (e.g. Nomadic → deck modal) */
+.tile-clickable { cursor: pointer; }
+.tile-clickable:focus-visible { outline: 2px solid var(--c-play); outline-offset: 3px; border-radius: 8px; }
+.tile-cta {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #161514;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 220ms ease, transform 220ms cubic-bezier(.34, 1.5, .64, 1);
+}
+.tile-clickable:hover .tile-cta,
+.tile-clickable:focus-visible .tile-cta { opacity: 1; transform: translateY(0); }
+
+/* Deck modal */
+.deck-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(13, 17, 23, 0.78);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: deck-fade 220ms ease;
+}
+@keyframes deck-fade { from { opacity: 0; } to { opacity: 1; } }
+.deck-modal {
+  width: 100%;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: deck-rise 320ms cubic-bezier(.34, 1.4, .64, 1);
+}
+@keyframes deck-rise {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.deck-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.deck-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.deck-title svg { color: var(--c-play); }
+.deck-actions { display: inline-flex; align-items: center; gap: 6px; }
+.deck-open {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  border-bottom: none;
+  transition: all 140ms ease;
+}
+.deck-open:hover { background: var(--line-soft); color: var(--ink); }
+.deck-close {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.35rem;
+  font-family: inherit;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1;
+}
+.deck-close:hover { background: var(--line-soft); color: var(--ink); }
+.deck-frame {
+  flex: 1;
+  background: #0d1117;
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.deck-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.deck-foot {
+  padding: 9px 18px;
+  font-size: 0.74rem;
+  color: var(--soft);
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.deck-foot kbd {
+  font-family: ui-monospace, 'SF Mono', monospace;
+  font-size: 0.7rem;
+  background: var(--line-soft);
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+}
+
 /* vending machine */
 .machine {
   position: relative;
@@ -2988,6 +3116,13 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .lucy-stat:nth-last-child(-n+2) { border-bottom: none; }
   .lucy-stat-num { font-size: 1.4rem; }
   .data-row.special-dark { margin-left: -10px; margin-right: -10px; padding: 18px 16px; }
+  .deck-overlay { padding: 0; }
+  .deck-modal { max-height: 100vh; border-radius: 0; }
+  .deck-head { padding: 10px 14px; }
+  .deck-title { font-size: 0.86rem; }
+  .deck-open { display: none; }
+  .deck-foot { font-size: 0.68rem; padding: 8px 12px; }
+  .tile-cta { font-size: 0.56rem; padding: 3px 7px; opacity: 1; transform: none; }
   .case.tone-ocean main, .case.tone-ocean .case-foot, .case.tone-ocean .case-nav { padding-left: 18px; padding-right: 18px; }
   .case.tone-ocean .case-hero h1 { font-size: 2.1rem; }
   .aq-h2 { font-size: 1.25rem !important; }
