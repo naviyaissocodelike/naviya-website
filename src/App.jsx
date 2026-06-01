@@ -6,6 +6,7 @@ import Lucy from './projects/Lucy'
 import DataOpportunity from './projects/DataOpportunity'
 import AIDiffusion from './projects/AIDiffusion'
 import Beliefs from './projects/Beliefs'
+import LivingAquatic from './projects/LivingAquatic'
 
 export default function App(){
   return (
@@ -19,6 +20,7 @@ export default function App(){
             <Route path="/ai-diffusion" element={<AIDiffusion />} />
             <Route path="/ai-diffusion-essay" element={<AIDiffusion />} />
             <Route path="/beliefs" element={<Beliefs />} />
+            <Route path="/living-aquatic" element={<LivingAquatic />} />
           </Routes>
         </div>
       </CoinsProvider>

@@ -20,15 +20,16 @@ const SUBSTACK_URL = '#'
 const EMAIL = 'hello@naviya.xyz'
 
 const ESSAYS = [
+  { date: '2026 · 06', tag: 'Personal',     title: 'Living aquatic',                               blurb: 'Getting scuba-certified in Honduras. The first time the surface closed above me, and the five things I came back with.', href: '/living-aquatic', onSite: true },
   { date: '2026 · 06', tag: 'Frameworks',   title: 'What I believe, in lines',                     blurb: 'A working summary of positions, grouped by audience — investors, bicoastal builders, EM operators, AI labs. Each line links to where I\'ve written it.', href: '/beliefs', onSite: true },
   { date: '2026 · 06', tag: 'AI',           title: 'AI diffusion in EM is best done with fintechs', blurb: 'Three lenses on why AI has to reach the people the rest of the world skips, one real way it can, and an 18-month window that closes when the rails are laid.', href: '/ai-diffusion', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'Shipping the first AI loan officer for Kenya', blurb: "Three versions, ten months at Tala. What worked, what didn't, what I'd carry into the next market.", href: '/lucy', onSite: true },
   { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',                blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true }
 ]
-const TAGS = ['All', 'AI', 'Money', 'Frameworks']
+const TAGS = ['All', 'AI', 'Money', 'Frameworks', 'Personal']
 
 const TAG_COLORS = {
-  AI: '#2563eb', Money: '#15803d', Frameworks: '#9333ea'
+  AI: '#2563eb', Money: '#15803d', Frameworks: '#9333ea', Personal: '#0e7490'
 }
 
 const REPOS = [
@@ -1212,6 +1213,13 @@ function tagIcon(tag){
         <polygon points="12 2 22 7 12 12 2 7 12 2"/>
         <polyline points="2 17 12 22 22 17"/>
         <polyline points="2 12 12 17 22 12"/>
+      </svg>
+    )
+    case 'Personal': return (
+      <svg {...props}>
+        <path d="M3 12c2.5-2 5-2 7.5 0s5 2 7.5 0"/>
+        <path d="M3 17c2.5-2 5-2 7.5 0s5 2 7.5 0"/>
+        <path d="M3 7c2.5-2 5-2 7.5 0s5 2 7.5 0"/>
       </svg>
     )
     default: return (
