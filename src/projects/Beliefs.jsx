@@ -1,15 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CaseFrame, CaseHero } from '../components/CaseStudy'
 
 const SUBSTACK_URL = '#'
 
 const AUDIENCES = [
-  { id: 'investors', label: 'For investors',     blurb: 'Where I think the durable bets are.' },
-  { id: 'bicoastal', label: 'Bicoastal',          blurb: 'Notes for DC and the Bay.' },
-  { id: 'em',        label: 'EM operators',      blurb: 'For people building where the bureau doesn\'t reach.' },
-  { id: 'ai',        label: 'AI labs',           blurb: 'For Anthropic, OpenAI, and the rest of the frontier.' }
+  { id: 'investors', label: 'For investors', blurb: 'Where I think the durable bets are.',                       icon: BriefcaseIcon },
+  { id: 'bicoastal', label: 'Bicoastal',     blurb: 'Notes for DC and the Bay.',                                  icon: CompassIcon },
+  { id: 'em',        label: 'EM operators',  blurb: "For people building where the bureau doesn't reach.",       icon: GlobeIcon },
+  { id: 'ai',        label: 'AI labs',       blurb: 'For Anthropic, OpenAI, and the rest of the frontier.',     icon: ChipIcon }
 ]
+
+function BriefcaseIcon(){ return (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+  </svg>
+)}
+function CompassIcon(){ return (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+  </svg>
+)}
+function GlobeIcon(){ return (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+)}
+function ChipIcon(){ return (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+    <line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/>
+    <line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/>
+    <line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/>
+    <line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/>
+  </svg>
+)}
 
 const BELIEFS = {
   investors: [
@@ -63,9 +89,34 @@ const BELIEFS = {
 }
 
 export default function Beliefs(){
-  const [audience, setAudience] = useState('investors')
+  const [audience, setAudience] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      const forParam = params.get('for')
+      if (forParam && AUDIENCES.find(a => a.id === forParam)) return forParam
+    } catch {}
+    return 'investors'
+  })
+  const [copied, setCopied] = useState(false)
   const list = BELIEFS[audience]
   const meta = AUDIENCES.find(a => a.id === audience)
+
+  useEffect(() => {
+    try {
+      const url = new URL(window.location.href)
+      url.searchParams.set('for', audience)
+      window.history.replaceState({}, '', url.toString())
+    } catch {}
+  }, [audience])
+
+  const copyLink = () => {
+    try {
+      const url = `${window.location.origin}/beliefs?for=${audience}`
+      navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    } catch {}
+  }
 
   return (
     <CaseFrame
@@ -86,20 +137,29 @@ export default function Beliefs(){
 
       <section className="beliefs">
         <div className="beliefs-tabs" role="tablist">
-          {AUDIENCES.map(a => (
-            <button
-              key={a.id}
-              role="tab"
-              aria-selected={audience === a.id}
-              className={`beliefs-tab ${audience === a.id ? 'active' : ''}`}
-              onClick={() => setAudience(a.id)}
-            >
-              {a.label}
-            </button>
-          ))}
+          {AUDIENCES.map(a => {
+            const Icon = a.icon
+            return (
+              <button
+                key={a.id}
+                role="tab"
+                aria-selected={audience === a.id}
+                className={`beliefs-tab ${audience === a.id ? 'active' : ''}`}
+                onClick={() => setAudience(a.id)}
+              >
+                <Icon />
+                <span>{a.label}</span>
+              </button>
+            )
+          })}
         </div>
 
-        <p className="beliefs-blurb">{meta.blurb}</p>
+        <div className="beliefs-meta-row">
+          <p className="beliefs-blurb">{meta.blurb}</p>
+          <button className={`beliefs-share ${copied ? 'copied' : ''}`} onClick={copyLink}>
+            {copied ? '✓ Link copied' : 'Copy link to this view ↗'}
+          </button>
+        </div>
 
         <ol className="beliefs-list">
           {list.map((b, i) => {

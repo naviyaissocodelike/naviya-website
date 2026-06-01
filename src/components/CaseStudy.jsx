@@ -4,8 +4,33 @@ import { useCoins } from '../contexts/CoinsContext'
 
 export function CaseFrame({ children, tone = 'build', backTo = '/', backLabel = 'Back', footLink }){
   const { coins, popCoin } = useCoins()
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    let raf = 0
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        const h = document.documentElement
+        const total = h.scrollHeight - h.clientHeight
+        const pct = total > 0 ? Math.min(100, Math.max(0, (h.scrollTop / total) * 100)) : 0
+        setProgress(pct)
+        raf = 0
+      })
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <div className={`case tone-${tone}`}>
+      <div className="reading-progress" style={{ transform: `scaleX(${progress / 100})` }} aria-hidden />
       <header className="case-nav">
         <Link to={backTo} className="case-back">← {backLabel}</Link>
         <Link to="/" className="case-mark">Naviya</Link>
@@ -204,9 +229,11 @@ export function CaseSection({ kicker, title, children, tone }){
   )
 }
 
-export function VersionCard({ tag, name, date, lede, children, status }){
+export function VersionCard({ tag, name, date, lede, children, status, mood }){
+  // mood = 'struggling' | 'working' | 'early' — gives V1/V2/V3 distinct feels
+  const moodClass = mood ? `mood-${mood}` : ''
   return (
-    <div className={`version status-${status || 'shipped'}`}>
+    <div className={`version status-${status || 'shipped'} ${moodClass}`}>
       <div className="version-head">
         <span className="version-tag">{tag}</span>
         <span className="version-name">{name}</span>
@@ -251,13 +278,18 @@ export function Pull({ children }){
 }
 
 /* For long-form essays / theses with stacked data rows.
-   Each row has a name + two labelled paragraphs (defaults: What / So what). */
+   Each row has a name + two labelled paragraphs (defaults: What / So what).
+   Optionally items can include {icon, special} for visual variety. */
 export function DataList({ items, labels = ['What', 'So what'] }){
   return (
     <ul className="data-list">
       {items.map(d => (
-        <li key={d.name} className="data-row">
-          <h3 className="data-name">{d.name}</h3>
+        <li key={d.name} className={`data-row ${d.special ? `special-${d.special}` : ''}`}>
+          <h3 className="data-name">
+            {d.icon && <span className="data-icon">{d.icon}</span>}
+            <span>{d.name}</span>
+            {d.special === 'dark' && <span className="data-flag">categorically different</span>}
+          </h3>
           <div className="data-pair">
             <div className="data-half">
               <span className="data-label">{labels[0]}</span>

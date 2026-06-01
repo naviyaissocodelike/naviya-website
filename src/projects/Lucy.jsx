@@ -17,6 +17,14 @@ export default function Lucy(){
         ]}
       />
 
+      <div className="lucy-stats">
+        <div className="lucy-stat"><span className="lucy-stat-num">10M+</span><span className="lucy-stat-label">borrowers Tala has served</span></div>
+        <div className="lucy-stat"><span className="lucy-stat-num">8</span><span className="lucy-stat-label">markets</span></div>
+        <div className="lucy-stat"><span className="lucy-stat-num">3</span><span className="lucy-stat-label">Lucy versions shipped</span></div>
+        <div className="lucy-stat"><span className="lucy-stat-num">6 wk</span><span className="lucy-stat-label">to first ground signal</span></div>
+        <div className="lucy-stat"><span className="lucy-stat-num">80%</span><span className="lucy-stat-label">said they'd be very disappointed</span></div>
+      </div>
+
       <CaseSection kicker="Why" title="The problem Tala kept seeing">
         <p>
           Tala has served ten million borrowers across Kenya, Mexico, India, and the Philippines since 2012 — uncollateralized
@@ -52,6 +60,7 @@ export default function Lucy(){
           tag="V1"
           name="Lucy 1.0 — The Magic Loan App"
           date="April 2025"
+          mood="struggling"
           lede="Built as a daily coaching tool. Long-form responses, educational tone, heavy onboarding to capture profile and goals up front."
         >
           <h3>What the field told us at six weeks</h3>
@@ -89,6 +98,7 @@ export default function Lucy(){
           tag="V2"
           name="Lucy 2.0 — Decision Partner"
           date="Late July 2025"
+          mood="working"
           lede="Same thesis, different shape. Lucy's job became: help someone decide faster. Not teach them from scratch."
         >
           <h3>What changed</h3>
@@ -131,6 +141,7 @@ export default function Lucy(){
           name="Lucy 3.0 — Thesis"
           date="In design · Nov 2025"
           status="in design"
+          mood="early"
           lede="Decouple coaching from free credit. Charge a subscription for the coaching itself. Filter for customers who'll pay for the relationship — not the loan that comes with it."
         >
           <p>

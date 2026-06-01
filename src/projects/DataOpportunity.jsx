@@ -1,40 +1,55 @@
 import React from 'react'
 import { CaseFrame, CaseHero, CaseSection, DataList, NumberedList, Pull, Reactions, ReflectionPrompt, ReadComplete } from '../components/CaseStudy'
 
+const IP = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+const ICONS = {
+  device:  <svg {...IP}><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>,
+  bank:    <svg {...IP}><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 6V4M18 6V4"/></svg>,
+  telco:   <svg {...IP}><path d="M2 12c2-4 6-7 10-7s8 3 10 7"/><path d="M5 15c1.5-3 4-5 7-5s5.5 2 7 5"/><circle cx="12" cy="18" r="1.5"/></svg>,
+  shop:    <svg {...IP}><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9v11h18V9"/><path d="M3 9c0 2 1.5 3 3 3s3-1 3-3 1.5 3 3 3 3-1 3-3 1.5 3 3 3 3-1 3-3"/></svg>,
+  gig:     <svg {...IP}><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17H3v-3l2-5h10l3 5h2v3h-2"/></svg>,
+  agent:   <svg {...IP}><rect x="5" y="6" width="14" height="12" rx="2"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><path d="M12 2v4M9 18v2M15 18v2"/></svg>,
+  photo:   <svg {...IP}><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>,
+  intent:  <svg {...IP}><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>,
+  socio:   <svg {...IP}><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M14 20c0-2 2-4 4-4s3 1.5 3 4"/></svg>,
+  sms:     <svg {...IP}><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-1 4.5"/><circle cx="9" cy="12" r="0.8" fill="currentColor"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/><circle cx="15" cy="12" r="0.8" fill="currentColor"/></svg>,
+  chain:   <svg {...IP}><path d="M10 8a4 4 0 0 0 0 8h2M14 16a4 4 0 0 0 0-8h-2"/><path d="M8 12h8"/></svg>
+}
+
 const CATEGORIES = [
-  { name: 'Device Data',
+  { name: 'Device Data', icon: ICONS.device,
     what: 'App install / uninstall patterns, screen time, OS version, device model, connectivity type, location signals, battery usage.',
     why:  'Behavioral proxy for income, digital sophistication, lifestyle. Device model alone correlates with creditworthiness across multiple markets.' },
-  { name: 'Banking & Transaction Data',
+  { name: 'Banking & Transaction Data', icon: ICONS.bank,
     what: 'Mobile money flows, account statements, transfer patterns, balance trends, loan repayment history, savings behavior.',
     why:  'Ground-truth financial health at the individual level. Captures the informal economy that formal banking misses entirely.' },
-  { name: 'Telco & Airtime Data',
+  { name: 'Telco & Airtime Data', icon: ICONS.telco,
     what: 'Top-up frequency, amounts, channel, data bundle purchases, price sensitivity signals.',
     why:  'Telco spend is a real-time income proxy. Prepaid airtime pricing also tracks local inflation with surprising accuracy.' },
-  { name: 'MSME & Merchant Data',
+  { name: 'MSME & Merchant Data', icon: ICONS.shop,
     what: 'Transaction volume, inventory turnover signals, supplier payment patterns, small-business pricing data.',
     why:  'A direct line into on-the-ground pricing and supply chain dynamics — economic activity at the most granular commercial level.' },
-  { name: 'Gig Platform Income',
+  { name: 'Gig Platform Income', icon: ICONS.gig,
     what: 'Earnings from ride-hailing, delivery, freelancing. Payment frequency, income volatility, multi-platform participation.',
     why:  'Maps the informal labor market in real time. Volatility signals macro stress before formal employment data does.' },
-  { name: 'Agentic AI Interaction',
+  { name: 'Agentic AI Interaction', icon: ICONS.agent,
     what: 'User queries to AI financial agents, topics asked about, financial literacy gaps, product preferences, language patterns.',
     why:  'A new data category. Agent interactions reveal financial intent, unmet needs, and product-market fit signals at scale.' },
-  { name: 'Photos & Physical Surroundings',
+  { name: 'Photos & Physical Surroundings', icon: ICONS.photo,
     what: 'Shop photos, market stall images, product shelves, neighborhood imagery — submitted for KYC or business verification.',
     why:  'Visual data processable for price tracking, inventory, and infrastructure. Repeat captures create a visual time series.' },
-  { name: 'Business Ambitions & Intent',
+  { name: 'Business Ambitions & Intent', icon: ICONS.intent,
     what: 'Loan-purpose declarations, business plans, stated goals, product or service expansion signals.',
     why:  'Forward-looking intent data. Aggregated, it reveals sectoral growth trends before formal indicators catch them.' },
-  { name: 'Sociological / Self-Reported',
+  { name: 'Sociological / Self-Reported', icon: ICONS.socio,
     what: 'Household size, dependents, education, occupation, housing type, community affiliation, stated preferences.',
     why:  "Demographic segmentation at a depth and recency census data can't match — updated continuously, not every 5–10 years." },
-  { name: 'SMS & Communication Metadata',
+  { name: 'SMS & Communication Metadata', icon: ICONS.sms,
     what: 'Tone, sentiment, message volume, transactional SMS from banks and services.',
     why:  'Population-level sentiment analysis. Transactional SMS provides an independent verification layer for financial data.' },
-  { name: 'Onchain / Wallet Data',
+  { name: 'Onchain / Wallet Data', icon: ICONS.chain, special: 'dark',
     what: "KYC-linked wallet addresses, transaction history, counterparty graphs, stablecoin holdings, DeFi activity, cross-border flows, agent-controlled wallets.",
-    why:  'Categorically different. Once a wallet is shared, every transaction it has ever done — and will ever do — is public, permanent, and queryable. KYC anchors it. This ground-truths global onchain data in ways no one else can.' }
+    why:  'Once a wallet is shared, every transaction it has ever done — and will ever do — is public, permanent, and queryable. KYC anchors it. This ground-truths global onchain data in ways no one else can.' }
 ]
 
 const USE_CASES = [
