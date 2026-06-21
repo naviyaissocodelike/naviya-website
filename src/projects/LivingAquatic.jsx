@@ -5,31 +5,31 @@ const DIVE_LESSONS = [
   {
     depth: '0ft',
     title: 'Calm is a trained response, not a personality trait.',
-    body:  "I almost didn't make it to the open water. Mask clearing broke me for two days in the pool — flooded mask, water up my nose, eyes stinging. I inhaled a gallon of salt water. I was scared I'd start resenting the water, and that felt like a real loss.",
+    body:  "I almost didn't make it to the open water. Mask clearing broke me for two days in the pool, flooded mask, water up my nose, eyes stinging. I inhaled a gallon of salt water. I was scared I'd start resenting the water, and that felt like a real loss.",
     apply: "What changed wasn't technique. I stopped debating capability and started training the nervous system. Deep inhale. Deep exhale. Anywhere I feel 'not ready' gets the same playbook now."
   },
   {
     depth: '20ft',
     title: 'Your body is an instrument, not a vessel.',
-    body:  "Lungs as buoyancy. Posture as motion. Peripheral vision as equilibrium. The math of diving is mostly your body cooperating with the water — angle, breath, awareness.",
+    body:  "Lungs as buoyancy. Posture as motion. Peripheral vision as equilibrium. The math of diving is mostly your body cooperating with the water, angle, breath, awareness.",
     apply: "I run my life almost entirely cognitively. That leaves performance on the table. The body has signal the brain can't reach."
   },
   {
     depth: '60ft',
     title: 'Awe resets your standards permanently.',
-    body:  "Hovering at 60 feet, an orange fish cutting past, a washed-out blue that doesn't exist in any Pantone catalog — my mind went genuinely blank. The way you feel reading something with soul. Untouched, original, vibrant.",
-    apply: "I cannot build a life that excludes awe and expect satisfaction. It doesn't go away — it just gets buried."
+    body:  "Hovering at 60 feet, an orange fish cutting past, a washed-out blue that doesn't exist in any Pantone catalog, my mind went completely blank. The way you feel reading something with soul. Untouched, original, vibrant.",
+    apply: "I cannot build a life that excludes awe and expect satisfaction. It doesn't go away, it just gets buried."
   },
   {
     depth: '80ft',
     title: 'Constraints sharpen, freedom dilutes.',
-    body:  "Limited air. Limited motion. Limited visibility. And I became sharper, not duller. Constraints preserve the wonder — you never get numb to a thing you can't stay inside of.",
+    body:  "Limited air. Limited motion. Limited visibility. And I got more focused, not duller. Constraints preserve the wonder, you never get numb to a thing you can't stay inside of.",
     apply: "My current life probably has too much optionality. Diluted intensity. The next move should narrow on purpose, not widen."
   },
   {
     depth: '100ft',
     title: "I don't need to be the protagonist to feel fulfilled.",
-    body:  "Standing at 100 feet, reefs in front of me, I thought of the 14ers I'd climbed — same valley shape, but this one had color and movement and owed me nothing. I wasn't the protagonist of the story. I was a spectator. And that, somehow, was more than enough.",
+    body:  "Standing at 100 feet, reefs in front of me, I thought of the 14ers I'd climbed, same valley shape, but this one had color and movement and owed me nothing. I wasn't the protagonist of the story. I was a spectator. And that, somehow, was more than enough.",
     apply: "This directly contradicts how I've been building. If I ignore it, I'll build an impressive but hollow life. I won't ignore it."
   }
 ]
@@ -68,7 +68,7 @@ export default function LivingAquatic(){
         <h2 className="aq-h2">on the surface closing</h2>
         <p className="aq-lead">
           There's no way to prepare for the moment the surface closes above you and the world goes
-          quiet. Not silent — there's a hum down there, a low ambient resonance — but quiet in
+          quiet. Not silent, there's a hum down there, a low ambient resonance, but quiet in
           the way that matters. All the noise you carry just… stops mattering.
         </p>
         <p>
@@ -82,7 +82,7 @@ export default function LivingAquatic(){
       <section className="case-section aq-section">
         <h2 className="aq-h2">on the water itself</h2>
         <p>
-          The first thing that stunned me was the <strong>gear</strong>. Someone — many someones —
+          The first thing that stunned me was the <strong>gear</strong>. Someone, many someones, 
           had to sacrifice themselves in the pursuit of answers in the deep blue to make this possible.
           The BCD, the regulator, the tank engineered to hold pressure at 150 feet. I am standing on the
           shoulders of giants every time I descend.
@@ -93,12 +93,12 @@ export default function LivingAquatic(){
         </p>
         <p>
           The closest analogy I have is <strong>astronaut</strong>. Floating through water has this
-          delayed quality to it — nothing responds the way it does on land — and suddenly you understand
+          delayed quality to it, nothing responds the way it does on land, and suddenly you understand
           why people become obsessed.
         </p>
         <Pull>
           You're hovering at 100 feet, an orange fish cuts past you, the background is this washed-out blue
-          that doesn't exist in any Pantone catalog, and your mind goes genuinely blank. Not in a dissociative
+          that doesn't exist in any Pantone catalog, and your mind goes completely blank. Not in a dissociative
           way. In the way you feel reading something with soul.
         </Pull>
         <p>
@@ -118,8 +118,8 @@ export default function LivingAquatic(){
       <section className="case-section aq-section">
         <h2 className="aq-h2">on what it asked of me</h2>
         <p>
-          I almost didn't make it to the open water. Mask clearing — flooding your mask completely, water up
-          your nose, eyes stinging, and staying calm enough to clear it — broke me for two days in the pool.
+          I almost didn't make it to the open water. Mask clearing, flooding your mask completely, water up
+          your nose, eyes stinging, and staying calm enough to clear it, broke me for two days in the pool.
           I inhaled a gallon of salt water. I felt demoralized. I was scared I'd start resenting the water,
           which felt like a real loss.
         </p>
@@ -135,8 +135,8 @@ export default function LivingAquatic(){
         </Pull>
         <p>
           The lizard brain is 90% of the problem underwater. You can't think your way through water up your
-          nose or suddenly blurry vision. You can only breathe through it. And once you learn that — really
-          learn it, in your body, not just your head — you start to apply it everywhere.
+          nose or suddenly blurry vision. You can only breathe through it. And once you learn that, really
+          learn it, in your body, not just your head, you start to apply it everywhere.
         </p>
       </section>
 
@@ -145,7 +145,7 @@ export default function LivingAquatic(){
       <section className="case-section aq-section aq-log-section">
         <h2 className="aq-h2">five dives, five things</h2>
         <p className="aq-sub">
-          The lessons sorted themselves into a kind of dive log — each one anchored to the depth I was at
+          The lessons sorted themselves into a kind of dive log, each one anchored to the depth I was at
           when it landed.
         </p>
         <DiveLog entries={DIVE_LESSONS} />
@@ -160,8 +160,8 @@ export default function LivingAquatic(){
         </p>
         <div className="aq-protocols">
           <Protocol n="01" title="An awe pipeline, scheduled">
-            Not "travel more." Designed as a system. One nature-intensive experience every 6–8 weeks — diving,
-            mountains, something immersive. One micro-dose weekly — long swim, sensory deprivation, silence
+            Not "travel more." Designed as a system. One nature-intensive experience every 6–8 weeks, diving,
+            mountains, something immersive. One micro-dose weekly, long swim, sensory deprivation, silence
             without a phone. If it isn't on a calendar, it dies.
           </Protocol>
           <Protocol n="02" title="Constraint as the career filter">
@@ -176,7 +176,7 @@ export default function LivingAquatic(){
           </Protocol>
           <Protocol n="04" title="Rebalance the identity stack">
             Operator and investor have been 80% of who I am. Explorer and experiencer have been 20%. That
-            ratio needs to shift. Not to 50/50 — maybe 65/35. Enough to stay sane and sharp.
+            ratio needs to shift. Not to 50/50, maybe 65/35. Enough to stay sane and present.
           </Protocol>
         </div>
       </section>
@@ -186,8 +186,8 @@ export default function LivingAquatic(){
       <section className="case-section aq-section aq-close">
         <p className="aq-close-line">
           Water holds the great unknown. As with space, it has creatures that excite and induce fears beyond
-          the helm of our imaginations. But it's also where we come from. The answers to ourselves — and
-          beyond — may live there.
+          the helm of our imaginations. But it's also where we come from. The answers to ourselves, and
+          beyond, may live there.
         </p>
         <p className="aq-close-line">
           I don't know yet what I'll do with that.

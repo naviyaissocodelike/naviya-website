@@ -20,7 +20,7 @@ const ADOPTION_STATS = [
 const TRAJECTORY = [
   { when: 'Now',           title: 'Agents advise.',                  body: 'Customer asks, agent recommends, customer decides.' },
   { when: '12–24 months',  title: 'Agents execute.',                 body: 'Within pre-set parameters. Recurring payments, savings sweeps, yield rotation.' },
-  { when: '2–4 years',     title: 'Agents precede customers.',       body: 'See rent is due and cash is short — refinance proactively.' },
+  { when: '2–4 years',     title: 'Agents precede customers.',       body: 'See rent is due and cash is short, refinance proactively.' },
   { when: '3–5 years',     title: 'Agents negotiate with agents.',   body: "Your agent plays three lenders against each other." },
   { when: '5+ years',      title: 'Agents become economic identities.', body: "Lenders evaluate the agent's track record, not the person's." }
 ]
@@ -50,15 +50,15 @@ export default function AIDiffusion(){
           <div className="case-meta-row"><dt>Type</dt><dd>Essay</dd></div>
           <div className="case-meta-row"><dt>Horizon</dt><dd>18 months</dd></div>
           <div className="case-meta-row"><dt>Topics</dt><dd>AI · Fintech · Crypto · Emerging markets</dd></div>
-          <div className="case-meta-row"><dt>Author</dt><dd>Naviya Kothari — Onchain Finance @ Tala</dd></div>
+          <div className="case-meta-row"><dt>Author</dt><dd>Naviya Kothari, Onchain Finance @ Tala</dd></div>
         </dl>
       </section>
 
-      {/* SECTION 1 — AI diffusion in emerging markets */}
+      {/* SECTION 1, AI diffusion in emerging markets */}
       <CaseSection>
         <h2 className="essay-h2"><span className="hl hl-a">AI diffusion in emerging markets</span></h2>
         <p>
-          Three lenses converge on the same conclusion — that the next eighteen months are when frontier AI either
+          Three lenses converge on the same conclusion, that the next eighteen months are when frontier AI either
           reaches the four billion people most underserved by it, or doesn't.
         </p>
         <Axes items={FRAMING} />
@@ -68,14 +68,14 @@ export default function AIDiffusion(){
         </p>
       </CaseSection>
 
-      {/* SECTION 2 — best done with fintechs */}
+      {/* SECTION 2, best done with fintechs */}
       <CaseSection>
         <h2 className="essay-h2"><span className="hl hl-b">Best done with fintechs</span></h2>
         <p>AI is being distributed three ways today:</p>
         <ul className="bullets">
-          <li><strong>Direct to consumer</strong> through lower-cost models — ChatGPT Go at $4.60/month across 89 countries, DeepSeek free.</li>
-          <li><strong>Embedded in devices</strong> — DeepSeek preloaded on Huawei and HarmonyOS, Gemini on Android.</li>
-          <li><strong>Through consumer companies</strong> — barely, and with no coherent EM strategy.</li>
+          <li><strong>Direct to consumer</strong> through lower-cost models, ChatGPT Go at $4.60/month across 89 countries, DeepSeek free.</li>
+          <li><strong>Embedded in devices</strong>, DeepSeek preloaded on Huawei and HarmonyOS, Gemini on Android.</li>
+          <li><strong>Through consumer companies</strong>, barely, and with no coherent EM strategy.</li>
         </ul>
         <p>
           All three can drive <em>distribution</em> by being cheaper, freer, or harder to escape. None of them
@@ -83,7 +83,7 @@ export default function AIDiffusion(){
         </p>
         <Pull>Adoption requires behavior change. Behavior change requires incentive.</Pull>
         <p>
-          Device companies and telcos have stick incentives — they can lock a device or revoke a service. Their
+          Device companies and telcos have stick incentives: they can lock a device or revoke a service. Their
           carrot incentives are thin. Maybe they can offer free or cheaper mobile data in exchange for AI use.
           That's not nothing, but it's not enough to rewire daily behavior.
         </p>
@@ -100,22 +100,22 @@ export default function AIDiffusion(){
         <Reactions id="ai-diffusion-fintechs" prompt="Buying the fintech-as-distribution argument?" />
       </CaseSection>
 
-      {/* SECTION 3 — in the next 18 months */}
+      {/* SECTION 3, in the next 18 months */}
       <CaseSection>
         <h2 className="essay-h2"><span className="hl hl-c">In the next 18 months</span></h2>
         <p>
           The time for deeper integration with fintechs is now. EM fintechs are mid-reckoning. Most are coming
-          on-chain — moving their fiat operations onto cheaper, borderless, more transparent rails. Blockchains.
+          on-chain, moving their fiat operations onto cheaper, borderless, more transparent rails. Blockchains.
         </p>
         <p>
           Think of blockchains as nation-states. They need users in their ecosystems to justify their token
-          economies. The mass-retail fight in crypto mirrors the mass-retail fight in AI — concentrated among
+          economies. The mass-retail fight in crypto mirrors the mass-retail fight in AI, concentrated among
           four or five chains. Once they have enough users with wallet data and onchain activity locked in,
           they can multiplicatively deliver more compelling results, the same way foundation-model companies
           will eventually with bespoke models and physical AI.
         </p>
         <p>
-          Both crypto and AI are fighting the same battle: adoption. That's not a coincidence — it's the structural
+          Both crypto and AI are fighting the same battle: adoption. That's not a coincidence, it's the structural
           opening.
         </p>
         <h3>The capital is moving</h3>
@@ -141,13 +141,13 @@ export default function AIDiffusion(){
           in conditions almost no existing eval covers.
         </p>
         <Pull>
-          The window is eighteen months because the blockchain foundations are deploying capital now —
+          The window is eighteen months because the blockchain foundations are deploying capital now, 
           and whoever is embedded when the rails are laid will be hard to displace.
         </Pull>
         <h3>Where this goes</h3>
         <p>
-          The product gets sharper as the agent gets more authority. Today the agent advises. Within a year
-          or two, it executes within parameters. By the end of the decade, it negotiates on the user's behalf —
+          The product gets stronger as the agent gets more authority. Today the agent advises. Within a year
+          or two, it executes within parameters. By the end of the decade, it negotiates on the user's behalf, 
           and eventually <em>becomes</em> the economic identity that lenders underwrite.
         </p>
         <Timeline items={TRAJECTORY} />

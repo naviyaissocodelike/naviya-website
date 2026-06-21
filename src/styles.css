@@ -38,6 +38,28 @@ html, body {
   font-feature-settings: 'ss01', 'cv11', 'ss03';
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Safe-area inset for notched phones (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Inputs at >= 16px prevent the iOS zoom-on-focus quirk */
+input, textarea, select {
+  font-size: 16px;
+}
+
+/* Touch-friendly tap targets */
+button, a, [role="button"] {
+  touch-action: manipulation;
 }
 
 a {
@@ -3144,5 +3166,180 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   .tl-item { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
   .essay-h1 { font-size: 1.55rem; line-height: 1.45; }
   .essay-h2 { font-size: 1.2rem; }
+}
+
+/* ========== HOME — extra mobile polish (<= 720px refinements) ========== */
+@media (max-width: 720px) {
+  /* Tighten coin-zone — coin badge + ⓘ shouldn't crowd the mark */
+  .coin-zone { gap: 4px; }
+  .info-trigger { width: 24px; height: 24px; }
+
+  /* Hero / About */
+  .about-lead { line-height: 1.4 !important; }
+  .about-photo { padding-left: 0; }
+  .polaroid { width: 200px; padding: 10px 10px 32px; }
+  .polaroid-cap { font-size: 0.92rem; bottom: 10px; }
+
+  /* TL;DR — already tight, just better readability */
+  .tldr ul { gap: 6px; }
+
+  /* Filter chips on Think */
+  .chips { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .chip { flex-shrink: 0; }
+
+  /* Rogue tiles — single column on phones for full presence */
+  .rt-grid { grid-template-columns: 1fr; gap: 12px; }
+  .rt-tile { min-height: 120px; padding: 16px 16px 14px; }
+  .rt-tile.rt-b { margin-right: 8px; }
+  .rt-tile.rt-p { margin: 14px 0; }
+  .rt-tile.rt-m { margin-top: 12px; }
+  .rt-affordance { top: 12px; right: 14px; }
+
+  /* Inside Rogue panels */
+  .rt-panel { padding: 18px 14px 16px; }
+
+  /* Vault inside Play */
+  .play-zone { max-width: 100%; }
+  .machine { max-width: 100%; padding: 10px 10px 12px; }
+  .machine-display { padding: 10px 10px 8px; }
+  .reels { gap: 6px; }
+  .reel { width: 42px; height: 52px; font-size: 1.5rem; }
+  .machine-brand { font-size: 0.66rem; letter-spacing: 0.14em; }
+  .rewards { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .reward-btn { padding: 10px 12px; }
+  .reward-label { font-size: 0.86rem; }
+
+  /* Arcade tabs */
+  .arcade-tab { padding: 8px 10px; }
+  .arcade-tab-icon { font-size: 1rem; }
+  .arcade-tab-label { font-size: 0.78rem; letter-spacing: 0.005em; }
+
+  /* Shenanigans tiles */
+  .play-tiles { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tile-cta { font-size: 0.62rem; padding: 3px 6px; }
+
+  /* Trivia options need full-width with enough touch height */
+  .trivia { padding: 16px 14px; border-radius: 16px; }
+  .trivia-options { gap: 6px; }
+  .trivia-opt { min-height: 44px; }
+  .trivia-result { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+  /* Floating prompt — keep it usable, not gigantic */
+  .prompt {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 12px; right: 12px;
+    padding: 14px 16px 12px;
+  }
+  .prompt-text { font-size: 0.92rem; }
+  .prompt-react { width: 36px; height: 36px; font-size: 1rem; }
+
+  /* Coin info bubble — keep on screen */
+  .info-bubble {
+    right: -4px;
+    width: calc(100vw - 32px);
+    max-width: 320px;
+  }
+
+  /* Deck modal — go full-screen on phone */
+  .deck-modal-overlay { padding: 0; align-items: stretch; }
+  .deck-modal { width: 100vw; max-width: 100vw; height: 100vh; border-radius: 0; }
+  .deck-modal-head { padding: 10px 14px; }
+  .deck-modal-foot { padding: 8px 14px; font-size: 0.74rem; }
+
+  /* Lucy stats strip — readable at any width */
+  .lucy-stats { padding: 14px 16px; gap: 12px 0; }
+  .lucy-stat-num { font-size: 1.25rem; }
+
+  /* Beliefs page — already stacks, give the share button proper hit area */
+  .beliefs-share { min-height: 44px; }
+  .belief-link { min-height: 44px; align-items: center; }
+
+  /* Article meta dl */
+  .case-meta-row { grid-template-columns: 72px 1fr; gap: 10px; padding: 5px 0; }
+  .case-meta dt { font-size: 0.62rem; padding-top: 3px; }
+  .case-meta dd { font-size: 0.85rem; }
+
+  /* Article hero */
+  .case-hero { padding: 22px 0 28px; }
+  .case-eyebrow { font-size: 0.66rem; letter-spacing: 0.16em; }
+
+  /* Living Aquatic — make protocols + dive log feel tight */
+  .dive-entry { padding: 16px 16px; }
+  .dive-text { font-size: 0.94rem !important; }
+  .dive-apply { font-size: 0.88rem !important; padding-top: 10px; }
+  .aq-protocol { padding: 14px 16px; }
+  .aq-protocol-num { font-size: 1.2rem; }
+  .aq-close-final { font-size: 1.1rem !important; }
+
+  /* Data Opp dark onchain card stays readable */
+  .data-row.special-dark .data-half p { font-size: 0.8rem !important; }
+
+  /* Ensure tap targets on small chips, buttons */
+  .chip, .build-tab, .arcade-tab, .nav-link { min-height: 36px; }
+  .show-more { min-height: 44px; }
+}
+
+/* ========== Tiny phones (<= 420px) — last layer of tightening ========== */
+@media (max-width: 420px) {
+  .page { padding: 0 14px 56px; }
+  .case.tone-ocean main, .case.tone-ocean .case-foot, .case.tone-ocean .case-nav { padding-left: 14px; padding-right: 14px; }
+  .case { padding: 0 14px 56px; }
+
+  /* Hero text scales tighter */
+  .hero h1, .case-hero h1 { font-size: 1.65rem !important; line-height: 1.15 !important; }
+  .case.tone-ocean .case-hero h1 { font-size: 1.85rem; }
+  .essay-h1 { font-size: 1.35rem; }
+  .about-lead { font-size: 1.05rem !important; }
+  .block-h2 { font-size: 1.08rem; }
+  .block { padding: 32px 0; }
+
+  /* Section padding */
+  .case-section { padding: 28px 0; }
+  .case-section h2 { font-size: 1.1rem; }
+
+  /* TL;DR */
+  .tldr { padding: 14px 16px; }
+  .tldr li { font-size: 0.9rem; padding-left: 16px; }
+
+  /* Nav */
+  .nav { padding: 8px 0; }
+  .mark { font-size: 0.92rem; }
+  .nav-link { font-size: 0.74rem; padding: 7px 8px 9px; }
+  .coin-badge { padding: 4px 8px; font-size: 0.78rem; gap: 4px; }
+  .info-trigger { width: 22px; height: 22px; }
+
+  /* Polaroid smaller */
+  .polaroid { width: 180px; padding: 10px 10px 28px; }
+
+  /* Vault smaller */
+  .reel { width: 38px; height: 46px; font-size: 1.35rem; }
+  .machine-brand { font-size: 0.6rem; letter-spacing: 0.12em; }
+  .machine-stat-num { font-size: 1.2rem; }
+
+  /* Tiles */
+  .tile-label { font-size: 0.6rem; padding: 2px 6px; bottom: 5px; left: 5px; }
+
+  /* Trivia */
+  .trivia-q { font-size: 0.92rem; }
+  .trivia-opt { font-size: 0.82rem; padding: 10px 11px; }
+  .trivia-letter { width: 20px; height: 20px; font-size: 0.72rem; }
+
+  /* Article body */
+  .case-section p { font-size: 0.96rem; }
+  .aq-section p, .aq-lead { font-size: 0.96rem !important; }
+  .aq-lead::first-letter { font-size: 2.2rem; }
+
+  /* Pull quotes a touch smaller */
+  .pull { font-size: 1rem; padding: 14px 18px; }
+  .case.tone-ocean .pull { padding: 18px 20px; font-size: 0.98rem; }
+
+  /* Footer + meta */
+  .footer { font-size: 0.78rem; }
+  .case-foot { font-size: 0.84rem; }
+
+  /* Reflection / reactions */
+  .reaction-btn { width: 32px; height: 32px; }
+  .reactions { padding: 8px 12px; gap: 8px; }
+  .reflect-prompt { font-size: 0.96rem !important; }
 }
 

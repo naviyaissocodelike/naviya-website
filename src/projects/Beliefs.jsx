@@ -62,13 +62,13 @@ const BELIEFS = {
   ],
   em: [
     { claim: 'Money is the most legible form of agency. Most of the world doesn\'t have it.',
-      label: 'Read', title: 'Lucy — AI loan officer for Kenya', href: '/lucy' },
+      label: 'Read', title: 'Lucy: AI loan officer for Kenya', href: '/lucy' },
     { claim: 'The frontier is wherever the bureau doesn\'t reach. That\'s where new institutions get built.',
       label: 'Read', title: 'Micro signals, macro insights',  href: '/data-opportunity' },
-    { claim: 'Stablecoins are infrastructure — not a crypto story.',
+    { claim: 'Stablecoins are infrastructure, not a crypto story.',
       label: 'Read', title: 'AI diffusion in EM',             href: '/ai-diffusion' },
     { claim: 'Localization lives in the architecture, not on top of it.',
-      label: 'Read', title: 'Lucy — what the tech actually required', href: '/lucy' },
+      label: 'Read', title: 'Lucy: what the tech actually required', href: '/lucy' },
     { claim: 'Adoption needs a carrot. Only money reliably changes behavior.',
       label: 'Read', title: 'AI diffusion in EM',             href: '/ai-diffusion' }
   ],
@@ -79,8 +79,8 @@ const BELIEFS = {
       label: 'Read', title: 'Micro signals, macro insights',  href: '/data-opportunity' },
     { claim: 'AI\'s largest marginal impact is on the people with least access to it.',
       label: 'Read', title: 'AI diffusion in EM',             href: '/ai-diffusion' },
-    { claim: 'Trust transfers from humans to agents — not the other way around.',
-      label: 'Read', title: 'Lucy — three versions, three different products', href: '/lucy' },
+    { claim: 'Trust transfers from humans to agents, not the other way around.',
+      label: 'Read', title: 'Lucy: three versions, three different products', href: '/lucy' },
     { claim: 'Production-ready agents need a bounded cost of being wrong.',
       label: 'Read', title: 'Lucy in production',             href: '/lucy' },
     { claim: 'Agentic finance needs auditability at the protocol layer.',
@@ -127,11 +127,11 @@ export default function Beliefs(){
       <CaseHero
         eyebrow="Positions · Working drafts"
         title="What I believe, in lines."
-        lede="A working map of what I'm thinking about — grouped by who it's most relevant to. Each line links to where I've written it. Pick a tab."
+        lede="A working map of what I'm thinking about, grouped by who it's most relevant to. Each line links to where I've written it. Pick a tab."
         meta={[
           { k: 'Audiences',  v: 'Investors · Bicoastal builders · EM operators · AI labs' },
           { k: 'Format',     v: 'Numbered beliefs, linked' },
-          { k: 'Status',     v: 'Working drafts — updated as I learn' }
+          { k: 'Status',     v: 'Working drafts, updated as I learn' }
         ]}
       />
 
@@ -183,7 +183,7 @@ export default function Beliefs(){
         </ol>
 
         <p className="beliefs-foot">
-          Want a different cut? <a href="mailto:hello@naviya.xyz">Write me</a> — I'll send the one for you.
+          Want a different cut? <a href="mailto:hello@naviya.xyz">Write me</a>, I'll send the one for you.
         </p>
       </section>
     </CaseFrame>

@@ -22,90 +22,93 @@ const SUBSTACK_URL = '#'
 const EMAIL = 'hello@naviya.xyz'
 
 const ESSAYS = [
+  { date: '2026 · 06', tag: 'AI',           title: 'AI for good at scale is a distribution problem', blurb: "Why most 'AI for good' is too small, where the real lever is, and what it looks like when it works (and when it quietly doesn't).", href: '/ai-for-good', onSite: true },
+  { date: '2026 · 06', tag: 'Crypto',       title: 'Crypto is the final rail to emerging markets', blurb: 'Every prior wave of finance was built for someone else. Why stablecoin rails are the first ones that reach the people the bureau and SWIFT skipped, and why the position is being claimed now.', href: '/crypto-frontier', onSite: true },
+  { date: '2026 · 06', tag: 'AI',           title: 'Shipping an AI agent for emerging-market customers', blurb: 'The field playbook I\'d hand someone deploying their first agent, built from shipping two: Lucy in production and Luna from zero.', href: '/agent-playbook', onSite: true },
   { date: '2026 · 06', tag: 'Personal',     title: 'Living aquatic',                               blurb: 'Getting scuba-certified in Honduras. The first time the surface closed above me, and the five things I came back with.', href: '/living-aquatic', onSite: true },
-  { date: '2026 · 06', tag: 'Frameworks',   title: 'What I believe, in lines',                     blurb: 'A working summary of positions, grouped by audience — investors, bicoastal builders, EM operators, AI labs. Each line links to where I\'ve written it.', href: '/beliefs', onSite: true },
+  { date: '2026 · 06', tag: 'Frameworks',   title: 'What I believe, in lines',                     blurb: 'A working summary of positions, grouped by who they\'re for: investors, bicoastal builders, EM operators, AI labs. Each line links to where I\'ve written it.', href: '/beliefs', onSite: true },
   { date: '2026 · 06', tag: 'AI',           title: 'AI diffusion in EM is best done with fintechs', blurb: 'Three lenses on why AI has to reach the people the rest of the world skips, one real way it can, and an 18-month window that closes when the rails are laid.', href: '/ai-diffusion', onSite: true },
   { date: '2026 · 05', tag: 'AI',           title: 'Shipping the first AI loan officer for Kenya', blurb: "Three versions, ten months at Tala. What worked, what didn't, what I'd carry into the next market.", href: '/lucy', onSite: true },
   { date: '2026 · 05', tag: 'Money',        title: 'Micro signals, macro insights',                blurb: "What fintech customer data could produce as a macro intelligence layer for emerging markets.", href: '/data-opportunity', onSite: true }
 ]
-const TAGS = ['All', 'AI', 'Money', 'Frameworks', 'Personal']
+const TAGS = ['All', 'AI', 'Crypto', 'Money', 'Frameworks', 'Personal']
 
 const TAG_COLORS = {
-  AI: '#2563eb', Money: '#15803d', Frameworks: '#9333ea', Personal: '#0e7490'
+  AI: '#2563eb', Crypto: '#ea580c', Money: '#15803d', Frameworks: '#9333ea', Personal: '#0e7490'
 }
 
 const REPOS = [
   {
     name: 'lucy', lang: 'Python',
-    problem: 'Loan underwriting at Tala still relied on rules brittle to new markets.',
-    why: 'Credit is the most legible form of agency. Better underwriting = more access.',
-    learned: 'LLMs are production-ready when the cost of being wrong is bounded.',
+    problem: 'Loan underwriting at Tala still leaned on rules that broke every time we entered a new market.',
+    why: 'Credit is one of the most direct ways people get real agency, and better underwriting means more of them get it.',
+    learned: 'You can put an LLM in production once you can bound the cost of it being wrong.',
     href: '/lucy',
     caseStudy: true
   },
   {
     name: 'luna', lang: 'Python',
-    problem: 'Most financial apps assume a bank account. 1B+ people in EM navigate credit, savings, and loans without one.',
-    why: 'An agent that understands your context and remembers your story is a fundamentally different product than a chatbot with a form.',
-    learned: 'Gamified progression compresses financial habit formation faster than any UX pattern I have tried.',
+    problem: 'Most financial apps assume you have a bank account. More than a billion people in emerging markets manage credit, savings, and loans without one.',
+    why: 'An agent that knows your context and remembers your story is a different product than a chatbot stapled to a form.',
+    learned: 'Light gamification built the savings habit faster than any UX pattern I had tried before.',
     href: `${GITHUB_URL}/univ-agent`
   },
   {
     name: 'news-digest', lang: 'Python',
-    problem: 'Fifty RSS feeds is too much to read. Zero is too little to stay sharp.',
-    why: 'A personalized AI digest with a two-host podcast delivers signal without the scroll.',
-    learned: 'Claude-as-editor produces better curation than any filter rule — it understands why something matters.',
+    problem: 'Fifty RSS feeds is too much to read. Zero is too little to keep up.',
+    why: 'A personalized AI digest with a two-host podcast gives me the signal without the scroll.',
+    learned: 'Claude as the editor curates better than any filter rule, because it understands why something matters.',
     href: `${GITHUB_URL}/news-digest`
   },
   {
     name: 'tasks-flow', lang: 'TypeScript',
-    problem: 'Solo operators need a project board that works offline and syncs without drama across devices.',
-    why: 'Project visibility should not depend on a vendor\'s uptime or pricing tier.',
-    learned: 'Local-first plus cloud sync is the architecture that survives the real world.',
+    problem: 'Solo operators need a project board that works offline and syncs cleanly across devices.',
+    why: 'Whether I can see my own projects should not depend on a vendor\'s uptime or pricing tier.',
+    learned: 'Local-first plus cloud sync is the setup that actually survives a bad wifi day.',
     href: `${GITHUB_URL}/tasks-flow`
   },
   {
     name: 'Defi-Agent-Uma', lang: 'TypeScript',
-    problem: 'DeFi protocols move faster than any human can track across chains and governance cycles.',
-    why: 'Automation at the smart-contract layer is the only way to act on DeFi signals in time.',
-    learned: 'Protocol APIs are designed for bots. Agents let you write the bot in plain intent.',
+    problem: 'DeFi protocols move faster than any one person can track across chains and governance cycles.',
+    why: 'By the time you have read the proposal, the moment has passed. An agent acts at the speed the protocol does.',
+    learned: 'Protocol APIs are built for bots anyway. An agent just lets you write the bot in plain intent.',
     href: `${GITHUB_URL}/Defi-Agent-Uma`
   },
   {
     name: 'wise-glade', lang: 'Python',
-    problem: 'Job search is a daily intelligence problem dressed up as a one-off.',
-    why: 'Career capital is a feedback system. Reward the right signal sooner.',
+    problem: 'A job search is really a daily intelligence problem dressed up as a one-off.',
+    why: 'Career moves compound, so it helps to catch the right opening a day sooner.',
     learned: 'A small agent that does one thing every day beats a big one that does ten things once.',
     href: `${GITHUB_URL}/wise-glade-git`
   },
   {
     name: 'naviya-website', lang: 'React',
-    problem: 'A site should feel like exploring a mind, not reading a resume.',
-    why: 'The internet has too many landing pages and not enough rooms.',
-    learned: 'Personality compounds when the medium is yours.',
+    problem: 'I wanted a site that felt like walking around my head, not reading my resume.',
+    why: 'A personal site is one of the few places online that gets to be fully yours.',
+    learned: 'When the medium is yours, the personality is the point, not a distraction from it.',
     href: `${GITHUB_URL}/naviya-website`
   }
 ]
 
 const TALA = [
-  { k: 'Where',    v: 'Tala — global fintech across eight emerging markets' },
+  { k: 'Where',    v: 'Tala, a global fintech across eight emerging markets' },
   { k: 'Role',     v: 'Manager, New Ventures (AI / Crypto)' },
-  { k: 'Building', v: 'AI loan agents in production. Stablecoin pilots. Second-rail money infrastructure.' },
-  { k: 'Why',      v: "Credit is the most legible form of agency. Most of the world doesn't have it. We're building the rails." }
+  { k: 'Building', v: 'AI loan agents in production, stablecoin pilots, and second-rail money infrastructure.' },
+  { k: 'Why',      v: "Credit is one of the most direct ways people get agency over their lives, and most of the world has never had access to it. We're building the rails." }
 ]
 
 const DA = [
-  { k: 'Why it exists',                        v: 'Solo angel checks are an inefficient way to back builders. DC had the capital and talent — just not the front door.' },
-  { k: 'How communities become institutions',  v: 'The bridge is process, ritual, and shared standards. We try to compress that arc without losing the feel.' },
-  { k: 'On capital formation',                 v: 'Early on, pace of conviction matters more than depth of diligence. Speed is a signal of taste.' },
-  { k: 'How AI changes angel investing',       v: 'Agents take over screening. Humans hold conviction, introductions, and aftercare — the parts that compound.' }
+  { k: 'Why it exists',                        v: 'Writing solo angel checks is a slow way to back builders. DC had the capital and the talent, just not a front door.' },
+  { k: 'How communities become institutions',  v: 'It comes down to process, ritual, and shared standards. We try to get there faster without losing the feel of the room.' },
+  { k: 'On capital formation',                 v: "Early on, how quickly you can get to conviction matters more than how deep your diligence goes. How fast you move tells you something about your taste." },
+  { k: 'How AI changes angel investing',       v: 'Agents take over the screening. People keep the parts that compound: conviction, introductions, and looking after founders after the check clears.' }
 ]
 
 const CORNELL = [
-  { k: 'Where',     v: 'Cornell Social Enterprise — student community for the impact-curious' },
-  { k: 'Role',      v: 'Led programming, mentorship, the annual conference' },
-  { k: 'Building',  v: 'A community on its way to being an institution.' },
-  { k: 'Learned',   v: 'Communities scale by handing off rituals. The work is creating ones worth handing off.' }
+  { k: 'Where',     v: 'Cornell Social Enterprise, a student community for the impact-curious' },
+  { k: 'Role',      v: 'Led programming, mentorship, and the annual conference' },
+  { k: 'Building',  v: 'A community on its way to becoming an institution.' },
+  { k: 'Learned',   v: "Communities last when you hand off the rituals. The real work is building ones worth handing off." }
 ]
 
 const BUILD_TABS = [
@@ -145,14 +148,14 @@ const MOVIES = [
 ]
 
 const IDEAS = [
-  'Credit is the most legible form of agency. Everything else compounds from access to it.',
-  "Every community that scales becomes either an institution or a brand. The interesting ones become both.",
-  "The frontier is wherever the bureau doesn't reach. That's where new institutions get built.",
-  "AI doesn't kill jobs. It kills the parts of jobs nobody enjoyed in the first place.",
-  'Partnership-first fintechs will out-distribute the model labs in places the bureau never reached.',
-  "Stablecoins aren't a crypto story. They're a backbone for the half of the world the SWIFT-era never served.",
+  "Credit is one of the most direct ways someone gets agency over their own life, and almost everything else gets easier once they have access to it.",
+  "Every community that scales turns into an institution or a brand. The ones I find interesting manage to be both.",
+  "The frontier is just wherever the credit bureau hasn't reached yet, and that's usually where the next institutions get built.",
+  "AI isn't really killing jobs. It's killing the parts of jobs nobody liked doing in the first place.",
+  "In the places the bureau never reached, partnership-first fintechs will out-distribute the model labs. They already have the trust and the customers.",
+  "Stablecoins aren't a crypto story to me. They're a backbone for the half of the world SWIFT never served.",
   'The founders I want to back have an unreasonable feel for one specific market and a calm relationship with their own ego.',
-  "If a thesis can't survive being explained at a noisy bar, it isn't one yet."
+  "If a thesis can't survive being explained at a loud bar, it isn't a thesis yet."
 ]
 
 const ROGUE_TILES = [
@@ -167,7 +170,7 @@ const ROGUE_TILES = [
 const PROMPTS = [
   {
     id: 'about',  section: 'about',
-    text:   "Builder, operator, investor, or writer — which one are you most days?",
+    text:   "Builder, operator, investor, or writer: which one are you most days?",
     reactions: ['🏗️', '🛠️', '💰', '✍️']
   },
   {
@@ -247,7 +250,7 @@ const SECRETS = {
   ],
   startup: [
     "A diaspora-first credit bureau. Identity + remittance flow + employer attestation.",
-    "An agentic CFO for sub-$10M ARR companies. Cash, runway, hiring, taxes — one loop.",
+    "An agentic CFO for sub-$10M ARR companies. Cash, runway, hiring, and taxes in one loop.",
     "Stablecoin-native B2B invoicing for African importers. Settle in USDC, reconcile in local books.",
     "A 'lightweight LP fund' that pools angel checks across cities. Distribution by community."
   ]
@@ -432,7 +435,7 @@ export default function Home(){
               </p>
               <p>
                 Spend coins on jokes, predictions, things I've changed my mind about, and strange startup ideas.
-                Riddles, puzzles, and quizzes I've designed and curated — there's more in the vault than what's
+                Riddles, puzzles, and quizzes I've designed and curated. There's more in the vault than what's
                 visible at first.
               </p>
             </div>
@@ -446,23 +449,24 @@ export default function Home(){
           <div className="about-grid">
             <div className="about-text">
               <p className="about-lead">
-                <strong>Frontier technology in the hands of the overlooked.</strong> A working map of how I think
-                about AI, capital, communities, and the systems that shape human agency.
+                <strong>I want frontier technology in the hands of the people the rest of the world skips.</strong> This
+                is a working map of how I think about AI, money, communities, and who gets access to any of it.
               </p>
               <p>
-                I'm interested in agency at scale — the kind people get when better tools, capital, and information
-                actually reach them. My work sits at the intersections: AI and money, communities and institutions,
-                frontier tech and the people the rest of the world tends to skip.
+                Most of my work sits in the overlaps: AI and money, communities and institutions, new technology and
+                the people it reaches last. The thread running through it is access, and the difference better tools
+                and capital make when they finally reach someone who never had them.
               </p>
               <p>
-                Today that looks like AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC
-                called <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>,
-                and a steady habit of building small tools in code. Before that: operations research at Cornell, where
-                I helped run Social Enterprise — my first attempt at turning a community into an institution.
+                Right now that's AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC called{' '}
+                <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>,
+                and a steady habit of building small tools in code on the side. Before that I studied operations research
+                at Cornell and helped run Social Enterprise, my first real attempt at turning a community into something
+                that outlasts the people running it.
               </p>
               <p>
-                Builder by inclination. Operator by experience. Investor by curiosity. I think best in analogies,
-                sci-fi, and thought experiments. If you want an intro, an opinion, or honest feedback —{' '}
+                I build, I operate, and I invest, roughly in the order I got to each one. I think best in analogies,
+                sci-fi, and thought experiments. If you want an intro, an opinion, or honest feedback,{' '}
                 <a href={`mailto:${EMAIL}`}>write me</a>.
               </p>
             </div>
@@ -474,10 +478,10 @@ export default function Home(){
           <aside className="tldr">
             <div className="tldr-label">TL;DR</div>
             <ul>
-              <li><strong>Building</strong> AI agents and stablecoin pilots at <a href="https://tala.co">Tala</a> — credit infrastructure across 8 emerging markets.</li>
-              <li><strong>Investing</strong> early-stage through <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a> — a DC-based collective.</li>
-              <li><strong>Writing</strong> about frontier tech and agency — on this site and on <a href={SUBSTACK_URL}>Substack</a>.</li>
-              <li><strong>Shipping</strong> code, tools, and agents on <a href={GITHUB_URL}>GitHub</a>.</li>
+              <li><strong>Building</strong> AI agents and stablecoin pilots at <a href="https://tala.co">Tala</a>, credit infrastructure across 8 emerging markets.</li>
+              <li><strong>Investing</strong> early-stage through <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>, a DC-based collective.</li>
+              <li><strong>Writing</strong> about frontier tech and access, here and on <a href={SUBSTACK_URL}>Substack</a>.</li>
+              <li><strong>Building</strong> code, tools, and agents on <a href={GITHUB_URL}>GitHub</a>.</li>
             </ul>
           </aside>
         </section>
@@ -485,8 +489,8 @@ export default function Home(){
         <section id="think" className="block section-think">
           <SectionHead>Think</SectionHead>
           <p className="block-sub">
-            Essays and theses I'm still developing. The intellectual center of the site.
-            Mostly on <a href={SUBSTACK_URL}>Substack</a>.
+            Essays and theses I'm still working out. This is the part of the site I care about most.
+            Most of it also lives on <a href={SUBSTACK_URL}>Substack</a>.
           </p>
           <div className="chips">
             {TAGS.map(t => (
@@ -535,8 +539,8 @@ export default function Home(){
         <section id="build" className="block section-build">
           <SectionHead>Build</SectionHead>
           <p className="block-sub">
-            Proof of execution — code, products, and communities. Each is a different shape of the same instinct:
-            ship the thing.
+            Code, products, and communities. Different shapes of the same instinct, which is mostly to build the
+            thing and get it in front of someone real.
           </p>
 
           <div className="build-tabs" role="tablist">
@@ -589,7 +593,7 @@ export default function Home(){
               <>
                 <p className="panel-lede">
                   Tala is a global consumer fintech building credit infrastructure across eight emerging markets.
-                  I lead New Ventures — the bets that aren't a year of roadmap yet.
+                  I lead New Ventures, which is where the bets that aren't a year of roadmap yet get tested.
                 </p>
                 <KvGrid items={TALA} />
               </>
@@ -599,9 +603,9 @@ export default function Home(){
               <>
                 <p className="panel-lede">
                   <strong>District Angels</strong> is a DC-based collective of early-stage investors. I started it in
-                  March 2024 because solo angel checks are an inefficient way to back builders — and because the best
-                  communities I've been part of were always on their way to becoming institutions. DA is an attempt to
-                  compress that arc.
+                  March 2024 because writing solo angel checks is a slow, lonely way to back builders, and because the
+                  best communities I've been part of were always quietly turning into institutions. DA is my attempt to
+                  make that happen on purpose, and faster.
                 </p>
                 <KvGrid items={DA} />
               </>
@@ -610,8 +614,9 @@ export default function Home(){
             {activeBuild === 'cornell' && (
               <>
                 <p className="panel-lede">
-                  Cornell Social Enterprise — student community for the impact-curious. I helped run it as an undergrad.
-                  It was my first attempt at turning a community into an institution: programming, mentorship, succession.
+                  Cornell Social Enterprise is a student community for the impact-curious. I helped run it as an
+                  undergrad, and it was the first time I tried to turn a community into an institution: programming,
+                  mentorship, and a real handoff so it didn't fall apart when we left.
                 </p>
                 <KvGrid items={CORNELL} />
               </>
@@ -622,8 +627,8 @@ export default function Home(){
         <section id="rogue" className="block section-rogue">
           <SectionHead>Rogue Thoughts</SectionHead>
           <p className="block-sub">
-            A collage of what shaped me and what I'm still chasing. Pick a tile — quotes, poems, books, movies,
-            or stray ideas. Notebook, not feed.
+            A collage of what shaped me and what I'm still chasing. Pick a tile: quotes, poems, books, movies,
+            or stray ideas. More notebook than feed.
           </p>
 
           <div className="rt-grid">
@@ -727,7 +732,7 @@ export default function Home(){
         <section id="play" className="block section-play">
           <SectionHead>Play</SectionHead>
           <p className="block-sub">
-            Welcome to the arcade. Solve, guess, react — every win earns coins you can spend on jokes,
+            Welcome to the arcade. Solve, guess, and react. Every win earns coins you can spend on jokes,
             predictions, mind-changes, and strange startup ideas. New games rotate in.
           </p>
           <div className="play-zone">
@@ -976,7 +981,7 @@ function TriviaGame({ coins, addCoins }){
         <div className="trivia-result">
           {picked === q.answer ? (
             wasAnswered
-              ? <span className="muted-msg">Already solved — no new coins.</span>
+              ? <span className="muted-msg">Already solved, no new coins.</span>
               : <span className="ok">✓ correct. +5 coins.</span>
           ) : (
             <span className="bad">Not quite. Answer: <strong>{q.options[q.answer]}</strong></span>
@@ -1164,7 +1169,7 @@ function Vault({ coins, addCoins, setCoins }){
           <button onClick={dispenseNext} className="link-btn" disabled={spinning}>new riddle →</button>
         </div>
         {status === 'correct' && <p className="msg ok">✓ correct. +3 coins.</p>}
-        {status === 'already' && <p className="msg muted-msg">already solved — no extra coins.</p>}
+        {status === 'already' && <p className="msg muted-msg">already solved, no extra coins.</p>}
         {status === 'wrong' && <p className="msg bad">not quite. try again.</p>}
       </div>
 

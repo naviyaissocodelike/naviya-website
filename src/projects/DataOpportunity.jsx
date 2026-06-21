@@ -28,7 +28,7 @@ const CATEGORIES = [
     why:  'Telco spend is a real-time income proxy. Prepaid airtime pricing also tracks local inflation with surprising accuracy.' },
   { name: 'MSME & Merchant Data', icon: ICONS.shop,
     what: 'Transaction volume, inventory turnover signals, supplier payment patterns, small-business pricing data.',
-    why:  'A direct line into on-the-ground pricing and supply chain dynamics — economic activity at the most granular commercial level.' },
+    why:  'A direct line into on-the-ground pricing and supply chain dynamics, economic activity at the most granular commercial level.' },
   { name: 'Gig Platform Income', icon: ICONS.gig,
     what: 'Earnings from ride-hailing, delivery, freelancing. Payment frequency, income volatility, multi-platform participation.',
     why:  'Maps the informal labor market in real time. Volatility signals macro stress before formal employment data does.' },
@@ -36,20 +36,20 @@ const CATEGORIES = [
     what: 'User queries to AI financial agents, topics asked about, financial literacy gaps, product preferences, language patterns.',
     why:  'A new data category. Agent interactions reveal financial intent, unmet needs, and product-market fit signals at scale.' },
   { name: 'Photos & Physical Surroundings', icon: ICONS.photo,
-    what: 'Shop photos, market stall images, product shelves, neighborhood imagery — submitted for KYC or business verification.',
+    what: 'Shop photos, market stall images, product shelves, neighborhood imagery, submitted for KYC or business verification.',
     why:  'Visual data processable for price tracking, inventory, and infrastructure. Repeat captures create a visual time series.' },
   { name: 'Business Ambitions & Intent', icon: ICONS.intent,
     what: 'Loan-purpose declarations, business plans, stated goals, product or service expansion signals.',
     why:  'Forward-looking intent data. Aggregated, it reveals sectoral growth trends before formal indicators catch them.' },
   { name: 'Sociological / Self-Reported', icon: ICONS.socio,
     what: 'Household size, dependents, education, occupation, housing type, community affiliation, stated preferences.',
-    why:  "Demographic segmentation at a depth and recency census data can't match — updated continuously, not every 5–10 years." },
+    why:  "Demographic segmentation at a depth and recency census data can't match, updated continuously, not every 5–10 years." },
   { name: 'SMS & Communication Metadata', icon: ICONS.sms,
     what: 'Tone, sentiment, message volume, transactional SMS from banks and services.',
     why:  'Population-level sentiment analysis. Transactional SMS provides an independent verification layer for financial data.' },
   { name: 'Onchain / Wallet Data', icon: ICONS.chain, special: 'dark',
     what: "KYC-linked wallet addresses, transaction history, counterparty graphs, stablecoin holdings, DeFi activity, cross-border flows, agent-controlled wallets.",
-    why:  'Once a wallet is shared, every transaction it has ever done — and will ever do — is public, permanent, and queryable. KYC anchors it. This ground-truths global onchain data in ways no one else can.' }
+    why:  'Once a wallet is shared, every transaction it has ever done, and will ever do, is public, permanent, and queryable. KYC anchors it. This ground-truths global onchain data in ways no one else can.' }
 ]
 
 const USE_CASES = [
@@ -60,7 +60,7 @@ const USE_CASES = [
       'Customer photos of the same shops and markets month-over-month → SKU-level price changes by region.',
       'Telco airtime pricing tracks purchasing power. Bundles getting expensive vs income show up immediately.',
       'MSME transaction data reveals wholesale and retail price movements before they hit formal indices.',
-      'Aggregated across tiers: stratified inflation data — what inflation looks like for the bottom 20% vs the top 20%, something no government index provides.'
+      'Aggregated across tiers: stratified inflation data, what inflation looks like for the bottom 20% vs the top 20%, something no government index provides.'
     ]
   },
   {
@@ -69,13 +69,13 @@ const USE_CASES = [
     points: [
       'SMS tone across millions of messages → population-level mood shifts. Validated at Tala in Kenya.',
       'App usage patterns (what is installed, how often it is used, when it is deleted) track consumer priorities and anxieties.',
-      'Transaction velocity — how fast money moves through an account after deposit — is a direct proxy for confidence. Slow velocity signals hoarding.',
+      'Transaction velocity, how fast money moves through an account after deposit, is a direct proxy for confidence. Slow velocity signals hoarding.',
       'Loan application volume and stated purposes reveal where people see opportunity vs where they are managing emergencies.'
     ]
   },
   {
     title: 'Political signal extraction',
-    lede: "A validated use case. Tala data — SMS sentiment + app installs — predicted electoral outcomes in Kenya.",
+    lede: "A validated use case. Tala data, SMS sentiment + app installs, predicted electoral outcomes in Kenya.",
     points: [
       'App installs for news, party, and social platforms correlate with political preference at the regional level.',
       'SMS sentiment shifts in the weeks before elections track momentum in real time.',
@@ -89,7 +89,7 @@ const USE_CASES = [
     points: [
       'Spending patterns across income tiers reveal how each class allocates food, transport, airtime, education.',
       'Loan repayment stratified by income reveals which tiers are falling behind, and on what.',
-      'Pricing data across regions and income levels shows the poverty premium — how much more the poor pay for the same goods — in real time.',
+      'Pricing data across regions and income levels shows the poverty premium, how much more the poor pay for the same goods, in real time.',
       'Device data alone segments populations by tier with surprising accuracy.'
     ]
   },
@@ -100,7 +100,7 @@ const USE_CASES = [
       'Mobile money flows between individuals and small businesses capture commerce that never touches a bank.',
       'Gig platform earnings quantify the informal labor market in real time.',
       'MSME transaction patterns reveal supply chains, trade corridors, and commercial networks formal data does not cover.',
-      'Aggregated, this produces a parallel economic map — complementary to (and sometimes contradicting) official statistics.'
+      'Aggregated, this produces a parallel economic map, complementary to (and sometimes contradicting) official statistics.'
     ]
   },
   {
@@ -117,9 +117,9 @@ const USE_CASES = [
     lede: "Different in kind. Once a wallet is shared, the blockchain does the data collection. Combined with KYC, each wallet becomes a node in a global economic graph.",
     points: [
       'Counterparty graphs reveal family clusters, business partnerships, supplier networks, informal lending circles.',
-      'Cross-border remittance corridors visible at the wallet level in real time — actual transactions, actual amounts, actual frequency.',
+      'Cross-border remittance corridors visible at the wallet level in real time, actual transactions, actual amounts, actual frequency.',
       'Stablecoin balances as a dollarization signal. Holding behavior is a leading inflation indicator that beat official data by weeks in Argentina, Nigeria, and Turkey.',
-      'Cross-platform identity resolution links wallets, fintech identities, and gig identities into a single economic footprint — formal and informal, traditional and crypto.',
+      'Cross-platform identity resolution links wallets, fintech identities, and gig identities into a single economic footprint, formal and informal, traditional and crypto.',
       'Geographic ground-truthing fixes the biggest weakness in current onchain analytics: today most of it guesses geography from IP and exchange relationships.'
     ]
   }
@@ -135,19 +135,19 @@ export default function DataOpportunity(){
       <CaseHero
         eyebrow="Brief · Fintech & alt data"
         title="Micro signals, macro insights"
-        lede="Global fintech companies sit on the most granular behavioral and financial data ever collected on emerging-market populations — and almost none of them know how to extract macro intelligence from it. This brief lays out what's there, what it produces when aggregated properly, and why it matters for alt data."
+        lede="Global fintech companies sit on the most granular behavioral and financial data ever collected on emerging-market populations, and almost none of them know how to extract macro intelligence from it. This brief lays out what's there, what it produces when aggregated properly, and why it matters for alt data."
         meta={[
           { k: 'Type',     v: 'Ideation brief' },
           { k: 'Status',   v: 'Draft for discussion' },
           { k: 'Coverage', v: '4B+ users across Africa, Southeast Asia, Latin America, South Asia' },
           { k: 'Topics',   v: 'Fintech · Alt data · Onchain' },
-          { k: 'Author',   v: 'Naviya Kothari — Onchain Finance @ Tala' }
+          { k: 'Author',   v: 'Naviya Kothari, Onchain Finance @ Tala' }
         ]}
       />
 
       <CaseSection kicker="Premise">
         <p>
-          Global fintech companies have spent the last decade-plus underwriting credit with alternate data —
+          Global fintech companies have spent the last decade-plus underwriting credit with alternate data, 
           which means they already collect, structure, and act on behavioral and financial signals from populations
           that are nearly invisible in conventional datasets.
         </p>
@@ -182,7 +182,7 @@ export default function DataOpportunity(){
       <CaseSection kicker="Forward-looking" title="Agentic wallets">
         <p>
           Wallets controlled by AI agents are starting to exist. As fintech customers delegate transaction
-          authority to agents — for savings automation, yield, recurring payments — agent-controlled wallets
+          authority to agents, for savings automation, yield, recurring payments, agent-controlled wallets
           will become a meaningful share of onchain volume.
         </p>
         <ul className="bullets">
@@ -195,7 +195,7 @@ export default function DataOpportunity(){
 
       <CaseSection kicker="Why it matters" title="The alt data gap, restated">
         <p>
-          Alt data has built deep coverage of developed markets — credit card spend, satellite imagery, web
+          Alt data has built deep coverage of developed markets, credit card spend, satellite imagery, web
           traffic, social sentiment. Emerging-market coverage stays thin, largely because the data infrastructure
           is fragmented and hard to access.
         </p>
@@ -203,21 +203,21 @@ export default function DataOpportunity(){
         <ul className="bullets">
           <li>Standardize heterogeneous formats across companies, countries, and regulatory regimes.</li>
           <li>Apply privacy, consent, and anonymization frameworks that make the data commercially usable.</li>
-          <li>Build derived intelligence products — inflation indices, sentiment scores, stratification maps — that command premium pricing.</li>
+          <li>Build derived intelligence products, inflation indices, sentiment scores, stratification maps, that command premium pricing.</li>
           <li>Create a commercial model where fintechs are compensated fairly for data contribution, incentivizing participation.</li>
           <li>Provide coverage of 4B+ people underrepresented in existing alt data products.</li>
-          <li>Treat onchain as a first-class category, not a bolt-on. Almost no alt data company has KYC-anchored wallet data at scale, and almost none have a serious read on agentic wallet activity.</li>
+          <li>Treat onchain as a first-class category, not a bolt-on. Almost no alt data company has KYC-anchored wallet data at scale, and almost none have a real read on agentic wallet activity.</li>
         </ul>
         <Pull>
-          Without this, the data stays siloed across hundreds of fintechs — each holding a piece of a much larger
+          Without this, the data stays siloed across hundreds of fintechs, each holding a piece of a much larger
           picture. Or it gets acquired piecemeal by brokers with no governance and no accountability.
         </Pull>
       </CaseSection>
 
       <CaseSection kicker="Receipts" title="Proof points" tone="summary">
         <ul className="bullets">
-          <li><strong>Electoral prediction in Kenya.</strong> Tala data — SMS sentiment + app installs — predicted electoral outcomes from a single fintech in a single market. Aggregated across companies and countries, the signal gets dramatically stronger.</li>
-          <li><strong>Credit scoring via device data.</strong> Device metadata alone — phone model, app portfolio, connectivity — predicts creditworthiness with bureau-comparable accuracy where bureau coverage is thin.</li>
+          <li><strong>Electoral prediction in Kenya.</strong> Tala data, SMS sentiment + app installs, predicted electoral outcomes from a single fintech in a single market. Aggregated across companies and countries, the signal gets dramatically stronger.</li>
+          <li><strong>Credit scoring via device data.</strong> Device metadata alone, phone model, app portfolio, connectivity, predicts creditworthiness with bureau-comparable accuracy where bureau coverage is thin.</li>
           <li><strong>Airtime as income proxy.</strong> Telco top-up patterns are a validated proxy for income level and stability across African and Southeast Asian markets.</li>
           <li><strong>Photo-based business verification.</strong> Submitted shop photos are already used for underwriting. The same images captured repeatedly create a visual time series for price and inventory tracking.</li>
           <li><strong>Stablecoin flows as inflation signal.</strong> In Argentina, Nigeria, and Turkey, onchain stablecoin balance growth has consistently led official inflation data by weeks. Fintechs enabling crypto already see this at the wallet level.</li>
