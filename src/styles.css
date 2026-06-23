@@ -542,22 +542,25 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .about-lead strong {
   font-weight: 700;
-  background: linear-gradient(180deg, transparent 0, transparent 58%, var(--c-about-soft) 58%, var(--c-about-soft) 92%, transparent 92%);
-  padding: 0 4px;
-  margin: 0 -2px;
+  color: var(--ink);
 }
 .about-lead-center {
   text-align: center;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  font-size: 1.6rem !important;
-  max-width: 720px !important;
+  margin: 6px auto 4px !important;
+  font-size: 1.3rem !important;
+  line-height: 1.4 !important;
+  font-weight: 500 !important;
+  color: var(--muted) !important;
+  max-width: 560px !important;
 }
+/* About reads as one calm centered intro */
+.section-about .block-h2 { text-align: center; }
+.section-about .tldr { max-width: 520px; margin-left: auto; margin-right: auto; }
 
 /* About Venn — three worlds, face at the intersection */
 .about-venn-wrap {
-  max-width: 480px;
-  margin: 8px auto 4px;
+  max-width: 420px;
+  margin: 18px auto 8px;
   opacity: 0;
   transform: scale(0.96);
   transition: opacity 600ms ease, transform 600ms ease;
