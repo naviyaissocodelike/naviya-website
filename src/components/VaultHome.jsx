@@ -446,11 +446,11 @@ export default function Home(){
       <main id="top">
         <section id="about" ref={aboutRef} className="block first-block section-about">
           <SectionHead>About</SectionHead>
-          <p className="about-lead about-lead-center">
+          <p className="about-lead">
             <strong>Frontier technology in the hands of the people the rest of the world skips.</strong>
           </p>
-          <div className={`about-venn-wrap ${aboutInView ? 'in' : ''}`}>
-            <VennAbout src={ABOUT_IMG} />
+          <div className={`about-visual-wrap ${aboutInView ? 'in' : ''}`}>
+            <AboutVisual src={ABOUT_IMG} />
           </div>
 
           <aside className="tldr">
@@ -810,41 +810,50 @@ function Polaroid({ src, alt, caption }){
   )
 }
 
-/* About Venn — three worlds, Naviya at the intersection. Drop a photo at
-   /public/images/about.jpg and it appears in the center automatically. */
-function VennAbout({ src }){
+/* About visual — three circles (Innovation x Capital x Community) overlap, and a
+   hand-drawn arrow points out of the intersection to Naviya's photo on the right.
+   Drop a photo at /public/images/about.jpg and it fills the circle on the right. */
+function AboutVisual({ src }){
   const [imgOk, setImgOk] = useState(true)
-  // circle centers
-  const A = { x: 250, y: 168 } // AI (top)
-  const C = { x: 178, y: 286 } // Capital (lower-left)
-  const M = { x: 322, y: 286 } // Community (lower-right)
-  const R = 132
-  const cx = (A.x + C.x + M.x) / 3
-  const cy = (A.y + C.y + M.y) / 3
+  const VB_W = 560, VB_H = 350
+  // left cluster of circles
+  const I = { x: 150, y: 116 } // Innovation (top)
+  const C = { x: 98,  y: 204 } // Capital (lower-left)
+  const M = { x: 202, y: 204 } // Community (lower-right)
+  const R = 92
+  // photo position (right side)
+  const PX = 472, PY = 176
   return (
-    <div className="venn" role="img" aria-label="Naviya at the intersection of AI, capital, and community">
-      <svg className="venn-svg" viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
+    <div className="about-visual" role="img" aria-label="Innovation, capital, and community overlap and point to Naviya">
+      <svg className="av-svg" viewBox={`0 0 ${VB_W} ${VB_H}`} xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <filter id="venn-marker" x="-20%" y="-20%" width="140%" height="140%">
+          <filter id="av-marker" x="-20%" y="-20%" width="140%" height="140%">
             <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="7" result="n" />
             <feDisplacementMap in="SourceGraphic" in2="n" scale="5" />
           </filter>
         </defs>
-        <g className="venn-circles" filter="url(#venn-marker)">
-          <circle cx={A.x} cy={A.y} r={R} className="vc vc-ai" />
+        <g className="av-circles" filter="url(#av-marker)">
+          <circle cx={I.x} cy={I.y} r={R} className="vc vc-innovation" />
           <circle cx={C.x} cy={C.y} r={R} className="vc vc-capital" />
           <circle cx={M.x} cy={M.y} r={R} className="vc vc-community" />
         </g>
-        {/* clean disc behind the face so blended tints don't muddy it */}
-        <circle cx={cx} cy={cy} r="60" className="venn-center-disc" />
-        <text x={A.x} y="44" className="venn-label vl-ai" textAnchor="middle">AI</text>
-        <text x="86" y="406" className="venn-label vl-capital" textAnchor="middle">Capital</text>
-        <text x="414" y="406" className="venn-label vl-community" textAnchor="middle">Community</text>
+        {/* clean disc + "me" at the intersection */}
+        <circle cx="150" cy="174" r="30" className="av-center-disc" />
+        <text x="150" y="183" className="av-me" textAnchor="middle">me</text>
+        {/* hand-drawn arrow originating from the center, pointing right to the photo */}
+        <g className="av-arrow" filter="url(#av-marker)">
+          <path d="M182 174 C 250 166, 320 184, 386 176" />
+          <path d="M386 176 L 369 165" />
+          <path d="M386 176 L 369 187" />
+        </g>
+        <text x={I.x} y="22" className="av-label vl-innovation" textAnchor="middle">Innovation</text>
+        <text x="50" y="312" className="av-label vl-capital" textAnchor="middle">Capital</text>
+        <text x="232" y="312" className="av-label vl-community" textAnchor="middle">Community</text>
       </svg>
-      <div className="venn-face" style={{ left: `${(cx / 500) * 100}%`, top: `${(cy / 440) * 100}%` }}>
+      <div className="av-photo" style={{ left: `${(PX / VB_W) * 100}%`, top: `${(PY / VB_H) * 100}%` }}>
         {imgOk && src
           ? <img src={src} alt="Naviya" onError={() => setImgOk(false)} />
-          : <span className="venn-face-fallback">N</span>}
+          : <span className="av-photo-fallback">your<br/>photo</span>}
       </div>
     </div>
   )

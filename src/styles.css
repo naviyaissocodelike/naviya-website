@@ -532,79 +532,82 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .about-text { min-width: 0; }
 .about-lead {
   font-family: 'Inter Tight', 'Inter', sans-serif !important;
-  font-size: 1.4rem !important;
-  line-height: 1.35 !important;
-  letter-spacing: -0.02em !important;
-  color: var(--ink) !important;
-  margin: 0 0 18px !important;
+  font-size: 1.25rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--muted) !important;
+  margin: 8px 0 6px !important;
   font-weight: 500 !important;
-  max-width: 620px !important;
+  max-width: 560px !important;
 }
 .about-lead strong {
   font-weight: 700;
   color: var(--ink);
 }
-.about-lead-center {
-  text-align: center;
-  margin: 6px auto 4px !important;
-  font-size: 1.3rem !important;
-  line-height: 1.4 !important;
-  font-weight: 500 !important;
-  color: var(--muted) !important;
-  max-width: 560px !important;
-}
-/* About reads as one calm centered intro */
-.section-about .block-h2 { text-align: center; }
-.section-about .tldr { max-width: 520px; margin-left: auto; margin-right: auto; }
 
-/* About Venn — three worlds, face at the intersection */
-.about-venn-wrap {
-  max-width: 420px;
-  margin: 18px auto 8px;
+/* About visual — Venn on the left, arrow out of the intersection, photo on the right */
+.about-visual-wrap {
+  max-width: 640px;
+  margin: 22px 0 10px;
   opacity: 0;
-  transform: scale(0.96);
+  transform: translateY(8px);
   transition: opacity 600ms ease, transform 600ms ease;
 }
-.about-venn-wrap.in { opacity: 1; transform: scale(1); }
-.venn { position: relative; width: 100%; }
-.venn-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.about-visual-wrap.in { opacity: 1; transform: translateY(0); }
+.about-visual { position: relative; width: 100%; }
+.av-svg { width: 100%; height: auto; display: block; overflow: visible; }
 .vc {
   fill-opacity: 0.14;
   stroke-width: 2.4;
   mix-blend-mode: multiply;
 }
-.vc-ai        { fill: #1d4ed8; stroke: #1d4ed8; }
-.vc-capital   { fill: #15803d; stroke: #15803d; }
-.vc-community { fill: #6d28d9; stroke: #6d28d9; }
-.venn-center-disc { fill: #ffffff; stroke: var(--line); stroke-width: 1; }
-.venn-label {
+.vc-innovation { fill: #1d4ed8; stroke: #1d4ed8; }
+.vc-capital    { fill: #15803d; stroke: #15803d; }
+.vc-community  { fill: #6d28d9; stroke: #6d28d9; }
+.av-center-disc { fill: #ffffff; stroke: var(--line); stroke-width: 1; }
+.av-me {
   font-family: var(--font-hand);
-  font-size: 26px;
+  font-weight: 700;
+  font-size: 30px;
+  fill: var(--ink);
+}
+.av-arrow path {
+  fill: none;
+  stroke: #2a2622;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.av-label {
+  font-family: var(--font-hand);
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.01em;
 }
-.vl-ai        { fill: #1d4ed8; }
-.vl-capital   { fill: #15803d; }
-.vl-community { fill: #6d28d9; }
-.venn-face {
+.vl-innovation { fill: #1d4ed8; }
+.vl-capital    { fill: #15803d; }
+.vl-community  { fill: #6d28d9; }
+.av-photo {
   position: absolute;
-  width: 23%;
+  width: 30%;
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
   background: #f1efe9;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.14), 0 0 0 4px #fff;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.16), 0 0 0 5px #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
-.venn-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.venn-face-fallback {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
+.av-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.av-photo-fallback {
+  font-family: var(--font-hand);
   font-weight: 700;
-  font-size: 1.9rem;
-  color: var(--c-build);
+  font-size: 1.4rem;
+  line-height: 1.05;
+  color: var(--soft);
 }
 
 /* TL;DR — tight summary block below About */
