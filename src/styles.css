@@ -88,19 +88,23 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding: 14px 0;
-  background: rgba(248, 247, 244, 0.92);
-  backdrop-filter: blur(8px);
+  /* full-bleed: stretch edge to edge of the screen */
+  margin: 0 calc(50% - 50vw) 28px;
+  padding: 15px clamp(20px, 5vw, 72px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
-  margin-bottom: 24px;
 }
 .mark {
-  font-weight: 600;
-  font-size: 1.04rem;
-  letter-spacing: -0.01em;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.65rem;
+  line-height: 1;
+  letter-spacing: 0;
   border-bottom: none;
+  transition: color 180ms ease, transform 180ms ease;
 }
-.mark:hover { color: var(--accent); }
+.mark:hover { color: var(--accent); transform: rotate(-2deg); }
 
 .nav-links { display: flex; gap: 4px; flex: 1; justify-content: center; flex-wrap: wrap; }
 .nav-link {
@@ -120,14 +124,16 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .nav-link::before {
   content: '';
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 6px;
-  height: 2px;
-  background: var(--link-color, currentColor);
+  left: 10px;
+  right: 10px;
+  bottom: 3px;
+  height: 9px;
+  background-color: var(--link-color, currentColor);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 9' preserveAspectRatio='none'%3E%3Cpath d='M1 5 Q9 1 17 5 T33 5 T49 5 T63 5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 9' preserveAspectRatio='none'%3E%3Cpath d='M1 5 Q9 1 17 5 T33 5 T49 5 T63 5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 260ms cubic-bezier(.4,0,.2,1);
+  transition: transform 280ms cubic-bezier(.4,0,.2,1);
 }
 .nav-link::after {
   content: '';
@@ -1825,7 +1831,7 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   border-bottom: none;
 }
 .case-back:hover { color: var(--section); }
-.case-mark { font-weight: 600; font-size: 1.04rem; border-bottom: none; }
+.case-mark { font-family: var(--font-hand); font-weight: 700; font-size: 1.5rem; line-height: 1; border-bottom: none; }
 .case-mark:hover { color: var(--section); }
 
 /* Universal reading-progress bar at the top of every article */
