@@ -824,7 +824,13 @@ function VennAbout({ src }){
   return (
     <div className="venn" role="img" aria-label="Naviya at the intersection of AI, capital, and community">
       <svg className="venn-svg" viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
-        <g className="venn-circles">
+        <defs>
+          <filter id="venn-marker" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="7" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="5" />
+          </filter>
+        </defs>
+        <g className="venn-circles" filter="url(#venn-marker)">
           <circle cx={A.x} cy={A.y} r={R} className="vc vc-ai" />
           <circle cx={C.x} cy={C.y} r={R} className="vc vc-capital" />
           <circle cx={M.x} cy={M.y} r={R} className="vc vc-community" />

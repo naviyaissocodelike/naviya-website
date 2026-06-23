@@ -23,6 +23,9 @@
   --c-ocean-soft: #cffafe;
 
   --accent: var(--c-build);
+
+  /* handwritten / whiteboard accent font */
+  --font-hand: 'Caveat', 'Segoe Print', cursive;
 }
 
 * { box-sizing: border-box; }
@@ -338,17 +341,22 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .h2-mark {
   display: inline-block;
-  padding: 2px 10px 4px;
-  background: linear-gradient(
-    180deg,
-    transparent 0,
-    transparent 38%,
-    var(--section-soft, rgba(0,0,0,0.06)) 38%,
-    var(--section-soft, rgba(0,0,0,0.06)) 92%,
-    transparent 92%
-  );
-  margin-left: -4px;
+  padding: 0 2px 12px;
+  margin-left: -2px;
   position: relative;
+}
+/* hand-drawn marker underline, colored per section */
+.h2-mark::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -6px;
+  bottom: 0;
+  height: 11px;
+  background-color: var(--section, var(--ink));
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 11' preserveAspectRatio='none'%3E%3Cpath d='M2 6.5 C20 2.5,40 9.5,60 5.5 S100 3.5,118 6.8' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 11' preserveAspectRatio='none'%3E%3Cpath d='M2 6.5 C20 2.5,40 9.5,60 5.5 S100 3.5,118 6.8' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  opacity: 0.85;
 }
 
 /* chips */
@@ -552,8 +560,8 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .venn { position: relative; width: 100%; }
 .venn-svg { width: 100%; height: auto; display: block; overflow: visible; }
 .vc {
-  fill-opacity: 0.16;
-  stroke-width: 1.5;
+  fill-opacity: 0.14;
+  stroke-width: 2.4;
   mix-blend-mode: multiply;
 }
 .vc-ai        { fill: #1d4ed8; stroke: #1d4ed8; }
@@ -561,8 +569,8 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 .vc-community { fill: #6d28d9; stroke: #6d28d9; }
 .venn-center-disc { fill: #ffffff; stroke: var(--line); stroke-width: 1; }
 .venn-label {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-size: 19px;
+  font-family: var(--font-hand);
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: 0.01em;
 }
@@ -625,8 +633,12 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   content: '→';
   position: absolute;
   left: 0;
-  color: var(--soft);
-  font-weight: 600;
+  top: -2px;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--c-build);
+  font-weight: 700;
 }
 .tldr strong { color: var(--ink); font-weight: 600; }
 .about-photo {
@@ -1854,10 +1866,12 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
   margin-bottom: 36px;
 }
 .case-eyebrow {
-  margin: 0 0 18px;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  margin: 0 0 14px;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--section);
   font-weight: 600;
 }
@@ -1911,10 +1925,12 @@ a:hover { border-color: var(--section, var(--accent)); color: var(--section, var
 }
 .case-section:first-of-type { border-top: none; }
 .case-kicker {
-  margin: 0 0 6px;
-  font-size: 0.66rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  margin: 0 0 4px;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--section);
   font-weight: 600;
 }
