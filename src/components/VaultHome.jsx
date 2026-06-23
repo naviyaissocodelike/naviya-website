@@ -446,33 +446,11 @@ export default function Home(){
       <main id="top">
         <section id="about" ref={aboutRef} className="block first-block section-about">
           <SectionHead>About</SectionHead>
-          <div className="about-grid">
-            <div className="about-text">
-              <p className="about-lead">
-                <strong>I want frontier technology in the hands of the people the rest of the world skips.</strong> This
-                is a working map of how I think about AI, money, communities, and who gets access to any of it.
-              </p>
-              <p>
-                Most of my work sits in the overlaps: AI and money, communities and institutions, new technology and
-                the people it reaches last. The thread running through it is access, and the difference better tools
-                and capital make when they finally reach someone who never had them.
-              </p>
-              <p>
-                Right now that's AI and crypto at <a href="https://tala.co">Tala</a>, an angel collective in DC called{' '}
-                <a href="#build" onClick={(e)=>{e.preventDefault(); setActiveBuild('da'); scrollTo('build')}}>District Angels</a>,
-                and a steady habit of building small tools in code on the side. Before that I studied operations research
-                at Cornell and helped run Social Enterprise, my first real attempt at turning a community into something
-                that outlasts the people running it.
-              </p>
-              <p>
-                I build, I operate, and I invest, roughly in the order I got to each one. I think best in analogies,
-                sci-fi, and thought experiments. If you want an intro, an opinion, or honest feedback,{' '}
-                <a href={`mailto:${EMAIL}`}>write me</a>.
-              </p>
-            </div>
-            <div className={`about-photo ${aboutInView ? 'in' : ''}`}>
-              <Polaroid src={ABOUT_IMG} alt="Naviya" caption="naviya" />
-            </div>
+          <p className="about-lead about-lead-center">
+            <strong>Frontier technology in the hands of the people the rest of the world skips.</strong>
+          </p>
+          <div className={`about-venn-wrap ${aboutInView ? 'in' : ''}`}>
+            <VennAbout src={ABOUT_IMG} />
           </div>
 
           <aside className="tldr">
@@ -488,10 +466,6 @@ export default function Home(){
 
         <section id="think" className="block section-think">
           <SectionHead>Think</SectionHead>
-          <p className="block-sub">
-            Essays and theses I'm still working out. This is the part of the site I care about most.
-            Most of it also lives on <a href={SUBSTACK_URL}>Substack</a>.
-          </p>
           <div className="chips">
             {TAGS.map(t => (
               <button key={t} className={`chip ${activeTag === t ? 'active' : ''}`} onClick={() => setActiveTag(t)}>
@@ -538,10 +512,6 @@ export default function Home(){
 
         <section id="build" className="block section-build">
           <SectionHead>Build</SectionHead>
-          <p className="block-sub">
-            Code, products, and communities. Different shapes of the same instinct, which is mostly to build the
-            thing and get it in front of someone real.
-          </p>
 
           <div className="build-tabs" role="tablist">
             {BUILD_TABS.map(t => (
@@ -626,10 +596,6 @@ export default function Home(){
 
         <section id="rogue" className="block section-rogue">
           <SectionHead>Rogue Thoughts</SectionHead>
-          <p className="block-sub">
-            A collage of what shaped me and what I'm still chasing. Pick a tile: quotes, poems, books, movies,
-            or stray ideas. More notebook than feed.
-          </p>
 
           <div className="rt-grid">
             {ROGUE_TILES.map(t => {
@@ -731,10 +697,6 @@ export default function Home(){
 
         <section id="play" className="block section-play">
           <SectionHead>Play</SectionHead>
-          <p className="block-sub">
-            Welcome to the arcade. Solve, guess, and react. Every win earns coins you can spend on jokes,
-            predictions, mind-changes, and strange startup ideas. New games rotate in.
-          </p>
           <div className="play-zone">
             <div className="arcade">
               <div className="arcade-tabs" role="tablist">
@@ -844,6 +806,40 @@ function Polaroid({ src, alt, caption }){
         )}
       </div>
       <div className="polaroid-cap">{caption}</div>
+    </div>
+  )
+}
+
+/* About Venn — three worlds, Naviya at the intersection. Drop a photo at
+   /public/images/about.jpg and it appears in the center automatically. */
+function VennAbout({ src }){
+  const [imgOk, setImgOk] = useState(true)
+  // circle centers
+  const A = { x: 250, y: 168 } // AI (top)
+  const C = { x: 178, y: 286 } // Capital (lower-left)
+  const M = { x: 322, y: 286 } // Community (lower-right)
+  const R = 132
+  const cx = (A.x + C.x + M.x) / 3
+  const cy = (A.y + C.y + M.y) / 3
+  return (
+    <div className="venn" role="img" aria-label="Naviya at the intersection of AI, capital, and community">
+      <svg className="venn-svg" viewBox="0 0 500 440" xmlns="http://www.w3.org/2000/svg">
+        <g className="venn-circles">
+          <circle cx={A.x} cy={A.y} r={R} className="vc vc-ai" />
+          <circle cx={C.x} cy={C.y} r={R} className="vc vc-capital" />
+          <circle cx={M.x} cy={M.y} r={R} className="vc vc-community" />
+        </g>
+        {/* clean disc behind the face so blended tints don't muddy it */}
+        <circle cx={cx} cy={cy} r="60" className="venn-center-disc" />
+        <text x={A.x} y="44" className="venn-label vl-ai" textAnchor="middle">AI</text>
+        <text x="86" y="406" className="venn-label vl-capital" textAnchor="middle">Capital</text>
+        <text x="414" y="406" className="venn-label vl-community" textAnchor="middle">Community</text>
+      </svg>
+      <div className="venn-face" style={{ left: `${(cx / 500) * 100}%`, top: `${(cy / 440) * 100}%` }}>
+        {imgOk && src
+          ? <img src={src} alt="Naviya" onError={() => setImgOk(false)} />
+          : <span className="venn-face-fallback">N</span>}
+      </div>
     </div>
   )
 }
