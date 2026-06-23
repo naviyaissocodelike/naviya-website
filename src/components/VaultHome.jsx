@@ -369,7 +369,7 @@ export default function Home(){
   return (
     <div className="page">
       <header className="nav">
-        <a className="mark" href="#top">Naviya</a>
+        <a className="mark" href="#top">Naviya Kothari</a>
         <div className="nav-links">
           {SECTIONS.map(s => {
             if (s.dropdown) {

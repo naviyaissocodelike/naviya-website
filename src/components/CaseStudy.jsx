@@ -33,7 +33,7 @@ export function CaseFrame({ children, tone = 'build', backTo = '/', backLabel = 
       <div className="reading-progress" style={{ transform: `scaleX(${progress / 100})` }} aria-hidden />
       <header className="case-nav">
         <Link to={backTo} className="case-back">← {backLabel}</Link>
-        <Link to="/" className="case-mark">Naviya</Link>
+        <Link to="/" className="case-mark">Naviya Kothari</Link>
         <span className={`case-coin ${popCoin ? 'pop' : ''}`} aria-label={`${coins} coins`}>
           <CoinGlyph /><span>{coins}</span>
         </span>
