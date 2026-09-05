@@ -1,6 +1,6 @@
 # naviya-website
 
-Source for [naviya.xyz](https://naviya.xyz) — a personal site built to feel like exploring a mind, not reading a resume.
+Source for [naviyakothari.com](https://naviyakothari.com) — a personal site built to feel like exploring a mind, not reading a resume.
 
 Sections: About · Think (essays) · Build (code, products, communities) · Rogue Thoughts · Play (riddles, coin arcade, activity tiles).
 
